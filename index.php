@@ -3,20 +3,12 @@
 
     //connect the db
     include 'utils/DbConnect.php';
-    
-    // $errors = "";   
-
-    // $stmt = $db->prepare("INSERT INTO MyProjects (firstname, lastname, email) VALUES (?, ?, ?)")
-    // $stmt = $db->prepare("INSERT INTO MyLayers (firstname, lastname, email) VALUES (?, ?, ?)")
-    // $stmt = $db->prepare("INSERT INTO MyChapters (firstname, lastname, email) VALUES (?, ?, ?)")
-    // $stmt = $db->prepare("INSERT INTO MyDocuments (firstname, lastname, email) VALUES (?, ?, ?)")
-    // $myexam = $db->prepare("INSERT INTO MyExams (firstname, lastname, email) VALUES (?, ?, ?)")
-
-
-    // $mynote = $db->prepare("INSERT INTO MyNotes (Title, Date, content, parent) VALUES (?, ?, ?, ?)")
 
     //fonctions pour les projets
     include 'utils/Myprojects.php';
+
+    //fonctions pour les chapitres
+    include 'utils/MyChapters.php';
 
 
 ?>
@@ -40,59 +32,34 @@
         <button type="submit" name="submitproject">add task</button>
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>N°</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>favoris</th>
-                <th>Création</th>
-                <th>modification</th>
+    <?php while ($row = mysqli_fetch_array($MyProjects)) { ?> 
 
-            </tr>
-        </thead>
+        <div>
+            <h2>
+                <?php echo $row['title']; ?>
+            </h2>
+            <p>
+                <?php echo $row['description']; ?> 
+            </p>
 
-        <tbody>
-            <?php $i = 1; while ($row = mysqli_fetch_array($MyProjects)) { ?> 
+            <form method="POST" action="index.php">
 
-                <tr>
-                    <td>
-                        <?php echo $row['id']; ?>
-                    </td>
-                    <td>
-                        <a href="index.php">
-                            <?php echo $row['title']; ?>
-                        </a>
-                    </td>
-                    <td>
-                        <p>
-                            <?php echo $row['description']; ?>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <?php echo $row['favorite']; ?>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <?php echo $row['creation']; ?>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <?php echo $row['modified']; ?>
-                        </p>
-                    </td>
-                    <td>
-                        <a href="index.php?del_project=<?php echo $row['id']; ?>">X</a>
-                    </td>
-                </tr>
+                <input type="text" name="chaptertitle">
+                <input type="text" name="chapterparent" value="<?php echo $row['title']; ?>" readonly="readonly">
 
-            <?php $i++; } ?>
+                <button type="submit" name="submitchapter">add task</button>
+            </form>
 
-        </tbody>
+            <ul>
+                <?php while ($list = mysqli_fetch_array($ProjectChild)) { ?> 
+                    <li>
+                        <?php echo $list['title']; ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+
+    <?php } ?>
     
 </body>
 </html>
