@@ -2,11 +2,11 @@
 
     if (isset($_POST['submitnote'])) {
         $notetitle = $_POST['notetitle'];
-        $notedescription = $_POST['notedescription'];
-        $notefavorites = false;
+        $notecontent = $_POST['notecontent'];
+        $noteparent = $_POST['noteparent'];
         $notecreation = date('Y-m-d H:i:s');
         $notemodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO mynotes (title, description, creation, modified) VALUES ('$notetitle', '$notedescription', '$notecreation', '$notemodification') ");   
+        mysqli_query($db, "INSERT INTO mynotes (title, content, parent, creation, modified) VALUES ('$notetitle', '$notecontent', '$noteparent', '$notecreation', '$notemodification') ");   
     };
 
     //del avce méthode get
@@ -16,5 +16,5 @@
     }
 
     //recupére tout les projets
-    $Mynotes = mysqli_query($db, "SELECT * FROM Mynotes");
+    $Mynotes = mysqli_query($db, "SELECT * FROM mynotes");
 ?>

@@ -3,7 +3,7 @@
     if (isset($_POST['submitchapter'])) {
         $chaptertitle = $_POST['chaptertitle'];
         $chapterparent = $_POST['chapterparent'];
-        $chapterfullname = $_POST['chapterparent'].'_'.$_POST['chaptertitle'];
+        $chapterfullname = $_POST['chapterparent'].'__'.$_POST['chaptertitle'];
         $chaptermodification = date('Y-m-d H:i:s');
         mysqli_query($db, "INSERT INTO mychapters (title, parent, fullname, modified) VALUES ('$chaptertitle', '$chapterparent', '$chapterfullname', '$chaptermodification') ");   
     };
@@ -17,6 +17,4 @@
     //recupére tout les chapitres
     $MyChapters = mysqli_query($db, "SELECT * FROM MyChapters");
 
-    //recupére les projets d'un 
-    $ProjectChild = mysqli_query($db, "SELECT * FROM mychapters INNER JOIN myprojects ON mychapters.parent=myprojects.title;")
 ?>

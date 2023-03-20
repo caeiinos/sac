@@ -17,4 +17,6 @@
 
     //recupére tout les projets
     $MyProjects = mysqli_query($db, "SELECT * FROM MyProjects");
+
+    $ProjectsData  = $MyProjects->fetch_all(MYSQLI_ASSOC);
 ?>

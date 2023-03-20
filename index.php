@@ -7,22 +7,42 @@
     //fonctions pour les projets
     include 'utils/Myprojects.php';
 
+    //fonctions pour les intercalaires
+    include 'utils/MyLayers.php';
+
     //fonctions pour les chapitres
     include 'utils/MyChapters.php';
 
+    //fonctions pour les documents
+    include 'utils/MyDocuments.php';
+
+    //fonctions pour les examens
+    include 'utils/MyExams.php';
+
+    // inclure la balise head
+    include 'components/head.php';
 
 ?>
+    
+    <!-- navbar -->
+    <?php include 'components/nav.php'; ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAC</title>
-</head>
-<body>
-    <header></header>
+    <div>
+        <ul>
+            <?php foreach ($ProjectsData as $row) { ?>
+            <li>
+                <a href="">
+                    <?php echo $row['title']; ?>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </div>
+
+
+    <h2>
+        Projet
+    </h2>
 
     <form method="POST" action="index.php">
 
@@ -32,30 +52,82 @@
         <button type="submit" name="submitproject">add task</button>
     </form>
 
-    <?php while ($row = mysqli_fetch_array($MyProjects)) { ?> 
+    <?php foreach ($ProjectsData as $row) { ?>
 
+        <!-- projets -->
         <div>
             <h2>
-                <?php echo $row['title']; ?>
+                <a href="<?php echo 'projet.php?projetid='.$row['id']; ?>">
+                    <?php echo $row['title']; ?>
+                </a>            
             </h2>
             <p>
                 <?php echo $row['description']; ?> 
             </p>
 
-            <form method="POST" action="index.php">
+            <ul>            
+                <!-- intercalaires -->
+                <li>
+                    <?php 
+                        // projet parent
+                        $projetpapa = $row['title'];
 
-                <input type="text" name="chaptertitle">
-                <input type="text" name="chapterparent" value="<?php echo $row['title']; ?>" readonly="readonly">
+                        // nbr d'intercalaires
+                        $ChildLayers = mysqli_query($db, "SELECT COUNT(title) AS layernumber FROM mylayers WHERE parent='$projetpapa';");
+                    
+                        $layersnumber = mysqli_fetch_array($ChildLayers);
+                    
+                     ?> 
+                    <p>
+                        Intercalaires
+                    </p>
+                    <p>
+                        <?php echo $layersnumber['layernumber']; ?>
+                    </p>
+                </li>
+                <!-- chapitres -->
+                <li>
+                    <?php 
 
-                <button type="submit" name="submitchapter">add task</button>
-            </form>
+                        // nbr de chapitres
+                        $ChildChapter = mysqli_query($db, "SELECT COUNT(title) AS chapternumber FROM mychapters where parent LIKE '$projetpapa%';");
+                    
+                        $chaptersnumber = mysqli_fetch_array($ChildChapter);
+                    
+                     ?> 
+                    <p>
+                        Chapitres
+                    </p>
+                    <p>
+                        <?php echo $chaptersnumber['chapternumber']; ?>
+                    </p>
+                </li>
 
-            <ul>
-                <?php while ($list = mysqli_fetch_array($ProjectChild)) { ?> 
-                    <li>
-                        <?php echo $list['title']; ?>
-                    </li>
-                <?php } ?>
+                <li>
+                    <?php 
+
+                        // nbr de chapitres
+                        $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$projetpapa%';");
+                    
+                        $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$projetpapa%';");
+
+                        $documentsnumber = mysqli_fetch_array($ChildDocument);
+
+                        $examsnumber = mysqli_fetch_array($ChildExam);
+                    
+                     ?> 
+                    <p>
+                        documents
+                    </p>
+                    <p>
+                        <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                    </p>
+                </li>
+
+                <li>
+                    <p>Création</p>
+                    <p><?php echo $row['creation']; ?></p>
+                </li>
             </ul>
         </div>
 
