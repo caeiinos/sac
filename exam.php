@@ -45,6 +45,11 @@
         <?php echo $activedata['title']; ?>
     </h2>
 
+    <h2>
+        Document >>
+        <span><?php echo $pagetitle ?></span>
+    </h2>
+
     <!-- add note  -->
     <form method="POST">
 

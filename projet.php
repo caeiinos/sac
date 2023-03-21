@@ -44,6 +44,11 @@
         <?php echo $activedata['title']; ?>
     </h2>
 
+    <h2>
+        Projet >>
+        <span><?php echo $pagetitle ?></span>
+    </h2>
+
     <!-- add layer  -->
     <form method="POST">
 

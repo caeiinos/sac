@@ -47,6 +47,11 @@
         <?php echo $activedata['title']; ?>
     </h2>
 
+    <h2>
+        Intercalaire >>
+        <span><?php echo $pagetitle ?></span>
+    </h2>
+
     <!-- add chapter  -->
     <form method="POST">
 

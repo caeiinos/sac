@@ -31,7 +31,7 @@
         <ul>
             <?php foreach ($ProjectsData as $row) { ?>
             <li>
-                <a href="">
+                <a href="<?php echo 'projet.php?projetid='.$row['id']; ?>">
                     <?php echo $row['title']; ?>
                 </a>
             </li>
@@ -41,7 +41,7 @@
 
 
     <h2>
-        Projet
+        Accueil
     </h2>
 
     <form method="POST" action="index.php">
