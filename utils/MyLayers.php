@@ -5,7 +5,8 @@
         $layerparent = $_POST['layerparent'];
         $layerfullname = $_POST['layerparent'].'_'.$_POST['layertitle'];
         $layermodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO mylayers (title, parent, fullname, modified) VALUES ('$layertitle', '$layerparent', '$layerfullname', '$layermodification') ");   
+        $layerbase = $_POST['layerbase'];
+        mysqli_query($db, "INSERT INTO mylayers (title, parent, fullname, modified, base) VALUES ('$layertitle', '$layerparent', '$layerfullname', '$layermodification', '$layerbase') ");   
     };
 
     //del avce méthode get

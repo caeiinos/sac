@@ -38,58 +38,83 @@
 
 ?>
 
+<body class="page page--chapitre">
+
     <!-- navbar -->
     <?php include 'components/nav.php'; ?>
 
-    <h2>
-        <?php echo $activedata['title']; ?>
-    </h2>
-
-    <h2>
-        Chapitre >>
-        <span><?php echo $pagetitle ?></span>
-    </h2>
-
-    <!-- add document  -->
-    <form method="POST">
-
-        <input type="text" name="documenttitle">
-        <input type="text" name="documentparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
-
-        <button type="submit" name="submitdocument">add task</button>
-    </form>
+    <!-- explorer -->
+    <?php include 'components/explorer.php'; ?>
 
 
-    <!-- show document  -->
-    <h2>Document</h2>
+    <main class="content content--chapter">
+        
+        <!-- nav pour le content filtre, add, ect... -->
+        <aside class="aside aside--accueil">      
+            <h1 class="aside__title">
+                Chapitre >>
+                <span><?php echo $pagetitle ?></span>
+            </h1>
 
-    <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+            <div class="aside__content">
+                <div class="aside__filtre aside__item">
+                    <button class="aside__filtrebutton">
+                        <?php include 'components/svg/filter.php'; ?>
+                    </button>
+                </div>
 
-        <div>
-            <h2>
-                <a href="<?php echo 'document.php?documentid='.$row['id']; ?>">
-                    <?php echo $row['title']; ?>
-                </a>
-            </h2>
-            <ul>
-                <li>
-                    <?php 
-                        // projet parent
-                        $projetpapa = $row['fullname'];
+                <!-- add document  -->
+                <div class="aside__add  aside__item">
+                    <button class="aside__trigger aside__trigger--add">
+                        <p>Nouveau Document</p>
+                    </button>
 
-                        // nbr d'intercalaires
-                        $noteChild = mysqli_query($db, "SELECT COUNT(title) AS notenumber FROM mynotes WHERE parent='$projetpapa';");
-                    
-                        $notesnumber = mysqli_fetch_array($noteChild);
-                    
-                     ?> 
-                    <p>Notes</p>
-                    <p> <?php echo $notesnumber['notenumber']; ?></p>
-                </li>
-            </ul>
+                    <form class="aside__addform"  method="POST">
+                        <label class="aside__addlabel aside__addlabel--title" for="documenttitle">Titre</label>
+                        <input class="aside__addinput aside__addinput--title" type="text" name="documenttitle">
+                        <input class="hidden" type="text" name="documentparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+                        <input class="hidden" type="text" name="documentbase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
+
+                        <button class="aside__addsubmit" type="submit" name="submitdocument">add task</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <h2 class="filter__title">2023</h2>
+        <!-- show content -->
+        <h3 class="pre-tease">Les documents</h3>
+
+        <div class="tease">
+        <!-- show documents -->
+            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+
+                <section class="tease__content tease__content--document">
+                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$row['id']; ?>">
+                        <h4 class="tease__title tease__title--document">
+                            <?php echo $row['title']; ?>
+                        </h4>
+                        <ul class="tease__data">
+                            <li class="tease__item">
+                                <?php 
+                                    // projet parent
+                                    $projetpapa = $row['fullname'];
+
+                                    // nbr d'intercalaires
+                                    $noteChild = mysqli_query($db, "SELECT COUNT(title) AS notenumber FROM mynotes WHERE parent='$projetpapa';");
+                                
+                                    $notesnumber = mysqli_fetch_array($noteChild);
+                                
+                                ?> 
+                                <p class="tease__fact">Notes</p>
+                                <p class="tease__number"> <?php echo $notesnumber['notenumber']; ?></p>
+                            </li>
+                        </ul>
+                    </a>
+            </section>
+            <?php } ?>
         </div>
-    <?php } ?>
-
+    </main>
     
 </body>
 </html>

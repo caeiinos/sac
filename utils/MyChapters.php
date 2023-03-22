@@ -5,7 +5,8 @@
         $chapterparent = $_POST['chapterparent'];
         $chapterfullname = $_POST['chapterparent'].'__'.$_POST['chaptertitle'];
         $chaptermodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO mychapters (title, parent, fullname, modified) VALUES ('$chaptertitle', '$chapterparent', '$chapterfullname', '$chaptermodification') ");   
+        $chapterbase = $_POST['chapterbase'];
+        mysqli_query($db, "INSERT INTO mychapters (title, parent, fullname, modified, base) VALUES ('$chaptertitle', '$chapterparent', '$chapterfullname', '$chaptermodification', '$chapterbase') ");   
     };
 
     //del avce méthode get

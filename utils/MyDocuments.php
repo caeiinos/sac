@@ -5,7 +5,8 @@
         $documentparent = $_POST['documentparent'];
         $documentfullname = $_POST['documentparent'].'__'.$_POST['documenttitle'];
         $documentmodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO mydocuments (title, parent, fullname, modified) VALUES ('$documenttitle', '$documentparent', '$documentfullname', '$documentmodification') ");   
+        $documentbase = $_POST['documentbase'];
+        mysqli_query($db, "INSERT INTO mydocuments (title, parent, fullname, modified, base) VALUES ('$documenttitle', '$documentparent', '$documentfullname', '$documentmodification', '$documentbase') ");   
     };
 
     //del avce méthode get

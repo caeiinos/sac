@@ -19,10 +19,14 @@
     //fonctions pour les notes
     include 'utils/MyNotes.php';
 
-    // trouver l'intercalaire
-    $activeid = $_GET['documentid'];
+    //fonctions pour les examens
+    include 'utils/MyExams.php';
 
-    $activeproject = mysqli_query($db, "SELECT * FROM mydocuments WHERE id='$activeid';");
+
+    // trouver l'intercalaire
+    $activeid = $_GET['examid'];
+
+    $activeproject = mysqli_query($db, "SELECT * FROM myexams WHERE id='$activeid';");
 
     $activedata = mysqli_fetch_array($activeproject);
 
@@ -37,42 +41,67 @@
     include 'components/head.php';
 
 ?>
+
+<body class="page page--document">
     
     <!-- navbar -->
     <?php include 'components/nav.php'; ?>
 
-    <h2>
-        <?php echo $activedata['title']; ?>
-    </h2>
+    <!-- explorer -->
+    <?php include 'components/explorer.php'; ?>
 
-    <h2>
-        Document >>
-        <span><?php echo $pagetitle ?></span>
-    </h2>
+    <main class="content content--document">
 
-    <!-- add note  -->
-    <form method="POST">
+        <!-- nav pour le content filtre, add, ect... -->
+        <aside class="aside aside--accueil">      
+            <h1 class="aside__title">
+                Document >>
+                <span><?php echo $pagetitle ?></span>
+            </h1>
+            
+            <div class="aside__content">
+                <div class="aside__filtre aside__item">
+                    <button class="aside__filtrebutton">
+                        <?php include 'components/svg/filter.php'; ?>
+                    </button>
+                </div>
+            </div>
 
-        <input type="text" name="notetitle">
-        <input type="text" name="notecontent">
-        <input type="text" name="noteparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+        </aside>
 
-        <button type="submit" name="submitnote">add task</button>
-    </form>
+        <h2 class="filter__title">2023</h2>
+        <!-- show content -->
+        <h3 class="pre-tease">Les notes</h3>
 
-    <!-- show note  -->
-    <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+        <div class="note">
+            <!-- show note  -->
+            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
 
-        <div>
-            <h2>
-                <?php echo $row['title']; ?>
-            </h2>
-            <p>
-                <?php echo $row['content']; ?>  
-            </p>
+                <section class="note__content">
+                    <h4 class="note__title">
+                        <?php echo $row['title']; ?>
+                    </h4>
+                    <p class="note__description">
+                        <?php echo $row['content']; ?>  
+                    </p>
+            </section>
+            <?php } ?>
         </div>
-    <?php } ?>
+        
+        <!-- add note  -->
+        <div class="writer">  
+            <form class="writer__form" method="POST">
 
+                <label class="writer__label writer__label--title" for="notetitle">Titre</label>
+                <input class="writer__input" type="text" name="notetitle">
+                <label class="writer__label writer__label--description" for="notecontent">Description</label>
+                <input class="writer__input writer__input--description" type="text" name="notecontent">
+                <input class="hidden" type="text" name="noteparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+
+                <button class="writer__submit" type="submit" name="submitnote">valider</button>
+            </form>
+        </div>
+    </main>
     
 </body>
 </html>

@@ -36,74 +36,103 @@
     // inclure la balise head
     include 'components/head.php';
 ?>
+
+<body class="page page--projets">
     
     <!-- navbar -->
     <?php include 'components/nav.php'; ?>
 
-    <h2>
-        <?php echo $activedata['title']; ?>
-    </h2>
+    <!-- explorer -->
+    <?php include 'components/explorer.php'; ?>
 
-    <h2>
-        Projet >>
-        <span><?php echo $pagetitle ?></span>
-    </h2>
+    <main class="content content--projet">
 
-    <!-- add layer  -->
-    <form method="POST">
+        <!-- nav pour le content filtre, add, ect... -->
+        <aside class="aside aside--projet">        
+            <h1 class="aside__title">
+                Projet >>
+                <span><?php echo $pagetitle ?></span>
+            </h1>   
 
-        <input type="text" name="layertitle">
-        <input type="text" name="layerparent" value="<?php echo $activedata['title']; ?>" readonly="readonly">
+            <div class="aside__content">
+                <div class="aside__filtre aside__item">
+                    <button class="aside__filtrebutton">
+                        <?php include 'components/svg/filter.php'; ?>
+                    </button>
+                </div>
 
-        <button type="submit" name="submitlayer">add task</button>
-    </form>
+                <!-- add layer  -->
+                <div class="aside__add  aside__item">
+                    <button class="aside__trigger aside__trigger--add">
+                        <p>Nouvelle Intercalaire</p>
+                    </button>
 
-    <!-- show layer  -->
-    <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+                    <form class="aside__addform" method="POST">
+                        <label class="aside__addlabel aside__addlabel--title" for="layertitle">Titre</label>
+                        <input class="aside__addinput aside__addinput--title" type="text" name="layertitle">
+                        <input class="hidden" type="text" name="layerparent" value="<?php echo $activedata['title']; ?>" readonly="readonly">
+                        <input class="hidden" type="text" name="layerbase" value="<?php echo $activedata['title']; ?>" readonly="readonly">
 
-        <div>
-            <h2>
-                <a href="<?php echo 'layer.php?layerid='.$row['id']; ?>">
-                    <?php echo $row['title']; ?>
-                </a>
-            </h2>
-            <ul>
-                <li>
-                    <?php 
-                        $layerpapa = $row['fullname'];
 
-                        $ChildChapter= mysqli_query($db, "SELECT COUNT(title) AS chapternumber FROM mychapters WHERE parent='$layerpapa';");
+                        <button  class="aside__addsubmit"  type="submit" name="submitlayer">valider</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
 
-                        $chaptersnumber = mysqli_fetch_array($ChildChapter);
-                     ?> 
-                    <p>chapitres</p>
-                    <p><?php echo $chaptersnumber['chapternumber']; ?></p>
-                </li>
 
-                
-                <li>
-                    <?php 
+        <h2 class="filter__title">2023</h2>
+        <!-- show content -->
+        <h3 class="pre-tease">Les intercalaires</h3>
+        
+        <div class="tease">
+            <!-- show layer  -->
+            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+                <section class="tease__content tease__content--layer">
+                    <a class="tease__link" href="<?php echo 'layer.php?layerid='.$row['id']; ?>">
+                        <h4 class="tease__title tease__title--layer">
+                            <?php echo $row['title']; ?>
+                        </h4>
+                        <ul class="tease__data">
+                            <li class="tease__item">
+                                <?php 
+                                    $layerpapa = $row['fullname'];
 
-                        // nbr de chapitres
-                        $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$layerpapa%';");
-                    
-                        $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$layerpapa%';");
+                                    $ChildChapter= mysqli_query($db, "SELECT COUNT(title) AS chapternumber FROM mychapters WHERE parent='$layerpapa';");
 
-                        $documentsnumber = mysqli_fetch_array($ChildDocument);
+                                    $chaptersnumber = mysqli_fetch_array($ChildChapter);
+                                ?> 
+                                <p class="tease__fact">chapitres</p>
+                                <p class="tease__number"><?php echo $chaptersnumber['chapternumber']; ?></p>
+                            </li>
 
-                        $examsnumber = mysqli_fetch_array($ChildExam);
-                    
-                     ?> 
-                    <p>
-                        documents
-                    </p>
-                    <p>
-                        <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
-                    </p>
-            </ul>
+                            
+                            <li class="tease__item">
+                                <?php 
+
+                                    // nbr de chapitres
+                                    $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$layerpapa%';");
+                                
+                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$layerpapa%';");
+
+                                    $documentsnumber = mysqli_fetch_array($ChildDocument);
+
+                                    $examsnumber = mysqli_fetch_array($ChildExam);
+                                
+                                ?> 
+                                <p class="tease__fact">
+                                    documents
+                                </p>
+                                <p class="tease__number">
+                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                                </p>
+                            </li>
+                        </ul>                
+                    </a>
+                </section>
+            <?php } ?>
         </div>
-    <?php } ?>
-
+    </main>
     
 </body>
 </html>

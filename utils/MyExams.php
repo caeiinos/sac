@@ -5,7 +5,8 @@
         $examparent = $_POST['examparent'];
         $examfullname = $_POST['examparent'].'__'.$_POST['examtitle'];
         $exammodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO myexams (title, parent, fullname, modified) VALUES ('$examtitle', '$examparent', '$examfullname', '$exammodification') ");   
+        $exambase = $_POST['exambase'];
+        mysqli_query($db, "INSERT INTO myexams (title, parent, fullname, modified, base) VALUES ('$examtitle', '$examparent', '$examfullname', '$exammodification', '$exambase') ");   
     };
 
     //del avce méthode get

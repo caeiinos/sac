@@ -40,100 +40,136 @@
 
 ?>
 
+<body class="page page--intercalaire">
+
     <!-- navbar -->
     <?php include 'components/nav.php'; ?>
 
-    <h2>
-        <?php echo $activedata['title']; ?>
-    </h2>
+    <!-- explorer -->
+    <?php include 'components/explorer.php'; ?>
 
-    <h2>
-        Intercalaire >>
-        <span><?php echo $pagetitle ?></span>
-    </h2>
+    <main class="content content--layer">
 
-    <!-- add chapter  -->
-    <form method="POST">
+        <!-- nav pour le content filtre, add, ect... -->
+        <aside class="aside aside--layer">
+            <h1 class="aside__title">
+                Intercalaire >>
+                <span><?php echo $pagetitle ?></span>
+            </h1>
 
-        <input type="text" name="chaptertitle">
-        <input type="text" name="chapterparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+            <div class="aside__content">
+                <div class="aside__filtre aside__item">
+                    <button class="aside__filtrebutton">
+                        <?php include 'components/svg/filter.php'; ?>
+                    </button>
+                </div>
+                <!-- add chapter  -->
+                <div class="aside__add  aside__item">
+                    <button class="aside__trigger aside__trigger--add">
+                        <p>Nouveau chapitre</p>
+                    </button>
 
-        <button type="submit" name="submitchapter">add Chapter</button>
-    </form>
+                    <form class="aside__addform" method="POST">
+                        <label class="aside__addlabel aside__addlabel--title" for="chaptertitle class="aside__addsubmit"">Titre</label>
+                        <input class="aside__addinput aside__addinput--title" type="text" name="chaptertitle">
+                        <input class="hidden" type="text" name="chapterparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+                        <input class="hidden" type="text" name="chapterbase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
 
-    <!-- add exams  -->
-    <form method="POST">
+                        <button class="aside__addsubmit" type="submit" name="submitchapter">valider</button>
+                    </form>
+                </div>
 
-        <input type="text" name="examtitle">
-        <input type="text" name="examparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+                <!-- add exams  -->
+                <div class="aside__add  aside__item">
+                    <button class="aside__trigger aside__trigger--add">
+                        <p>Nouveau document</p>
+                    </button>
 
-        <button type="submit" name="submitexam">add Exam</button>
-    </form>
+                    <form class="aside__addform" method="POST">
+                        <label class="aside__addlabel aside__addlabel--title" for="examtitle">Titre</label>
+                        <input class="aside__addinput aside__addinput--title" type="text" name="examtitle">
+                        <input class="hidden" type="text" name="examparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+                        <input class="hidden" type="text" name="exambase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
 
-    <!-- show chapter  -->
-    <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+                        <button class="aside__addsubmit" type="submit" name="submitexam">valider</button>
+                    </form>
+                </div>
+            </div>
+        </aside>
 
-        <div>
-            <h2>
-                <a href="<?php echo 'chapter.php?chapterid='.$row['id']; ?>">
-                    <?php echo $row['title']; ?>
-                </a>
-            </h2>
-            <ul>
-                <li>
-                    <?php 
+        <h2 class="filter__title">2023</h2>
 
-                        $chapterpapa = $row['fullname'];
+        <h3 class="pre-tease">Les chapitres</h3>
+        <!-- show content -->
+        <div class="tease">
+            <!-- show chapter  -->
+            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
+                <section class="tease__content tease__content--chapter">
+                    <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$row['id']; ?>">
+                        
+                        <h4 class="tease__title tease__title--chapter">
+                            <?php echo $row['title']; ?>
+                        </h4>
+                        <ul class="tease__data">
+                            <li class="tease__item">
+                                <?php 
 
-                        // nbr de chapitres
-                        $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$chapterpapa%';");
+                                    $chapterpapa = $row['fullname'];
 
-                        $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$chapterpapa%';");
+                                    // nbr de chapitres
+                                    $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$chapterpapa%';");
 
-                        $documentsnumber = mysqli_fetch_array($ChildDocument);
+                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$chapterpapa%';");
 
-                        $examsnumber = mysqli_fetch_array($ChildExam);
+                                    $documentsnumber = mysqli_fetch_array($ChildDocument);
 
-                    ?> 
-                    <p>
-                        documents
-                    </p>
-                    <p>
-                        <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
-                    </p>
-                </li>
-            </ul>
+                                    $examsnumber = mysqli_fetch_array($ChildExam);
+
+                                ?> 
+                                <p class="tease__fact">
+                                    documents
+                                </p>
+                                <p class="tease__number">
+                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                                </p>
+                            </li>
+                        </ul>
+                    </a>
+            </section>
+            <?php } ?>
         </div>
-    <?php } ?>
 
-        <!-- show chapter  -->
-    <?php while ($e = mysqli_fetch_array($ChapterExams)) { ?> 
+        <h3 class="pre-tease">Les documents</h3>
 
-        <div>
-            <h2>
-                <a href="<?php echo 'chapter.php?chapterid='.$e['id']; ?>">
-                    <?php echo $e['title']; ?>
-                </a>
-            </h2>
-            <ul>
-                <li>
-                    <?php 
-                        // projet parent
-                        $projetpapa = $e['fullname'];
+        <div class="tease">
+        <!-- show exams  -->
+            <?php while ($e = mysqli_fetch_array($ChapterExams)) { ?> 
 
-                        // nbr d'intercalaires
-                        $noteChild = mysqli_query($db, "SELECT COUNT(title) AS notenumber FROM mynotes WHERE parent='$projetpapa';");
-                    
-                        $notesnumber = mysqli_fetch_array($noteChild);
-                    
-                     ?> 
-                    <p>Notes</p>
-                    <p> <?php echo $notesnumber['notenumber']; ?></p>
-                </li>
-            </ul>
-        </div>
-        <?php } ?>
+                <section class="tease__content  tease__content--document">
+                    <a class="tease__link" href="<?php echo 'exam.php?examid='.$e['id']; ?>">
+                        <h4 class="tease__title tease__title--document">
+                            <?php echo $e['title']; ?>
+                        </h4>
+                        <ul class="tease__data">
+                            <li class="tease__item">
+                                <?php 
+                                    // projet parent
+                                    $projetpapa = $e['fullname'];
 
+                                    // nbr d'intercalaires
+                                    $noteChild = mysqli_query($db, "SELECT COUNT(title) AS notenumber FROM mynotes WHERE parent='$projetpapa';");
+                                
+                                    $notesnumber = mysqli_fetch_array($noteChild);
+                                
+                                ?> 
+                                <p class="tease__fact">Notes</p>
+                                <p class="tease__number"> <?php echo $notesnumber['notenumber']; ?></p>
+                            </li>
+                        </ul>
+                    </a>
+                </section>
+            <?php } ?>
+    </main>
     
 </body>
 </html>
