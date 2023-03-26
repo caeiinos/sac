@@ -1,19 +1,20 @@
-# donc pour l'installer
+# Simple Workflow with Laravel Mix and twig.
 
-je vais vous expliquer comment installer 
+## Install
 
-## xampp
+- `npm i`
 
-il faut d'abord avoir *xampp*
+## Features
 
-## git clone ou télécharger
+- Copy `src/*.twig` to `dist/*.html` folder.
+- Doesn't copy `templates/*.twig` and `templates/**/*.twig`
+- Copy `src/assets/*/` to `dist/assets/*/` folder.
+- Compile SASS `src/styles/app.scss` to `dist/styles` folder.
+- Bundle and transpile JS `src/scripts/app.js` to `dist/scripts` folder.
+- Run a dev web server with browsersync.
 
-il faut ensuite **git clone** ou déposer le dossier dans le dossier **htdocs** de *xampp*
+## Commands
 
-## la db 
-
-il suffit d'aller dans *phpmyadmin* de *xampp* et import le fichier ***sac.sql*** 
-
-## bravo
-
-normalement c'est bon
+- `npm start` : build on files changes, launch a dev server with browsersync.
+- `npm run clean` : clean the `dist` folder.
+- `npm run build` : create `dist` folder with minification.

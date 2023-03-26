@@ -153,15 +153,7 @@
 
             <?php } ?>            
         </div>   
-        
-        <section class="msg">
-            <h2>MVP</h2>
-            <p>la base de donnée d'OVH ne veut pas faire sont travail donc voilà des solutions :</p>
-            <p class="msg__padding">il y a la branche prod pour installer le projet en local, il suffit de suivre le readme</p>
-            <a target="_blank" href="https://github.com/caeiinos/sac/tree/prod" >github</a>
-            <p class="msg__padding msg__padding--top">et il y a le figma aussi</p>
-            <a target="_blank" href="https://www.figma.com/proto/UOFxN11pCPdMBSqpFdqZgc/2023---%C3%A9cole---tfe?page-id=380%3A984&node-id=559-1312&viewport=4021%2C-2917%2C0.5&scaling=min-zoom&starting-point-node-id=559%3A1312">figma</a>
-        </section>
+    
     </main>
    
 
