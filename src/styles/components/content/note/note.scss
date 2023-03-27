@@ -1,24 +1,26 @@
-@import 'nav/nav';
-
-.header {
-    height: 100vh;
-    border-right: 2px #595959 solid;
+.note {
+    margin-left: 20px;
+    margin-top: 20px;
   }
   
-  .header__logo {
+  .note__content {
     display: block;
     padding-bottom: 16px;
     margin-top: 16px;
-    margin-left: 16px;
     position: relative;
   }
-  .header__logo::after {
+  .note__content::after {
     content: "";
     display: block;
     position: absolute;
-    left: -16px;
+    left: 0%;
     bottom: 0%;
-    width: calc(100% + 16px);
+    width: 80%;
     height: 2px;
     background-color: #595959;
+  }
+  
+  .note__title {
+    font-size: 25px;
+    font-weight: 500;
   }

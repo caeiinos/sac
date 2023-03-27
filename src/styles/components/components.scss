@@ -1,1 +1,11 @@
 @import 'header/header';
+@import 'subnav/subnav';
+@import 'content/content';
+
+body {
+    background-color: #191919;
+    color: #f0f0f0;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+  }
+  

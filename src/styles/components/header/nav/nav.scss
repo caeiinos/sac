@@ -1,1 +1,54 @@
-@import 'nav/nav';
+.nav__list {
+    display: flex;
+    flex-direction: column;
+    width: 43px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 16px;
+  }
+  
+  .nav__item {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .nav__item path {
+    fill: #595959;
+  }
+  .nav__item::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0%;
+    left: 7px;
+    height: 2px;
+    background-color: #595959;
+    width: 31px;
+  }
+  .nav__item:last-child::after {
+    display: none;
+  }
+  
+  .nav__item--active path {
+    transition: all 0.2s;
+    fill: #2EBAFE;
+  }
+  .nav__item--active::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc(50% - 16px);
+    left: -40px;
+    height: 20px;
+    background-color: #2EBAFE;
+    width: 11px;
+    border-radius: 0px 5px 5px 0px;
+    transition: all 0.2s;
+  }
+  .nav__item--active:hover path {
+    fill: #0DFFEF;
+  }
+  .nav__item--active:hover::before {
+    background-color: #0DFFEF;
+  }
+  

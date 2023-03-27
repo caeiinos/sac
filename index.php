@@ -2,22 +2,7 @@
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
-    include 'utils/DbConnect.php';
-
-    //fonctions pour les projets
-    include 'utils/Myprojects.php';
-
-    //fonctions pour les intercalaires
-    include 'utils/MyLayers.php';
-
-    //fonctions pour les chapitres
-    include 'utils/MyChapters.php';
-
-    //fonctions pour les documents
-    include 'utils/MyDocuments.php';
-
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
+    include 'utils/mydata.php';
 
     // inclure la balise head
     include 'components/head.php';
