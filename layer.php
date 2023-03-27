@@ -3,9 +3,6 @@
 
     //connect the db
     include 'utils/mydata.php';
-    
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
 
     // trouver l'intercalaire
     $activeid = $_GET['layerid'];
@@ -21,7 +18,7 @@
 
     $ProjectChild = mysqli_query($db, "SELECT * FROM mychapters WHERE parent='$activetitle';");
 
-    $ChapterExams = mysqli_query($db, "SELECT * FROM myexams WHERE parent='$activetitle';");
+    $Chapterdocuments = mysqli_query($db, "SELECT * FROM mydocuments WHERE parent='$activetitle';");
 
     // inclure la balise head
     include 'components/head.php';
@@ -67,19 +64,19 @@
                     </form>
                 </div>
 
-                <!-- add exams  -->
+                <!-- add documents  -->
                 <div class="aside__add  aside__item">
                     <button class="aside__trigger aside__trigger--add">
                         <p>Nouveau document</p>
                     </button>
 
                     <form class="aside__addform" method="POST">
-                        <label class="aside__addlabel aside__addlabel--title" for="examtitle">Titre</label>
-                        <input class="aside__addinput aside__addinput--title" type="text" name="examtitle">
-                        <input class="hidden" type="text" name="examparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
-                        <input class="hidden" type="text" name="exambase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
+                        <label class="aside__addlabel aside__addlabel--title" for="documenttitle">Titre</label>
+                        <input class="aside__addinput aside__addinput--title" type="text" name="documenttitle">
+                        <input class="hidden" type="text" name="documentparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
+                        <input class="hidden" type="text" name="documentbase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
 
-                        <button class="aside__addsubmit" type="submit" name="submitexam">valider</button>
+                        <button class="aside__addsubmit" type="submit" name="submitdocument">valider</button>
                     </form>
                 </div>
             </div>
@@ -107,18 +104,14 @@
                                     // nbr de chapitres
                                     $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$chapterpapa%';");
 
-                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$chapterpapa%';");
-
                                     $documentsnumber = mysqli_fetch_array($ChildDocument);
-
-                                    $examsnumber = mysqli_fetch_array($ChildExam);
 
                                 ?> 
                                 <p class="tease__fact">
                                     documents
                                 </p>
                                 <p class="tease__number">
-                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                                    <?php echo $documentsnumber['documentnumber']; ?>
                                 </p>
                             </li>
                         </ul>
@@ -130,11 +123,11 @@
         <h3 class="pre-tease">Les documents</h3>
 
         <div class="tease">
-        <!-- show exams  -->
-            <?php while ($e = mysqli_fetch_array($ChapterExams)) { ?> 
+        <!-- show documents  -->
+            <?php while ($e = mysqli_fetch_array($Chapterdocuments)) { ?> 
 
                 <section class="tease__content  tease__content--document">
-                    <a class="tease__link" href="<?php echo 'exam.php?examid='.$e['id']; ?>">
+                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$e['id']; ?>">
                         <h4 class="tease__title tease__title--document">
                             <?php echo $e['title']; ?>
                         </h4>

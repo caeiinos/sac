@@ -13,7 +13,4 @@
 
     //fonctions pour les documents
     include 'mydata/MyDocuments.php';
-
-    //fonctions pour les examens
-    include 'mydata/MyExams.php';
 ?>

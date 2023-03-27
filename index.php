@@ -112,19 +112,15 @@
 
                                     // nbr de chapitres
                                     $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$projetpapa%';");
-                                
-                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$projetpapa%';");
 
                                     $documentsnumber = mysqli_fetch_array($ChildDocument);
-
-                                    $examsnumber = mysqli_fetch_array($ChildExam);
                                 
                                 ?> 
                                 <p class="tease__fact">
                                     documents
                                 </p>
                                 <p class="tease__number">
-                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                                    <?php echo $documentsnumber['documentnumber']; ?>
                                 </p>
                             </li>
 

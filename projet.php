@@ -2,22 +2,7 @@
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
-    include 'utils/DbConnect.php';
-
-    //fonctions pour les projets
-    include 'utils/Myprojects.php';
-
-    //fonctions pour les intercalaires
-    include 'utils/Mylayers.php';
-
-    //fonctions pour les chapitres
-    include 'utils/MyChapters.php';
-
-    //fonctions pour les documents
-    include 'utils/MyDocuments.php';
-
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
+    include 'utils/mydata.php';
 
     // trouver le projet
     $activeid = $_GET['projetid'];
@@ -113,18 +98,14 @@
                                     // nbr de chapitres
                                     $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$layerpapa%';");
                                 
-                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$layerpapa%';");
-
                                     $documentsnumber = mysqli_fetch_array($ChildDocument);
-
-                                    $examsnumber = mysqli_fetch_array($ChildExam);
                                 
                                 ?> 
                                 <p class="tease__fact">
                                     documents
                                 </p>
                                 <p class="tease__number">
-                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
+                                    <?php echo $documentsnumber['documentnumber'] ; ?>
                                 </p>
                             </li>
                         </ul>                

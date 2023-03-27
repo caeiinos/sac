@@ -4,9 +4,6 @@
     //connect the db
     include 'utils/mydata.php';
 
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
-
     // trouver l'intercalaire
     $activeid = $_GET['chapterid'];
 
