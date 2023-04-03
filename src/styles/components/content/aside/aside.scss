@@ -20,19 +20,8 @@
   .aside__item {
     margin-right: 16px;
     padding-right: 16px;
-    position: relative;
   }
-  .aside__item::after {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 0%;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 31px;
-    background-color: #595959;
-    width: 2px;
-  }
+
   .aside__item:last-child::after {
     display: none;
   }

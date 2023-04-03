@@ -29,6 +29,10 @@ for (let i = 0; i < submit.length; i++) {
     form[i].classList.add('aside__addform--active');
   }
 }
+document.addEventListener("click", damn());
+function damn() {
+  console.log('bonjour');
+}
 
 /***/ }),
 

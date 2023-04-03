@@ -1,6 +1,5 @@
 .explorer {
     height: 100vh;
-    border-right: 2px #595959 solid;
   }
   
   .explorer__title {
@@ -9,18 +8,7 @@
     padding-bottom: 16px;
     margin-top: 26px;
     margin-left: 16px;
-    position: relative;
     font-size: 20px;
-  }
-  .explorer__title::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: -16px;
-    bottom: 0%;
-    width: calc(100% + 16px);
-    height: 2px;
-    background-color: #595959;
   }
   
   .explorer__list {
@@ -30,27 +18,17 @@
   
   .explorer__projetitem {
     margin-bottom: 16px;
-    padding-bottom: 16px;
-    position: relative;
   }
-  .explorer__projetitem::after {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 0%;
-    height: 2px;
-    background-color: #595959;
-    width: 80%;
-  }
+
   .explorer__projetitem:last-child::after {
     display: none;
   }
   
   .explorer__projetlink {
-    color: #2EBAFE;
+    color: $contrast;
     transition: all 0.2s;
   }
   .explorer__projetlink:hover {
-    color: #0DFFEF;
+    color: $contrast--hover;
   }
   

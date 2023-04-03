@@ -46,7 +46,7 @@ $sitedescription = ' '
 		<meta property="og:image:height" content="630">
 
 
-		<link rel="icon" type="image/png" href="dist/assets/logo.png">
+		<link rel="icon" type="image/png" href="dist/assets/favicon.png">
 
         <script src="dist/scripts/app.js" defer></script> 
 	</head>

@@ -1,24 +1,67 @@
 @import 'nav/nav';
 
 .header {
-    height: 100vh;
-    border-right: 2px #595959 solid;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.header__logo {
+  display: block;
+  padding-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 16px;
+}
+
+.header__form{
+  flex: 1;  
+  background-color: $grey--back;
+  border-radius: 10px;
+  margin: 0px 16px;
+}
+
+.header__search{
+  position: relative;
+  z-index: 3;
+  padding: 8px 32px;
+  font-size: 16px;
+}
+
+.header__link{
+  margin-right: 16px;
+}
+
+.header__log{
+  color: $contrast;
+  transition: all .2s;
+
+  &:hover{
+    color: $contrast--hover;
   }
-  
-  .header__logo {
-    display: block;
-    padding-bottom: 16px;
-    margin-top: 16px;
-    margin-left: 16px;
-    position: relative;
+}
+
+.header__sign{
+  color: $white;
+  background-color: $contrast;
+  border-radius: 10px;
+  transition: all .2s;
+  padding: 6px 12px;
+
+  &:hover{
+    background-color: $contrast--hover;
   }
-  .header__logo::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: -16px;
-    bottom: 0%;
-    width: calc(100% + 16px);
-    height: 2px;
-    background-color: #595959;
+}
+
+.header__set{
+  path{
+    fill: $contrast;
+    transition: all .2s;    
   }
+
+
+  &:hover{
+    path{
+      fill: $contrast--hover;
+    }
+  }
+}

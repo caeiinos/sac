@@ -3,6 +3,7 @@
 const trigger = document.querySelectorAll('.aside__trigger');
 const form = document.querySelectorAll('.aside__addform');
 const submit = document.querySelectorAll('.aside__addsubmit');
+
 for (let i = 0; i < trigger.length; i++) {
   trigger[i].addEventListener("click", show);
   function show() {
@@ -13,9 +14,16 @@ for (let i = 0; i < trigger.length; i++) {
     }
   }
 }
+
 for (let i = 0; i < submit.length; i++) {
   submit[i].addEventListener("click", deshow);
   function deshow() {
     form[i].classList.add('aside__addform--active');
   }
+}
+
+document.addEventListener("click", damn())
+
+function damn() {
+  console.log('bonjour')
 }

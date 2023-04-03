@@ -5,6 +5,17 @@
     <ul class="explorer__list">
 
         <div class="explorer__projet">
+            
+        <div class="aside__add  aside__item">
+            <button class="aside__trigger aside__trigger--add">
+                    <p>Nouveau Projet</p>
+                </button>
+
+                <?php
+                    $addtype = "project";
+                    include 'components/form.php'; 
+                ?>
+            </div>
             <ul class="explorer__projetlist">
                 <?php foreach ($ProjectsData as $row) { ?>
                 <li class="explorer__projetitem">
