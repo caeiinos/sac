@@ -33,7 +33,7 @@ include '../../utils/mydata.php';
 
             <a href="layer.php?layerid=<?php echo $row["id"]; ?>">
                 <h4><?php echo $row["title"]; ?></h4>  
-                <p>farde</p>          
+                <p>intercalaire</p>          
             </a>
 
         <?php }
@@ -42,7 +42,7 @@ include '../../utils/mydata.php';
 
             <a href="chapter.php?chapterid=<?php echo $row["id"]; ?>">
                 <h4><?php echo $row["title"]; ?></h4>  
-                <p>farde</p>          
+                <p>chapitre</p>          
             </a>
 
         <?php }
@@ -51,7 +51,7 @@ include '../../utils/mydata.php';
 
             <a href="document.php?documentid=<?php echo $row["id"]; ?>">
                 <h4><?php echo $row["title"]; ?></h4>  
-                <p>farde</p>          
+                <p>document</p>          
             </a>
 
         <?php }
