@@ -5,7 +5,7 @@ include '../../utils/mydata.php';
     if (isset($_GET["k"])) {
         $k = $_GET["k"];
 
-        $query = "SELECT * FROM MyProjects ORDER BY '$k%'"; 
+        $query = "SELECT * FROM MyProjects ORDER BY $k"; 
 
         $result = mysqli_query($db, $query);
 
