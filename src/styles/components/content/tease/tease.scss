@@ -1,5 +1,4 @@
 .filter__title {
-    border-bottom: 2px #595959 solid;
     padding: 8px 16px;
     font-weight: 600;
     font-size: 25px;
@@ -17,19 +16,35 @@
   margin-top: 20px;
 }
 
+.tease__titletype{
+  position: relative;
+
+  &::after{
+    content: '';
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    height: 1px;
+    width:calc(100% - 200px);
+    background-color: $black;
+  }
+}
+
 .tease__link {
   color: $black;
 }
 
 .tease__content {
   width: 550px;
-  border: 2px #595959 solid;
   margin-bottom: 20px;
   padding-left: 20px;
   margin-right: 20px;
   padding-bottom: 16px;
   flex-basis: 550px;
   flex-shrink: 0;
+  width: 35cqw;
+  padding: 32px 25px;
+  background-color: $grey--back;
 }
 
 .tease__title {
@@ -37,24 +52,26 @@
   font-size: 25px;
   position: relative;
 }
-.tease__title::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: -20px;
-  bottom: 0%;
-  width: calc(100% + 20px);
-  height: 2px;
-  background-color: #595959;
-}
+
 
 .tease__description {
   padding-top: 16px;
+  position: relative;
+
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 1px;
+    width:calc(100% - 50px);
+    background-color: $black;
+  }
 }
 
 
 .tease--project{
   flex-wrap: nowrap;
   overflow-x: scroll;
-  width: 1000px;
+
 }

@@ -1,5 +1,17 @@
 .explorer {
     height: 100vh;
+    position: relative;
+
+    &::before{
+      content: '';
+      position: absolute;
+      right: 0%;
+      top: 16px;
+      height: 100%;
+      width: 9px;
+      background-color: $black;
+      mask: url(../assets/aside__divider.svg) no-repeat;
+    }
   }
   
   .explorer__title {
@@ -27,6 +39,7 @@
   .explorer__projetlink {
     color: $contrast;
     transition: all 0.2s;
+    margin-left: 16px;
   }
   .explorer__projetlink:hover {
     color: $contrast--hover;

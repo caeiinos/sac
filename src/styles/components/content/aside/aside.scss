@@ -33,16 +33,18 @@
   .aside__trigger {
     padding: 5px 16px;
     font-weight: 700;
+    margin-bottom: 20px;
   }
   
   .aside__trigger--add {
     border-radius: 10px;
-    background-color: #2EBAFE;
-    color: #191919;
+    background-color: $contrast;
+    color: $white;
+    margin-top: 20px;
     transition: all 0.2s;
   }
   .aside__trigger--add:hover {
-    background-color: #0DFFEF;
+    background-color: $contrast--hover;
   }
   
   .aside__addform {

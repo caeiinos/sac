@@ -20,28 +20,39 @@
         <!-- explorer -->
         <?php include 'components/explorer.php'; ?>
 
+        <div class="librairie">
+            <h1 class="tease__titletype">Mes fardes</h1>
+            <select class="tease__filter" name="" class="damn">
+                <option value="title">nom</option>
+                <option value="creation">création</option>
+                <option value="modified">récent</option>
+            </select>
 
-        <div class="tease tease--project">
-            <?php foreach ($ProjectsData as $row) { ?>
 
-                <!-- projets -->
-                <section class="tease__content">
-                    <a class="tease__link" href="<?php echo 'projet.php?projetid='.$row['id']; ?>">
-                    
-                        <h4 class="tease__title">
-                                <?php echo $row['title']; ?>
-            
-                        </h4>
-                        <p class="tease__description">
-                            <?php echo $row['description']; ?> 
-                        </p>
+            <div id="tease--project" class="tease tease--project">
 
-                    </a> 
-                </section>
+                <?php foreach ($ProjectsData as $row) { ?>
 
-            <?php } ?> 
+                    <!-- projets -->
+                    <section class="tease__content">
+                        <a class="tease__link" href="<?php echo 'projet.php?projetid='.$row['id']; ?>">
+                            <span class="tease__type">farde</span>
+                            <h4 class="tease__title">
+                                    <?php echo $row['title']; ?>
+                
+                            </h4>
+                            <p class="tease__description">
+                                <?php echo $row['description']; ?> 
+                            </p>
 
-        </div>           
+                        </a> 
+                    </section>
+
+                <?php } ?> 
+
+            </div>               
+        </div>
+        
     
     </main>
    

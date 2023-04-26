@@ -69,6 +69,9 @@ h6 {
   display: flex;
   align-items: center;
   width: 100%;
+  width: 1600px;
+  margin: 0 auto;
+  margin-bottom: 16px;
 }
 
 .header__logo {
@@ -76,6 +79,7 @@ h6 {
   padding-bottom: 16px;
   margin-top: 16px;
   margin-left: 16px;
+  align-items: center;
 }
 
 .header__form {
@@ -90,6 +94,7 @@ h6 {
   z-index: 3;
   padding: 8px 32px;
   font-size: 16px;
+  width: 90%;
 }
 
 .header__link {
@@ -125,6 +130,18 @@ h6 {
 
 .explorer {
   height: 100vh;
+  position: relative;
+}
+.explorer::before {
+  content: "";
+  position: absolute;
+  right: 0%;
+  top: 16px;
+  height: 100%;
+  width: 9px;
+  background-color: #313131;
+  -webkit-mask: url(../assets/aside__divider.svg) no-repeat;
+          mask: url(../assets/aside__divider.svg) no-repeat;
 }
 
 .explorer__title {
@@ -152,6 +169,7 @@ h6 {
 .explorer__projetlink {
   color: #5F00B6;
   transition: all 0.2s;
+  margin-left: 16px;
 }
 
 .explorer__projetlink:hover {
@@ -159,7 +177,6 @@ h6 {
 }
 
 .filter__title {
-  border-bottom: 2px #595959 solid;
   padding: 8px 16px;
   font-weight: 600;
   font-size: 25px;
@@ -177,19 +194,34 @@ h6 {
   margin-top: 20px;
 }
 
+.tease__titletype {
+  position: relative;
+}
+.tease__titletype::after {
+  content: "";
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  height: 1px;
+  width: calc(100% - 200px);
+  background-color: #313131;
+}
+
 .tease__link {
   color: #313131;
 }
 
 .tease__content {
   width: 550px;
-  border: 2px #595959 solid;
   margin-bottom: 20px;
   padding-left: 20px;
   margin-right: 20px;
   padding-bottom: 16px;
   flex-basis: 550px;
   flex-shrink: 0;
+  width: 35cqw;
+  padding: 32px 25px;
+  background-color: #DADADA;
 }
 
 .tease__title {
@@ -198,25 +230,23 @@ h6 {
   position: relative;
 }
 
-.tease__title::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: -20px;
-  bottom: 0%;
-  width: calc(100% + 20px);
-  height: 2px;
-  background-color: #595959;
-}
-
 .tease__description {
   padding-top: 16px;
+  position: relative;
+}
+.tease__description::before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 1px;
+  width: calc(100% - 50px);
+  background-color: #313131;
 }
 
 .tease--project {
   flex-wrap: nowrap;
   overflow-x: scroll;
-  width: 1000px;
 }
 
 .tease__content--layer {
@@ -278,17 +308,19 @@ h6 {
 .aside__trigger {
   padding: 5px 16px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .aside__trigger--add {
   border-radius: 10px;
-  background-color: #2EBAFE;
-  color: #191919;
+  background-color: #5F00B6;
+  color: #F5F5F5;
+  margin-top: 20px;
   transition: all 0.2s;
 }
 
 .aside__trigger--add:hover {
-  background-color: #0DFFEF;
+  background-color: #49008C;
 }
 
 .aside__addform {
