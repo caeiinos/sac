@@ -18,6 +18,10 @@
 
     $ProjectChild = mysqli_query($db, "SELECT * FROM mylayers WHERE parent='$activetitle';");
 
+    $NewModified = date('Y-m-d H:i:s');
+
+    mysqli_query($db, "UPDATE myprojects SET modified = '$NewModified' WHERE id='$activeid';");   
+
     // inclure la balise head
     include 'components/head.php';
 ?>
