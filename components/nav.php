@@ -7,7 +7,7 @@
         <button type="submit">Search</button>
         <div id="livesearch"></div>
     </form>
-    <a class="header__log header__link" href="">log in</a>
-    <a class="header__sign header__link" href="">sign up</a>
+    <a class="header__log header__link" href="logout.php">log out</a>
+    <a class="header__sign header__link" href=""><?php echo $_SESSION['name'] ?></a>
 
 </header>

@@ -12,8 +12,7 @@
                 </button>
 
                 <?php
-                    $addtype = "project";
-                    include 'components/form.php'; 
+                    include 'components/form/form.php'; 
                 ?>
             </div>
 
@@ -21,10 +20,10 @@
                 <input class="explorer__search"  type="text" name="search" placeholder="Search...">
                 <div id="explorersearch">
                     <ul class="explorer__projetlist">
-                        <?php foreach ($ProjectsData as $row) { ?>
+                        <?php foreach ($bindersData as $row) { ?>
                         <li class="explorer__projetitem">
                             <a class="explorer__projetlink" href="<?php echo 'projet.php?projetid='.$row['id']; ?>">
-                                <?php echo $row['title']; ?>
+                                <?php echo $row['binder__name']; ?>
                             </a>
                         </li>
                         <?php } ?>
