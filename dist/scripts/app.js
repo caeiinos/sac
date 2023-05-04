@@ -64,13 +64,16 @@ projectSearch.addEventListener('keyup', function () {
   xmlhttp.open("GET", "components/livesearch/explorersearch.php?q=" + str, true);
   xmlhttp.send();
 });
+
+// filter
+
 var projectfilter = document.querySelector(".tease__filter");
 projectfilter.addEventListener('change', function () {
   let choice = this.value;
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("tease--project").innerHTML = this.responseText;
+      document.getElementById("tease--binder").innerHTML = this.responseText;
     }
   };
   xmlhttp.open("GET", "components/filter/filter.php?k=" + choice, true);

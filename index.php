@@ -26,14 +26,14 @@
     <main class="content">
 
         <!-- explorer -->
-        <?php include 'components/explorer.php'; ?>
+        <?php include 'components/explorer/explorer--front.php'; ?>
 
         <div class="library">
             <h1 class="tease__titletype">Mes fardes</h1>
-            <select class="tease__filter" name="" class="damn">
-                <option value="title">nom</option>
-                <option value="creation">création</option>
-                <option value="modified">récent</option>
+            <select class="tease__filter" name="binderfilter" class="damn">
+                <option value="binder__name">nom</option>
+                <option value="binder__creation">création</option>
+                <option value="binder__opened">récent</option>
             </select>
 
 

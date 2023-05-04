@@ -20,7 +20,7 @@
     $activeuser = $_SESSION['id'];
     $layerchapter = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__layer='$activeid' AND chapter__owner='$activeuser';");
 
-    $layerdocument = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$activeid' AND document__owner='$activeuser';");
+    $layerdocument = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$activeid' AND document__owner='$activeuser' AND document__haschapter=0 ;");
     // $Chapterdocuments = mysqli_query($db, "SELECT * FROM mydocuments WHERE parent='$activetitle';");
 
     // inclure la balise head
@@ -34,6 +34,7 @@
     <?php include 'components/nav.php'; ?>
 
     <!-- explorer -->
+    <?php include 'components/explorer/explorer.php'; ?>
 
     <!-- layer content -->
     <main class="content content--layer">
@@ -42,9 +43,16 @@
         <?php echo $pagetitle ?>
         </h1> 
         <ul class="family">
+
+            <?php 
+                $activebinder = $activedata['layer__binder'];
+                $layerbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
+                $binderparent = mysqli_fetch_array($layerbinder);
+            
+            ?>
             <li class="family__item">
-                <a href="" class="family__link">
-                <?php echo $pagetitle ?> 
+                <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
+                    <?php echo $binderparent['binder__name']; ?> 
                 </a>
             </li>
 
@@ -64,7 +72,7 @@
     <!-- chapter -->
     <aside class="aside aside--chapter">
 
-        <h2 class="aside__title aside__title--chapter">Les intercalaires</h2>
+        <h2 class="aside__title aside__title--chapter">Les chapitres</h2>
         <!-- add chapter  -->
         <div class="aside__add aside__add--chapter aside__item aside__item--chapter">
             <button class="aside__trigger aside__trigger--add">
@@ -97,7 +105,7 @@
     <!-- document -->
     <aside class="aside aside--document">
 
-        <h2 class="aside__title aside__title--document">Les intercalaires</h2>
+        <h2 class="aside__title aside__title--document">Les documents</h2>
         <!-- add document  -->
         <div class="aside__add aside__add--document aside__item aside__item--document">
             <button class="aside__trigger aside__trigger--add">

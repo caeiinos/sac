@@ -1,4 +1,4 @@
-<section class="explorer">
+<section class="explorer--front">
 <!-- 
     <h3 class="explorer__title">explorer</h3> -->
 

@@ -1,12 +1,13 @@
 <?php
 
     if (isset($_POST['submitnote'])) {
-        $notetitle = $_POST['notetitle'];
-        $notecontent = $_POST['notecontent'];
-        $noteparent = $_POST['noteparent'];
+        $notename = mysqli_real_escape_string($db, $_POST['notename']);
+        $notedescription = mysqli_real_escape_string($db, $_POST['notedescription']);
+        $notedocument = mysqli_real_escape_string($db, $_POST['notedocument']);
+        $noteowner = $_SESSION['id'];
         $notecreation = date('Y-m-d H:i:s');
-        $notemodification = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO mynotes (title, content, parent, creation, modified) VALUES ('$notetitle', '$notecontent', '$noteparent', '$notecreation', '$notemodification') ");   
+        $noteopened = date('Y-m-d H:i:s');
+        mysqli_query($db, "INSERT INTO chelv__notes (note__name, note__description, note__document, note__owner, note__creation, note__opened) VALUES ('$notename', '$notedescription', '$notedocument', '$noteowner', '$notecreation', '$noteopened') ");   
     };
 
     //del avce méthode get
@@ -15,6 +16,4 @@
         mysqli_query($db, "DELETE FROM Mynotes WHERE id=$id");
     }
 
-    //recupére tout les projets
-    $Mynotes = mysqli_query($db, "SELECT * FROM mynotes");
 ?>

@@ -29,4 +29,7 @@
 
     //fonctions pour les documents
     include 'config/ChelvDocuments.php';
+
+    //fonctions pour les documents
+    include 'config/ChelvNotes.php';
 ?>

@@ -38,6 +38,7 @@
     <?php include 'components/nav.php'; ?>
 
     <!-- explorer -->
+    <?php include 'components/explorer/explorer.php'; ?>
 
     <!-- binder content -->
     <main class="content content--binder">
@@ -63,6 +64,7 @@
     <aside class="aside aside--layer">
 
         <h2 class="aside__title aside__title--layer">Les intercalaires</h2>
+
         <!-- add layer  -->
         <div class="aside__add aside__add--layer aside__item aside__item--layer">
             <button class="aside__trigger aside__trigger--add">
