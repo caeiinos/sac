@@ -7,6 +7,9 @@
     // inclure la balise head
     include 'components/head.php';
 
+    //if not log
+    include 'utils/notlog/notlog.php';
+
     //recupére les projets de l'utilisateur
     $activeuser = $_SESSION['id'];
     $chelvbinders = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__owner = $activeuser");

@@ -5,7 +5,7 @@
     //connect the db
     include 'utils/config.php';
 
-    //connect the db
+    //if not log
     include 'utils/notlog/notlog.php';
 
     // trouver le binder
@@ -26,7 +26,7 @@
 
     $NewModified = date('Y-m-d H:i:s');
 
-    mysqli_query($db, "UPDATE chelv__binder SET binder__opened = '$NewModified' WHERE binder__id='$activeid';");   
+    mysqli_query($db, "UPDATE chelv__binders SET binder__opened = '$NewModified' WHERE binder__id='$activeid';");   
 
     // inclure la balise head
     include 'components/head.php';

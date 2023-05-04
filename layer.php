@@ -74,18 +74,19 @@
             <form class="aside__addform aside__addform--chapter" method="POST">
                 <label class="aside__addlabel aside__addlabel--title" for="chaptername">Titre</label>
                 <input class="aside__addinput aside__addinput--title" type="text" name="chaptername">
-                <input class="hidden" type="text" name="chapterbinder" value="<?php echo $activedata['binder__id']; ?>" readonly="readonly">
+                <input class="hidden" type="text" name="chapterbinder" value="<?php echo $activedata['layer__binder']; ?>" readonly="readonly">
+                <input class="hidden" type="text" name="chapterlayer" value="<?php echo $activedata['layer__id']; ?>" readonly="readonly">
 
                 <button  class="aside__addsubmit"  type="submit" name="submitchapter">valider</button>
             </form>
         </div>
 
         <div class="tease">
-            <!-- show layer  -->
+            <!-- show chapter  -->
             <?php while ($row = mysqli_fetch_array($layerchapter)) { ?> 
-                    <a class="tease__link" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
+                    <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$row['chapter__id']; ?>">
                         <h4 class="tease__title tease__title--layer">
-                            <?php echo $row['layer__name']; ?>
+                            <?php echo $row['chapter__name']; ?>
                         </h4>
                     </a>
             <?php } ?>
@@ -106,18 +107,21 @@
             <form class="aside__addform aside__addform--document" method="POST">
                 <label class="aside__addlabel aside__addlabel--title" for="documentname">Titre</label>
                 <input class="aside__addinput aside__addinput--title" type="text" name="documentname">
-                <input class="hidden" type="text" name="documentbinder" value="<?php echo $activedata['binder__id']; ?>" readonly="readonly">
+                <input class="hidden" type="text" name="documentbinder" value="<?php echo $activedata['layer__binder']; ?>" readonly="readonly">
+                <input class="hidden" type="text" name="documentlayer" value="<?php echo $activedata['layer__id']; ?>" readonly="readonly">
+                <input class="hidden" type="number" name="documenthaschapter" value="0" readonly="readonly">
+                <input class="hidden" type="text" name="documentchapter" value="" readonly="readonly">
 
                 <button  class="aside__addsubmit"  type="submit" name="submitdocument">valider</button>
             </form>
         </div>
 
         <div class="tease">
-            <!-- show layer  -->
-            <?php while ($row = mysqli_fetch_array($layerchapter)) { ?> 
-                    <a class="tease__link" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
-                        <h4 class="tease__title tease__title--layer">
-                            <?php echo $row['layer__name']; ?>
+            <!-- show document  -->
+            <?php while ($row = mysqli_fetch_array($layerdocument)) { ?> 
+                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$row['document__id']; ?>">
+                        <h4 class="tease__title tease__title--document">
+                            <?php echo $row['document__name']; ?>
                         </h4>
                     </a>
             <?php } ?>
