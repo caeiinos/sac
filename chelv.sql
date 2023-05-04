@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 02 mai 2023 à 19:36
+-- Généré le : jeu. 04 mai 2023 à 19:20
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 7.4.27
 
@@ -33,15 +33,16 @@ CREATE TABLE `chelv__binders` (
   `binder__description` text NOT NULL,
   `binder__owner` int(63) NOT NULL,
   `binder__creation` datetime NOT NULL,
-  `binder__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `binder__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `explorer__base` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `chelv__binders`
 --
 
-INSERT INTO `chelv__binders` (`binder__id`, `binder__name`, `binder__description`, `binder__owner`, `binder__creation`, `binder__opened`) VALUES
-(3, 'learn Mysql', 'je dois apprendre mysql', 2, '2023-05-01 21:15:14', '2023-05-01 19:15:14');
+INSERT INTO `chelv__binders` (`binder__id`, `binder__name`, `binder__description`, `binder__owner`, `binder__creation`, `binder__opened`, `explorer__base`) VALUES
+(3, 'learn Mysql', 'je dois apprendre mysql', 2, '2023-05-01 21:15:14', '2023-05-04 12:46:04', 3);
 
 -- --------------------------------------------------------
 
@@ -56,8 +57,16 @@ CREATE TABLE `chelv__chapters` (
   `chapter__layer` varchar(255) NOT NULL,
   `chapter__owner` int(63) NOT NULL,
   `chapter__creation` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `chapter__opened` datetime NOT NULL
+  `chapter__opened` datetime NOT NULL,
+  `explorer__base` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `chelv__chapters`
+--
+
+INSERT INTO `chelv__chapters` (`chapter__id`, `chapter__name`, `chapter__binder`, `chapter__layer`, `chapter__owner`, `chapter__creation`, `chapter__opened`, `explorer__base`) VALUES
+(1, 'apprentissage', '3', '1', 2, '2023-05-04 11:02:23', '2023-05-04 10:07:07', 3);
 
 -- --------------------------------------------------------
 
@@ -69,14 +78,23 @@ CREATE TABLE `chelv__documents` (
   `document__id` int(63) NOT NULL,
   `document__name` varchar(255) NOT NULL,
   `document__version` varchar(255) NOT NULL DEFAULT 'default',
-  `document__project` varchar(255) NOT NULL,
+  `document__binder` varchar(255) NOT NULL,
   `document__layer` varchar(255) NOT NULL,
   `document__haschapter` tinyint(1) NOT NULL,
   `document__chapter` varchar(255) NOT NULL,
   `document__owner` int(63) NOT NULL,
   `document__creation` datetime NOT NULL,
-  `document__openend` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `document__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `explorer__base` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `chelv__documents`
+--
+
+INSERT INTO `chelv__documents` (`document__id`, `document__name`, `document__version`, `document__binder`, `document__layer`, `document__haschapter`, `document__chapter`, `document__owner`, `document__creation`, `document__opened`, `explorer__base`) VALUES
+(1, 'chelv sql', 'default', '3', '1', 0, '', 2, '2023-05-04 10:29:57', '2023-05-04 11:03:34', 3),
+(2, 'w3school', 'default', '3', '1', 1, '1', 2, '2023-05-04 10:50:07', '2023-05-04 11:03:38', 3);
 
 -- --------------------------------------------------------
 
@@ -90,15 +108,16 @@ CREATE TABLE `chelv__layers` (
   `layer__binder` varchar(255) NOT NULL,
   `layer__owner` int(63) NOT NULL,
   `layer__creation` datetime NOT NULL,
-  `layer__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `layer__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `explorer__base` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `chelv__layers`
 --
 
-INSERT INTO `chelv__layers` (`layer__id`, `layer__name`, `layer__binder`, `layer__owner`, `layer__creation`, `layer__opened`) VALUES
-(1, 'tutoriel', '3', 2, '2023-05-02 15:05:25', '2023-05-02 13:05:25');
+INSERT INTO `chelv__layers` (`layer__id`, `layer__name`, `layer__binder`, `layer__owner`, `layer__creation`, `layer__opened`, `explorer__base`) VALUES
+(1, 'tutoriel', '3', 2, '2023-05-02 15:05:25', '2023-05-04 11:03:58', 3);
 
 -- --------------------------------------------------------
 
@@ -110,15 +129,19 @@ CREATE TABLE `chelv__notes` (
   `note__id` int(63) NOT NULL,
   `note__name` varchar(255) NOT NULL,
   `note__description` text NOT NULL,
-  `note__project` varchar(255) NOT NULL,
-  `note__layer` varchar(255) NOT NULL,
-  `note__haschapter` tinyint(1) NOT NULL,
-  `note__chapter` varchar(255) NOT NULL,
   `note__document` varchar(255) NOT NULL,
   `note__owner` int(63) NOT NULL,
   `note__creation` datetime NOT NULL,
   `note__opened` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `chelv__notes`
+--
+
+INSERT INTO `chelv__notes` (`note__id`, `note__name`, `note__description`, `note__document`, `note__owner`, `note__creation`, `note__opened`) VALUES
+(2, 'google sheet', 'j\'ai fait un google sheet pour résumé ce que j\'ai appris sur w3school', '2', 2, '2023-05-04 11:50:25', '2023-05-04 09:50:25'),
+(3, 'google sheet', 'j\'ai fait un google sheet pour résumé ce que j\'ai appris sur w3school', '2', 2, '2023-05-04 11:51:26', '2023-05-04 09:51:26');
 
 -- --------------------------------------------------------
 
@@ -201,13 +224,13 @@ ALTER TABLE `chelv__binders`
 -- AUTO_INCREMENT pour la table `chelv__chapters`
 --
 ALTER TABLE `chelv__chapters`
-  MODIFY `chapter__id` int(63) NOT NULL AUTO_INCREMENT;
+  MODIFY `chapter__id` int(63) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `chelv__documents`
 --
 ALTER TABLE `chelv__documents`
-  MODIFY `document__id` int(63) NOT NULL AUTO_INCREMENT;
+  MODIFY `document__id` int(63) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `chelv__layers`
@@ -219,7 +242,7 @@ ALTER TABLE `chelv__layers`
 -- AUTO_INCREMENT pour la table `chelv__notes`
 --
 ALTER TABLE `chelv__notes`
-  MODIFY `note__id` int(63) NOT NULL AUTO_INCREMENT;
+  MODIFY `note__id` int(63) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `chelv__users`
