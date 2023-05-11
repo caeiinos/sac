@@ -7,31 +7,34 @@
     //connect the db
     include 'utils/notlog/notlog.php';
 
-    // trouver l'intercalaire
+    // find the layer
     $activeid = $_GET['layerid'];
-
-    $activeproject = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activeid';");
-
-    $activedata = mysqli_fetch_array($activeproject);
-
-    $pagetitle = $activedata['layer__name'];
+    $LayerActiveQuery = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activeid';");
+    $LayerActiveData = mysqli_fetch_array($LayerActiveQuery);
+   // find pagetitle
+    $pagetitle = $LayerActiveData['layer__name'];
+    //find base for explorer
+    $ExplorerBase = $LayerActiveData['explorer__base'];
 
     // trouver les chapitres
     $activeuser = $_SESSION['id'];
-    $layerchapter = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__layer='$activeid' AND chapter__owner='$activeuser';");
+    $LayerChapterQuery = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__layer='$activeid' AND chapter__owner='$activeuser';");
+    // trouver les documents
+    $LayerDocQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$activeid' AND document__owner='$activeuser' AND document__haschapter=0 ;");
 
-    $layerdocument = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$activeid' AND document__owner='$activeuser' AND document__haschapter=0 ;");
-    // $Chapterdocuments = mysqli_query($db, "SELECT * FROM mydocuments WHERE parent='$activetitle';");
+    // update the date
+    $NewModified = date('Y-m-d H:i:s');
+    mysqli_query($db, "UPDATE chelv__layers SET layer__opened = '$NewModified' WHERE layer__id='$activeid';");   
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 
-<body class="page page--intercalaire">
+<body class="page page--layer">
 
     <!-- navbar -->
-    <?php include 'components/nav.php'; ?>
+    <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
     <?php include 'components/explorer/explorer.php'; ?>
@@ -42,31 +45,9 @@
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
-        <ul class="family">
 
-            <?php 
-                $activebinder = $activedata['layer__binder'];
-                $layerbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-                $binderparent = mysqli_fetch_array($layerbinder);
-            
-            ?>
-            <li class="family__item">
-                <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
-                    <?php echo $binderparent['binder__name']; ?> 
-                </a>
-            </li>
-
-            <li class="family__item">
-                <a href="" class="family__link">
-                <?php echo $pagetitle ?> 
-                </a>
-            </li>
-        </ul> 
-        <div class="layer__description">
-            <p class="layer__text">
-
-            </p>
-        </div>
+        <!-- get family -->
+        <?php include 'components/family/family--layer.php'; ?>
     </main>   
 
     <!-- chapter -->
@@ -79,26 +60,20 @@
                 <p>Nouveau chapitre</p>
             </button>
 
-            <form class="aside__addform aside__addform--chapter" method="POST">
-                <label class="aside__addlabel aside__addlabel--title" for="chaptername">Titre</label>
-                <input class="aside__addinput aside__addinput--title" type="text" name="chaptername">
-                <input class="hidden" type="text" name="chapterbinder" value="<?php echo $activedata['layer__binder']; ?>" readonly="readonly">
-                <input class="hidden" type="text" name="chapterlayer" value="<?php echo $activedata['layer__id']; ?>" readonly="readonly">
-
-                <button  class="aside__addsubmit"  type="submit" name="submitchapter">valider</button>
-            </form>
+            <!-- form to add chapter -->
+            <?php include 'components/form/form--chapter.php'; ?>
         </div>
 
-        <div class="tease">
-            <!-- show chapter  -->
-            <?php while ($row = mysqli_fetch_array($layerchapter)) { ?> 
-                    <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$row['chapter__id']; ?>">
-                        <h4 class="tease__title tease__title--layer">
-                            <?php echo $row['chapter__name']; ?>
-                        </h4>
-                    </a>
-            <?php } ?>
-        </div>
+        <form class="LayerChapterQuerys__form" action="search.php" method="get">
+            <input class="LayerChapterQuerys__search"  type="text" name="search" placeholder="Search...">
+            <div id="LayerChapterQuerys" class="tease">
+                <!-- show chapter  -->
+                <?php 
+                while ($LayerChapterRow = mysqli_fetch_array($LayerChapterQuery)) {  
+                    include 'components/tease/tease--chapter.php';
+                } ?>
+            </div>
+        </form>
     </aside>
 
     
@@ -112,28 +87,20 @@
                 <p>Nouveau document</p>
             </button>
 
-            <form class="aside__addform aside__addform--document" method="POST">
-                <label class="aside__addlabel aside__addlabel--title" for="documentname">Titre</label>
-                <input class="aside__addinput aside__addinput--title" type="text" name="documentname">
-                <input class="hidden" type="text" name="documentbinder" value="<?php echo $activedata['layer__binder']; ?>" readonly="readonly">
-                <input class="hidden" type="text" name="documentlayer" value="<?php echo $activedata['layer__id']; ?>" readonly="readonly">
-                <input class="hidden" type="number" name="documenthaschapter" value="0" readonly="readonly">
-                <input class="hidden" type="text" name="documentchapter" value="" readonly="readonly">
-
-                <button  class="aside__addsubmit"  type="submit" name="submitdocument">valider</button>
-            </form>
+            <!-- form to add document -->
+            <?php include 'components/form/form--doc.php'; ?>
         </div>
 
-        <div class="tease">
-            <!-- show document  -->
-            <?php while ($row = mysqli_fetch_array($layerdocument)) { ?> 
-                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$row['document__id']; ?>">
-                        <h4 class="tease__title tease__title--document">
-                            <?php echo $row['document__name']; ?>
-                        </h4>
-                    </a>
-            <?php } ?>
-        </div>
+        <form class="LayerDocQuerys__form" action="search.php" method="get">
+            <input class="LayerDocQuerys__search"  type="text" name="search" placeholder="Search...">
+            <div id="LayerDocQuerys" class="tease">
+                <!-- show document  -->
+                <?php 
+                while ($LayerDocRow = mysqli_fetch_array($LayerDocQuery)) {
+                    include 'components/tease/tease--doc.php';
+                } ?>
+            </div>
+        </form>
     </aside>
     
 </body>

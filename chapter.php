@@ -7,31 +7,32 @@
     //connect the db
     include 'utils/notlog/notlog.php';
 
-    // trouver l'intercalaire
+    // find the chapter
     $activeid = $_GET['chapterid'];
-
-    $activeuser = $_SESSION['id'];
-
-    $activeproject = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__id='$activeid' AND chapter__owner='$activeuser';");
-
-    $activedata = mysqli_fetch_array($activeproject);
-
-    $pagetitle = $activedata['chapter__name'];
+    $ChapterActiveQuery = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__id='$activeid';");
+    $ChapterActiveData = mysqli_fetch_array($ChapterActiveQuery);
+   // find pagetitle
+    $pagetitle = $ChapterActiveData['chapter__name'];
+    //find base for explorer
+    $ExplorerBase = $ChapterActiveData['explorer__base'];
 
     // trouver les chapitres
-    $activetitle = $activedata['chapter__name'];;
+    $activeuser = $_SESSION['id']; 
+    $ChapterDocQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__chapter='$activeid' AND document__owner='$activeuser' AND document__version='default';");
 
-    $chapterdocument = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__chapter='$activeid' AND document__owner='$activeuser';");
+    // update the date
+    $NewModified = date('Y-m-d H:i:s');
+    mysqli_query($db, "UPDATE chelv__chapters SET chapter__opened = '$NewModified' WHERE chapter__id='$activeid';");   
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 
 <body class="page page--chapitre">
 
     <!-- navbar -->
-    <?php include 'components/nav.php'; ?>
+    <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
     <?php include 'components/explorer/explorer.php'; ?>
@@ -42,37 +43,8 @@
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
-        <ul class="family">
-
-            <?php 
-                $activebinder = $activedata['chapter__binder'];
-                $chapterbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-                $binderparent = mysqli_fetch_array($chapterbinder);
-
-                $activelayer = $activedata['chapter__layer'];
-                $chapterlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activelayer' AND layer__owner='$activeuser';");
-                $layerparent = mysqli_fetch_array($chapterlayer);
-            
-            ?>
-            <li class="family__item">
-                <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
-                    <?php echo $binderparent['binder__name']; ?> 
-                </a>
-            </li>
-
-            <li class="family__item">
-                <a href="<?php echo 'layer.php?layerid='.$layerparent['layer__id']; ?>" class="family__link">
-                <?php echo $layerparent['layer__name']; ?> 
-                </a>
-            </li>
-
-            <li class="family__item">
-                <a href="" class="family__link">
-                <?php echo $pagetitle ?> 
-                </a>
-            </li>
-        </ul> 
-        
+        <!-- get family -->
+        <?php include 'components/family/family--chapter.php'; ?> 
     </main>   
 
     <!-- document -->
@@ -85,28 +57,19 @@
                 <p>Nouveau document</p>
             </button>
 
-            <form class="aside__addform aside__addform--document" method="POST">
-                <label class="aside__addlabel aside__addlabel--title" for="documentname">Titre</label>
-                <input class="aside__addinput aside__addinput--title" type="text" name="documentname">
-                <input class="hidden" type="text" name="documentbinder" value="<?php echo $activedata['chapter__binder']; ?>" readonly="readonly">
-                <input class="hidden" type="text" name="documentlayer" value="<?php echo $activedata['chapter__layer']; ?>" readonly="readonly">
-                <input class="hidden" type="number" name="documenthaschapter" value="1" readonly="readonly">
-                <input class="hidden" type="text" name="documentchapter" value="<?php echo $activedata['chapter__id']; ?>" readonly="readonly">
-
-                <button  class="aside__addsubmit"  type="submit" name="submitdocument">valider</button>
-            </form>
+            <!-- form to add document -->
+            <?php include 'components/form/form--docinchap.php'; ?>
         </div>
 
-        <div class="tease">
-            <!-- show document  -->
-            <?php while ($row = mysqli_fetch_array($chapterdocument)) { ?> 
-                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$row['document__id']; ?>">
-                        <h4 class="tease__title tease__title--document">
-                            <?php echo $row['document__name']; ?>
-                        </h4>
-                    </a>
-            <?php } ?>
-        </div>
+        <form class="chapterdocuments__form" action="search.php" method="get">
+            <input class="chapterdocuments__search"  type="text" name="search" placeholder="Search...">
+            <div id="chapterdocuments" class="tease">
+                <!-- show document  -->
+                <?php while ($ChapterDocRow = mysqli_fetch_array($ChapterDocQuery)) { 
+                    include 'components/tease/tease--docinchap.php'; 
+                } ?>
+            </div>
+        </form>
     </aside>
 
 

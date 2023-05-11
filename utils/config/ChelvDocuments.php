@@ -2,7 +2,7 @@
 
     if (isset($_POST['submitdocument'])) {
         $documentname = mysqli_real_escape_string($db, $_POST['documentname']);
-        $documentversion = "default";
+        $documentversion = mysqli_real_escape_string($db, $_POST['documentversion']);
         $documentbinder = mysqli_real_escape_string($db, $_POST['documentbinder']);
         $documentlayer = mysqli_real_escape_string($db, $_POST['documentlayer']);
         $documenthaschapter = $_POST['documenthaschapter'];

@@ -1,4 +1,4 @@
-<?php 
+<?php   
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
@@ -9,32 +9,33 @@
 
     // trouver l'intercalaire
     $activeid = $_GET['documentid'];
-
+    $DocActiveQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__id='$activeid';");
+    $DocActiveData = mysqli_fetch_array($DocActiveQuery);
+   // find pagetitle
+    $pagetitle = $DocActiveData['document__name'];
+    //find base for explorer
+    $ExplorerBase = $DocActiveData['explorer__base'];
+    
+    // trouver les notes   
     $activeuser = $_SESSION['id'];
-
-    $activeproject = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__id='$activeid' AND document__owner='$activeuser';");
-
-    $activedata = mysqli_fetch_array($activeproject);
-
-    $pagetitle = $activedata['document__name'];
-
-    // trouver les chapitres
-    $activetitle = $activedata['document__id'];;
-
-    $ProjectChild = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__document='$activeid';");
+    $DocNoteQuery = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__document='$activeid';");
+    $DocNoteData = $DocNoteQuery->fetch_all(MYSQLI_ASSOC);
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 
 <body class="page page--document">
 
     <!-- navbar -->
-    <?php include 'components/nav.php'; ?>
+    <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
     <?php include 'components/explorer/explorer.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php include 'components/form/form--note.php'; ?>
 
     <!-- layer content -->
     <main class="content content--layer">
@@ -42,93 +43,72 @@
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
-        <ul class="family">
+        <!-- get family -->
+        <?php include 'components/family/family--doc.php'; ?> 
 
-            <?php 
-                $activebinder = $activedata['document__binder'];
-                $documentbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-                $binderparent = mysqli_fetch_array($documentbinder);
+        <div>
+            <button>
+                <?php echo $DocActiveData['document__version']; ?>
+            </button>
+            <ul>
+                <?php 
+                
+                $binderversion = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
 
-                $activelayer = $activedata['document__layer'];
-                $documentlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activelayer' AND layer__owner='$activeuser';");
-                $layerparent = mysqli_fetch_array($documentlayer);
+                while ($rowversion = mysqli_fetch_array($binderversion)) { 
 
-                if ($activedata['document__haschapter']) {
-                    $activechapter = $activedata['document__chapter'];
-                    $documentchapter = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__id='$activelayer' AND chapter__owner='$activeuser';");
-                    $chapterparent = mysqli_fetch_array($documentchapter);                    
-                }
-            
-            ?>
-            <li class="family__item">
-                <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
-                    <?php echo $binderparent['binder__name']; ?> 
-                </a>
-            </li>
-
-            <li class="family__item">
-                <a href="<?php echo 'layer.php?layerid='.$layerparent['layer__id']; ?>" class="family__link">
-                <?php echo $layerparent['layer__name']; ?> 
-                </a>
-            </li>
-
-            <?php if ($activedata['document__haschapter']) { ?>
-                <li class="family__item">
-                    <a href="<?php echo 'chapter.php?chapterid='.$chapterparent['chapter__id']; ?>" class="family__link">
-                    <?php echo $chapterparent['chapter__name']; ?> 
-                    </a>
+                ?>
+                <li>
+                    <p>
+                        <?php echo $rowversion['document__version']; ?>
+                    </p>
                 </li>
-            <?php } ?>
-
-            <li class="family__item">
-                <a href="" class="family__link">
-                <?php echo $pagetitle ?> 
-                </a>
-            </li>
-        </ul> 
-
-        <div class="layer__description">
-            <p class="layer__text">
-
-            </p>
-        </div>
-    </main>   
-
-        <!-- document -->
-        <aside class="aside aside--document">
-
-            <h2 class="aside__title aside__title--document">Les notes</h2>
-
-
-            <div class="note">
-                <!-- show note  -->
-                <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
-
-                    <section class="note__content">
-                        <h4 class="note__title">
-                            <?php echo $row['note__name']; ?>
-                        </h4>
-                        <p class="note__description">
-                            <?php echo $row['note__description']; ?>  
-                        </p>
-                </section>
                 <?php } ?>
+            </ul>
+        </div>
+    
+        <div>
+            <button>
+                +
+            </button>
+            <!-- form to add version -->
+            <?php include 'components/form/form--version.php'; ?>
+        </div>    
+    </main>   
+    
+    <aside>
+        <ul>
+            <?php foreach ($DocNoteData as $row) { ?> 
+
+                <section class="note__content">
+                    <li>
+                        <a href="<?php echo "#" . $row['note__id']; ?>">
+                            <?php echo $row['note__name']; ?>
+                        </a>
+                    </li>
+            </section>
+            <?php } ?>
+        </ul>
+    </aside>
+
+    <!-- document -->
+    <aside class="aside aside--document">
+
+        <h2 class="aside__title aside__title--document">Les notes</h2>
+
+        <form class="documentnotes__form" method="get">
+            <input class="documentnotes__search"  type="text" name="search" placeholder="Search...">
+            <div id="documentnotes" class="note">
+                <!-- show note  -->
+                <?php foreach ($DocNoteData as $row) {
+                    include 'components/tease/tease--note.php';                    
+                } ?>
             </div>
+        </form>
 
-            <!-- add note  -->
-            <div class="writer">  
-                <form class="writer__form" method="POST">
-
-                    <label class="writer__label writer__label--title" for="notename">Titre</label>
-                    <input class="writer__input" type="text" name="notename">
-                    <label class="writer__label writer__label--description" for="notedescription">Description</label>
-                    <input class="writer__input writer__input--description" type="text" name="notedescription">
-                    <input class="hidden" type="text" name="notedocument" value="<?php echo $activedata['document__id']; ?>" readonly="readonly">
-
-                    <button class="writer__submit" type="submit" name="submitnote">valider</button>
-                </form>
-            </div>
-        </aside>
+        <!-- add note  -->
+        <button class="note__add">nouvelle note</button>
+    </aside>
     
 </body>
 </html>

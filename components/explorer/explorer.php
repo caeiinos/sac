@@ -17,10 +17,8 @@
 
                 <!-- get layer from binder -->
                 <?php 
-
-                $activebase = $activedata['explorer__base'];
                 
-                $explorerlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE explorer__base='$activebase' AND layer__owner='$activeuser';");
+                $explorerlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE explorer__base='$ExplorerBase' AND layer__owner='$activeuser';");
                 
                 while ($rowlayer = mysqli_fetch_array($explorerlayer)) { ?> 
                     <li>
@@ -54,7 +52,7 @@
 
                                 $parentchapter = $rowchapter['chapter__id'];
 
-                                $explorerchapdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__chapter='$parentchapter';");
+                                $explorerchapdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__chapter='$parentchapter' AND document__version='default';");
 
                                 while ($chapdoc = mysqli_fetch_array($explorerchapdoc)) { ?>
                                     <li>
@@ -71,7 +69,7 @@
                         <!-- get document from layer from binder -->
                         <?php 
 
-                        $explorerdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__haschapter=0;");
+                        $explorerdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__haschapter=0 AND document__version='default';");
 
                         while ($doc = mysqli_fetch_array($explorerdoc)) { ?>
                             <li>

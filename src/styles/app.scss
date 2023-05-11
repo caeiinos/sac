@@ -1,6 +1,8 @@
 @import 'utils/utils';
 @import 'components/components';
 
+@import "~quill/dist/quill.core.css";
+
 body{
     background-color: $white;
     color: $black;
