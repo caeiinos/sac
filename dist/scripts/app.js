@@ -18,52 +18,105 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// quill js for wysiwyg
-var QuillNote = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#editor-container', {
-  modules: {
-    toolbar: [[{
-      header: [2, false]
-    }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
-  },
-  placeholder: 'Compose an epic...',
-  theme: 'snow' // or 'bubble'
-});
-
-// store wysiwyg content in input at load
-var QuillValueKeeper = document.querySelector('input[name=notedescription]');
-QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
-
-// store wysiwyg content in input on keyup
-var Quillwys = document.querySelector('.oui');
-Quillwys.addEventListener('keyup', function () {
-  let QuillValueKeeper = document.querySelector('input[name=notedescription]');
-  QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
-});
-
-// form--note querySelector
-const QuillNoteAdd = document.querySelector(".note__add");
-const QuillNoteEditor = document.querySelector(".noteeditor");
-const Notemodifie = document.querySelectorAll(".note__editor");
-// form--note trigger on button click
-QuillNoteAdd.addEventListener('click', function () {
-  QuillNoteEditor.classList.add("noteeditor--active");
-});
-// put note in form--note for modification
-for (let i = 0; i < Notemodifie.length; i++) {
-  Notemodifie[i].addEventListener('click', function () {
-    QuillNoteEditor.classList.add("noteeditor--active");
-    var str = this.id;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let idtoupdate = document.querySelector("#noteid");
-        idtoupdate.value = str;
-        document.querySelector(".ql-editor").innerHTML = this.responseText;
-      }
-    };
-    xmlhttp.open("GET", "editor.php?q=" + str, true);
-    xmlhttp.send();
+// quill js for binder
+const QuillBinderIf = document.querySelector('#binder-quill');
+if (QuillBinderIf) {
+  var QuilBinder = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#binder-quill', {
+    modules: {
+      toolbar: [[{
+        header: [2, false]
+      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow' // or 'bubble'
   });
+
+  // store wysiwyg content in input at load for binder
+  var QuillBinderValue = document.querySelector('input[name=binderdescription]');
+  QuillBinderValue.value = QuilBinder.root.innerHTML.trim();
+
+  // store wysiwyg content in input on keyup for binder
+  var QuillBinderwys = document.querySelector('#binder-quill');
+  QuillBinderwys.addEventListener('keyup', function () {
+    let QuillBinderValue = document.querySelector('input[name=binderdescription]');
+    QuillBinderValue.value = QuilBinder.root.innerHTML.trim();
+  });
+}
+
+// quill js to update binder
+const QuillBinderUIf = document.querySelector('#binder-update');
+if (QuillBinderUIf) {
+  var QuilBinderU = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#binder-update', {
+    modules: {
+      toolbar: [[{
+        header: [2, false]
+      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow' // or 'bubble'
+  });
+
+  // store wysiwyg content in input at load for binder
+  var QuillBinderUValue = document.querySelector('input[name=binderdescriptionupdate]');
+  QuillBinderUValue.value = QuilBinderU.root.innerHTML.trim();
+
+  // store wysiwyg content in input on keyup for binder
+  var QuillBinderUwys = document.querySelector('#binder-update');
+  QuillBinderUwys.addEventListener('keyup', function () {
+    let QuillBinderUValue = document.querySelector('input[name=binderdescriptionupdate]');
+    QuillBinderUValue.value = QuilBinderU.root.innerHTML.trim();
+  });
+}
+
+// quill js for note
+const QuillNoteIf = document.querySelector('#editor-container');
+if (QuillNoteIf) {
+  var QuillNote = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#editor-container', {
+    modules: {
+      toolbar: [[{
+        header: [2, false]
+      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow' // or 'bubble'
+  });
+
+  // store wysiwyg content in input at load for note
+  var QuillValueKeeper = document.querySelector('input[name=notedescription]');
+  QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
+
+  // store wysiwyg content in input on keyup for note
+  var Quillwys = document.querySelector('.oui');
+  Quillwys.addEventListener('keyup', function () {
+    let QuillValueKeeper = document.querySelector('input[name=notedescription]');
+    QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
+  });
+
+  // form--note querySelector
+  const QuillNoteAdd = document.querySelector(".note__add");
+  const QuillNoteEditor = document.querySelector(".note__editor");
+  const QuillNoteModifie = document.querySelectorAll(".note__modifie");
+  // form--note trigger on button click
+  QuillNoteAdd.addEventListener('click', function () {
+    QuillNoteEditor.classList.add("noteeditor--active");
+  });
+  // put note in form--note for modification
+  for (let i = 0; i < QuillNoteModifie.length; i++) {
+    QuillNoteModifie[i].addEventListener('click', function () {
+      QuillNoteEditor.classList.add("noteeditor--active");
+      var str = this.id;
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let idtoupdate = document.querySelector("#noteid");
+          idtoupdate.value = str;
+          document.querySelector(".ql-editor").innerHTML = this.responseText;
+        }
+      };
+      xmlhttp.open("GET", "components/editor/editor.php?q=" + str, true);
+      xmlhttp.send();
+    });
+  }
 }
 
 // show add

@@ -3,7 +3,7 @@
     <h4 class="tease__title tease__title--binder">
         <?php echo $IndexBinderRow['binder__name']; ?>
     </h4>
-    <p class="tease__description tease__description--binder">
+    <p>
         <?php echo $IndexBinderRow['binder__description']; ?> 
     </p>
 </a> 

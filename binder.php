@@ -50,11 +50,14 @@
                 </a>
             </li>
         </ul> 
-        <div class="binder__description">
-            <p class="binder__text">
-
-            </p>
-        </div>
+        <form class="binder__modifie" method="POST">
+            <input name="binderidtoupdate" value="<?php echo $activeid ?>" type="hidden">
+            <input name="binderdescriptionupdate" value="" type="hidden">
+            <div id="binder-update" class="oui">
+                <?php echo $BinderActiveData['binder__description']; ?> 
+            </div>
+            <button type="submit" name="updatebinder">let's go</button> 
+        </form>
     </main>      
 
     <!-- layer -->

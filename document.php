@@ -75,21 +75,6 @@
             <?php include 'components/form/form--version.php'; ?>
         </div>    
     </main>   
-    
-    <aside>
-        <ul>
-            <?php foreach ($DocNoteData as $row) { ?> 
-
-                <section class="note__content">
-                    <li>
-                        <a href="<?php echo "#" . $row['note__id']; ?>">
-                            <?php echo $row['note__name']; ?>
-                        </a>
-                    </li>
-            </section>
-            <?php } ?>
-        </ul>
-    </aside>
 
     <!-- document -->
     <aside class="aside aside--document">
@@ -98,13 +83,15 @@
 
         <form class="documentnotes__form" method="get">
             <input class="documentnotes__search"  type="text" name="search" placeholder="Search...">
-            <div id="documentnotes" class="note">
-                <!-- show note  -->
-                <?php foreach ($DocNoteData as $row) {
-                    include 'components/tease/tease--note.php';                    
-                } ?>
-            </div>
+            <input id="notedocument" value="<?php echo $DocActiveData['document__id'] ?>" type="hidden">
         </form>
+
+        <div id="documentnotes" class="note">
+            <!-- show note  -->
+            <?php foreach ($DocNoteData as $row) {
+                include 'components/tease/tease--note.php';                    
+            } ?>
+        </div>
 
         <!-- add note  -->
         <button class="note__add">nouvelle note</button>
