@@ -8,30 +8,32 @@
     include 'utils/notlog/notlog.php';
 
     // find the layer
-    $activeid = $_GET['layerid'];
-    $LayerActiveQuery = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activeid';");
-    $LayerActiveData = mysqli_fetch_array($LayerActiveQuery);
-   // find pagetitle
-    $pagetitle = $LayerActiveData['layer__name'];
+    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=?;");
+    $LayerActiveQuery->execute([$_GET['layerid']]);
+    // find pagetitle
+    $pagetitle = $LayerActiveQuery->fetchColumn(1);
     //find base for explorer
-    $ExplorerBase = $LayerActiveData['explorer__base'];
+    $LayerActiveQuery->execute([$_GET['layerid']]);
+    $ExplorerBase = $LayerActiveQuery->fetchColumn(6);
 
     // trouver les chapitres
     $activeuser = $_SESSION['id'];
-    $LayerChapterQuery = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__layer='$activeid' AND chapter__owner='$activeuser';");
+    $LayerChapterQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__layer=? AND chapter__owner='$activeuser';");
+    $LayerChapterQuery->execute([$_GET['layerid']]);
     // trouver les documents
-    $LayerDocQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$activeid' AND document__owner='$activeuser' AND document__haschapter=0 ;");
+    $LayerDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__owner='$activeuser' AND document__haschapter=0 ;");
+    $LayerDocQuery->execute([$_GET['layerid']]);
 
     // update the date
     $NewModified = date('Y-m-d H:i:s');
-    mysqli_query($db, "UPDATE chelv__layers SET layer__opened = '$NewModified' WHERE layer__id='$activeid';");  
-    
+    $LayerActiveUpdate = $db->prepare("UPDATE chelv__layers SET layer__opened = ? WHERE layer__id=?;");  
+    $LayerActiveUpdate->execute([$NewModified, $_GET['layerid']]);
     //403 and 404
-    if (mysqli_num_rows($LayerActiveQuery)== 0) {
-        header("Location: 404.php");
-    } else if ($activeuser != $LayerActiveData['layer__owner']) {
-        header("Location: 403.php");
-    }
+    // if (mysqli_num_rows($LayerActiveQuery)== 0) {
+    //     header("Location: 404.php");
+    // } else if ($activeuser != $LayerActiveData['layer__owner']) {
+    //     header("Location: 403.php");
+    // }
 
     // inclure la balise head
     include 'components/head/head.php';
@@ -48,6 +50,7 @@
 
     <!-- layer content -->
     <main class="content content--layer">
+
         <span class="layer__type">Intercalaire</span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>

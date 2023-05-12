@@ -2,6 +2,7 @@
 
     // get user id
     $activeuser = $_SESSION['id'];
+    echo $ExplorerBase;
 
 ?>
 
@@ -18,9 +19,9 @@
                 <!-- get layer from binder -->
                 <?php 
                 
-                $explorerlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE explorer__base='$ExplorerBase' AND layer__owner='$activeuser';");
-                
-                while ($rowlayer = mysqli_fetch_array($explorerlayer)) { ?> 
+                $explorerlayer = $db->prepare("SELECT * FROM chelv__layers WHERE explorer__base='$ExplorerBase' AND layer__owner='$activeuser';");
+                $explorerlayer->execute();
+                foreach ($explorerlayer as $rowlayer) { ?> 
                     <li>
                         <a class="tease__link" href="<?php echo 'layer.php?layerid='.$rowlayer['layer__id']; ?>">
                             <h4 class="tease__title tease__title--layer">
@@ -32,12 +33,10 @@
                     <ul>
                         <!-- get chapter from layer from binder -->
                         <?php 
+                        $explorerchapter = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__layer=? ");
+                        $explorerchapter->execute([$rowlayer['layer__id']]);
 
-                        $parentlayer = $rowlayer['layer__id'];
-
-                        $explorerchapter = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__layer='$parentlayer';");
-
-                        while ($rowchapter = mysqli_fetch_array($explorerchapter)) { ?>
+                        foreach ($explorerchapter as $rowchapter) { ?>
                             <li>
                                 <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$rowchapter['chapter__id']; ?>">
                                     <h4 class="tease__title tease__title--layer">
@@ -49,12 +48,9 @@
                             <ul>
                             <!-- get document from chapter from layer from binder -->
                             <?php 
-
-                                $parentchapter = $rowchapter['chapter__id'];
-
-                                $explorerchapdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__chapter='$parentchapter' AND document__version='default';");
-
-                                while ($chapdoc = mysqli_fetch_array($explorerchapdoc)) { ?>
+                                $explorerchapdoc = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__chapter= ? AND document__version='default';");
+                                $explorerchapdoc->execute([$rowlayer['layer__id'], $rowchapter['chapter__id']]);
+                                foreach ($explorerchapdoc as $chapdoc) { ?>
                                     <li>
                                         <a class="tease__link" href="<?php echo 'document.php?documentid='.$chapdoc['document__id']; ?>">
                                             <h4 class="tease__title tease__title--layer">
@@ -69,9 +65,9 @@
                         <!-- get document from layer from binder -->
                         <?php 
 
-                        $explorerdoc = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__layer='$parentlayer' AND document__haschapter=0 AND document__version='default';");
-
-                        while ($doc = mysqli_fetch_array($explorerdoc)) { ?>
+                        $explorerdoc = $db->prepare( "SELECT * FROM chelv__documents WHERE document__layer=? AND document__haschapter=0 AND document__version='default';");
+                        $explorerdoc->execute([$rowlayer['layer__id']]);
+                        foreach ($explorerdoc as $doc ) { ?>
                             <li>
                                 <a class="tease__link" href="<?php echo 'document.php?documentid='.$doc['document__id']; ?>">
                                     <h4 class="tease__title tease__title--layer">

@@ -5,11 +5,9 @@ include '../../utils/config.php';
     if (isset($_GET["k"])) {
         $k = $_GET["k"];
 
-        $query = "SELECT * FROM chelv__binders ORDER BY $k"; 
-
-        $result = mysqli_query($db, $query);
-
-        while ($row = mysqli_fetch_array($result)) { ?>
+        $query =  $db->prepare("SELECT * FROM chelv__binders WHERE binder__owner=? ORDER BY $k"); 
+        $query->execute([$_SESSION['id']]);
+        foreach ($query as $row) { ?>
 
             <!-- fardes -->
             <a class="tease__link" href="<?php echo 'binder.php?binderid='.$row['binder__id']; ?>">

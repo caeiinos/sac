@@ -141,7 +141,6 @@ for (let i = 0; i < submit.length; i++) {
 }
 
 // livesearch
-
 var headerSearch = document.querySelector(".header__search");
 headerSearch.addEventListener('keyup', function () {
   let str = this.value;
@@ -178,7 +177,7 @@ if (projectSearch) {
 
 // livesearch for layers in binder
 
-var binderlayerssearch = document.querySelector(".binderlayers__search");
+var binderlayerssearch = document.querySelector(".BinderLayer__search");
 if (binderlayerssearch) {
   binderlayerssearch.addEventListener('keyup', function () {
     let activebinder = document.getElementById("layerbinder");

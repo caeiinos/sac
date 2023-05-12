@@ -11,8 +11,7 @@
     $activeuser = $_SESSION['id'];
 
     //get binders from mysql db
-    $IndexBinderQuery = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__owner = $activeuser");
-    $IndexBinderData = $IndexBinderQuery->fetch_all(MYSQLI_ASSOC);
+    $IndexBinderData = $db->prepare("SELECT * FROM chelv__binders WHERE binder__owner = $activeuser");
 
 ?>
 
@@ -22,7 +21,10 @@
     <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
-    <?php include 'components/explorer/explorer--front.php'; ?>
+    <?php 
+        $IndexBinderData->execute();
+        include 'components/explorer/explorer--front.php'; 
+    ?>
 
     <main class="content">
 
@@ -38,6 +40,8 @@
             <div id="tease--binder" class="tease tease--binder">
 
                 <?php 
+
+                    $IndexBinderData->execute();
                     foreach ($IndexBinderData as $IndexBinderRow) {
                         include 'components/tease/tease--binder.php';
                     } 

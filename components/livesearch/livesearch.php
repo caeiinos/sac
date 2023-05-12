@@ -7,23 +7,16 @@ $activeuser = $_SESSION['id'];
     if (isset($_GET["q"])) {
         $q = $_GET["q"];
 
-        $BinderQuery = "SELECT * FROM chelv__binders where binder__name LIKE '$q%' AND binder__owner='$activeuser';"; 
+        $BinderQuery =  $db->prepare("SELECT * FROM chelv__binders where binder__name LIKE '$q%' AND binder__owner='$activeuser'"); 
 
-        $BinderResult = mysqli_query($db, $BinderQuery);
+        $LayerQuery =  $db->prepare("SELECT * FROM chelv__layers where layer__name LIKE '$q%' AND layer__owner='$activeuser'"); 
 
-        $LayerQuery = "SELECT * FROM chelv__layers where layer__name LIKE '$q%' AND layer__owner='$activeuser';"; 
+        $ChapQuery = $db->prepare("SELECT * FROM chelv__chapters where chapter__name LIKE '$q%' AND chapter__owner='$activeuser'"); 
 
-        $LayerResult = mysqli_query($db, $LayerQuery);
+        $DocQuery =  $db->prepare("SELECT * FROM chelv__documents where document__name LIKE '$q%' AND document__owner='$activeuser'"); 
 
-        $ChapQuery = "SELECT * FROM chelv__chapters where chapter__name LIKE '$q%' AND chapter__owner='$activeuser';"; 
-
-        $ChapResult = mysqli_query($db, $ChapQuery);
-
-        $DocQuery = "SELECT * FROM chelv__documents where document__name LIKE '$q%' AND document__owner='$activeuser';"; 
-
-        $DocResult = mysqli_query($db, $DocQuery);
-
-        while ($row = mysqli_fetch_assoc($BinderResult)) { ?>
+        $BinderQuery->execute();
+        foreach ($BinderQuery as $row) { ?>
 
             <a href="binder.php?binderid=<?php echo $row["binder__id"]; ?>">
                 <h4><?php echo $row["binder__name"]; ?></h4>  
@@ -32,7 +25,8 @@ $activeuser = $_SESSION['id'];
 
         <?php }
 
-        while ($row = mysqli_fetch_assoc($LayerResult)) { ?>
+        $LayerQuery->execute();
+        foreach ($LayerQuery as $row) { ?>
 
             <a href="layer.php?layerid=<?php echo $row["layer__id"]; ?>">
                 <h4><?php echo $row["layer__name"]; ?></h4>  
@@ -41,7 +35,8 @@ $activeuser = $_SESSION['id'];
 
         <?php }
 
-        while ($row = mysqli_fetch_assoc($ChapResult)) { ?>
+        $ChapQuery->execute();
+        foreach ($ChapQuery as $row ) { ?>
 
             <a href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
                 <h4><?php echo $row["chapter__name"]; ?></h4>  
@@ -50,7 +45,8 @@ $activeuser = $_SESSION['id'];
 
         <?php }
 
-        while ($row = mysqli_fetch_assoc($DocResult)) { ?>
+        $DocQuery->execute();
+        foreach ($DocQuery as $row) { ?>
 
             <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
                 <h4><?php echo $row["document__name"]; ?></h4>  
