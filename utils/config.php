@@ -11,12 +11,14 @@
     // $dbname = "jeandeqjeandeq";
 
     // Create connection
-    $db = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($db->connect_error) {
+    try {
+        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // sdbet the PDO error mode to exception
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected successfully";
+      } catch(PDOException $e) {
         die("Connection failed: " . $conn->connect_error);
-    }
+      }
 
     //fonctions pour les projets
     include 'config/ChelvBinders.php';
