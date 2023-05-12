@@ -21,8 +21,10 @@
     $DocNoteQuery = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__document='$activeid';");
     $DocNoteData = $DocNoteQuery->fetch_all(MYSQLI_ASSOC);
 
-    // if not the right user
-    if ($activeuser != $DocActiveData['binder__owner']) {
+    //403 and 404
+    if (mysqli_num_rows($DocActiveQuery)== 0) {
+        header("Location: 404.php");
+    } else if ($activeuser != $DocActiveData['document__owner']) {
         header("Location: 403.php");
     }
 

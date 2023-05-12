@@ -6,7 +6,7 @@
     include 'utils/config.php';
 
     //if not log
-    include 'utils/notlog/notlog.php';
+    include 'utils/notlog/notlog.php';  
 
     // trouver le binder
     $activeid = $_GET['binderid'];
@@ -24,8 +24,11 @@
     // update the date
     $NewModified = date('Y-m-d H:i:s');
     mysqli_query($db, "UPDATE chelv__binders SET binder__opened = '$NewModified' WHERE binder__id='$activeid';");  
-    
-    if ($activeuser != $BinderActiveData['binder__owner']) {
+
+    //403 and 404
+    if (mysqli_num_rows($BinderActiveQuery)== 0) {
+        header("Location: 404.php");
+    } else if ($activeuser != $BinderActiveData['binder__owner']) {
         header("Location: 403.php");
     }
 

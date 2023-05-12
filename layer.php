@@ -26,8 +26,10 @@
     $NewModified = date('Y-m-d H:i:s');
     mysqli_query($db, "UPDATE chelv__layers SET layer__opened = '$NewModified' WHERE layer__id='$activeid';");  
     
-    // if not the right user
-    if ($activeuser != $LayerActiveData['binder__owner']) {
+    //403 and 404
+    if (mysqli_num_rows($LayerActiveQuery)== 0) {
+        header("Location: 404.php");
+    } else if ($activeuser != $LayerActiveData['layer__owner']) {
         header("Location: 403.php");
     }
 

@@ -24,8 +24,10 @@
     $NewModified = date('Y-m-d H:i:s');
     mysqli_query($db, "UPDATE chelv__chapters SET chapter__opened = '$NewModified' WHERE chapter__id='$activeid';");   
 
-    // if not the right user
-    if ($activeuser != $ChapterActiveData['binder__owner']) {
+    //403 and 404
+    if (mysqli_num_rows($ChapterActiveQuery)== 0) {
+        header("Location: 404.php");
+    } else if ($activeuser != $ChapterActiveData['chapter__owner']) {
         header("Location: 403.php");
     }
 
