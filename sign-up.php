@@ -3,7 +3,7 @@
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
-    include 'utils/config/config.php';
+    include 'utils/config.php';
 
     if (isset($_POST['email'])) {
         
@@ -22,7 +22,7 @@
     }
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 

@@ -24,6 +24,11 @@
     $NewModified = date('Y-m-d H:i:s');
     mysqli_query($db, "UPDATE chelv__chapters SET chapter__opened = '$NewModified' WHERE chapter__id='$activeid';");   
 
+    // if not the right user
+    if ($activeuser != $ChapterActiveData['binder__owner']) {
+        header("Location: 403.php");
+    }
+
     // inclure la balise head
     include 'components/head/head.php';
 

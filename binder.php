@@ -23,7 +23,11 @@
 
     // update the date
     $NewModified = date('Y-m-d H:i:s');
-    mysqli_query($db, "UPDATE chelv__binders SET binder__opened = '$NewModified' WHERE binder__id='$activeid';");   
+    mysqli_query($db, "UPDATE chelv__binders SET binder__opened = '$NewModified' WHERE binder__id='$activeid';");  
+    
+    if ($activeuser != $BinderActiveData['binder__owner']) {
+        header("Location: 403.php");
+    }
 
     // inclure la balise head
     include 'components/head/head.php';

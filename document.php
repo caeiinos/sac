@@ -21,6 +21,11 @@
     $DocNoteQuery = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__document='$activeid';");
     $DocNoteData = $DocNoteQuery->fetch_all(MYSQLI_ASSOC);
 
+    // if not the right user
+    if ($activeuser != $DocActiveData['binder__owner']) {
+        header("Location: 403.php");
+    }
+
     // inclure la balise head
     include 'components/head/head.php';
 
