@@ -7,33 +7,37 @@
     //connect the db
     include 'utils/notlog/notlog.php';
 
+    //recupére l'utilisateur
+    $activeuser = $_SESSION['id'];
+
     // find the layer
-    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=?;");
+    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=? AND layer__owner = '$activeuser'");
     $LayerActiveQuery->execute([$_GET['layerid']]);
+    $LayerActiveData = $LayerActiveQuery->fetch();
     // find pagetitle
-    $pagetitle = $LayerActiveQuery->fetchColumn(1);
+    $pagetitle = $LayerActiveData['layer__name'];
     //find base for explorer
-    $LayerActiveQuery->execute([$_GET['layerid']]);
-    $ExplorerBase = $LayerActiveQuery->fetchColumn(6);
+    $ExplorerBase = $LayerActiveData['explorer__base'];
 
     // trouver les chapitres
-    $activeuser = $_SESSION['id'];
     $LayerChapterQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__layer=? AND chapter__owner='$activeuser';");
     $LayerChapterQuery->execute([$_GET['layerid']]);
+    $LayerChapterData = $LayerChapterQuery->fetchAll();
     // trouver les documents
     $LayerDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__owner='$activeuser' AND document__haschapter=0 ;");
     $LayerDocQuery->execute([$_GET['layerid']]);
+    $LayerDocData = $LayerDocQuery->fetchAll();
 
     // update the date
     $NewModified = date('Y-m-d H:i:s');
     $LayerActiveUpdate = $db->prepare("UPDATE chelv__layers SET layer__opened = ? WHERE layer__id=?;");  
     $LayerActiveUpdate->execute([$NewModified, $_GET['layerid']]);
     //403 and 404
-    // if (mysqli_num_rows($LayerActiveQuery)== 0) {
-    //     header("Location: 404.php");
-    // } else if ($activeuser != $LayerActiveData['layer__owner']) {
-    //     header("Location: 403.php");
-    // }
+    if (!$LayerActiveData) {
+        header("Location: 404.php");
+    } else if ($activeuser != $LayerActiveData['layer__owner']) {
+        header("Location: 403.php");
+    }
 
     // inclure la balise head
     include 'components/head/head.php';
@@ -74,12 +78,12 @@
             <?php include 'components/form/form--chapter.php'; ?>
         </div>
 
-        <form class="LayerChapterQuerys__form" action="search.php" method="get">
-            <input class="LayerChapterQuerys__search"  type="text" name="search" placeholder="Search...">
-            <div id="LayerChapterQuerys" class="tease">
+        <form class="layerchapters__form" action="search.php" method="get">
+            <input class="layerchapters__search"  type="text" name="search" placeholder="Search...">
+            <div id="layerchapters" class="tease">
                 <!-- show chapter  -->
                 <?php 
-                while ($LayerChapterRow = mysqli_fetch_array($LayerChapterQuery)) {  
+                foreach ($LayerChapterData as $LayerChapterRow) {  
                     include 'components/tease/tease--chapter.php';
                 } ?>
             </div>
@@ -101,12 +105,12 @@
             <?php include 'components/form/form--doc.php'; ?>
         </div>
 
-        <form class="LayerDocQuerys__form" action="search.php" method="get">
-            <input class="LayerDocQuerys__search"  type="text" name="search" placeholder="Search...">
-            <div id="LayerDocQuerys" class="tease">
+        <form class="layerdocuments__form" action="search.php" method="get">
+            <input class="layerdocuments__search"  type="text" name="search" placeholder="Search...">
+            <div id="layerdocuments" class="tease">
                 <!-- show document  -->
                 <?php 
-                while ($LayerDocRow = mysqli_fetch_array($LayerDocQuery)) {
+                foreach ($LayerDocData as $LayerDocRow) {
                     include 'components/tease/tease--doc.php';
                 } ?>
             </div>

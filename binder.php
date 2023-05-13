@@ -11,32 +11,28 @@
     //recupére l'utilisateur
     $activeuser = $_SESSION['id'];
 
-    // trouver le binder
-    // $activeid = $_GET['binderid'];
-    // $BinderActiveQuery = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activeid';");
-    // $BinderActiveData = mysqli_fetch_array($BinderActiveQuery);
-
-    $BinderActiveData = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id = ? AND binder__owner = '$activeuser'");
-    $BinderActiveData->execute([$_GET['binderid']]);
+    $BinderActiveQuery = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id = ? AND binder__owner = '$activeuser'");
+    $BinderActiveQuery->execute([$_GET['binderid']]);
+    $BinderActiveData = $BinderActiveQuery->fetch();
     // find pagetitle
-    $pagetitle = $BinderActiveData->fetchColumn(1);
+    $pagetitle = $BinderActiveData['binder__name'];
     //find base for explorer
-    $BinderActiveData->execute([$_GET['binderid']]);
-    $ExplorerBase = $BinderActiveData->fetchColumn(6);
+    $ExplorerBase = $BinderActiveData['explorer__base'];
 
     //recupére les projets de l'utilisateur
-    $BinderLayerData = $db->prepare("SELECT * FROM chelv__layers WHERE layer__binder = ? AND layer__owner='$activeuser';");
-    $BinderLayerData->execute([$_GET['binderid']]);
+    $BinderLayerQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__binder = ? AND layer__owner='$activeuser';");
+    $BinderLayerQuery->execute([$_GET['binderid']]);
+    $BinderLayerData = $BinderLayerQuery->fetchAll();
     // update the date
     $NewModified = date('Y-m-d H:i:s');
     $BinderActiveUpdate = $db->prepare("UPDATE chelv__binders SET binder__opened = ? WHERE binder__id = ?");
     $BinderActiveUpdate->execute([$NewModified, $_GET['binderid']]);
     //403 and 404
-    // if (mysqli_num_rows($BinderActiveQuery)== 0) {
-    //     header("Location: 404.php");
-    // } else if ($activeuser != $BinderActiveData['binder__owner']) {
-    //     header("Location: 403.php");
-    // }
+    if (!$BinderActiveData) {
+        header("Location: 404.php");
+    } else if ($activeuser != $BinderActiveData['binder__owner']) {
+        header("Location: 403.php");
+    }
 
     // inclure la balise head
     include 'components/head/head.php';
@@ -52,29 +48,25 @@
 
     <!-- binder content -->
     <main class="content content--binder">
-        <?php 
-        $BinderActiveData->execute([$_GET['binderid']]);
-        foreach ($BinderActiveData as $BinderContent) { ?>
-            <span class="binder__type">Farde</span>
-            <h1 class="binder__title">
-            <?php echo $BinderContent['binder__name']; ?>
-            </h1> 
-            <ul class="family">
-                <li class="family__item">
-                    <a href="" class="family__link">
-                    <?php echo $BinderContent['binder__name']; ?> 
-                    </a>
-                </li>
-            </ul> 
-            <form class="binder__modifie" method="POST">
-                <input name="binderidtoupdate" value="<?php echo $activeid ?>" type="hidden">
-                <input name="binderdescriptionupdate" value="" type="hidden">
-                <div id="binder-update" class="oui">
-                    <?php echo $BinderContent['binder__description']; ?> 
-                </div>
-                <button type="submit" name="updatebinder">let's go</button> 
-            </form>
-        <?php } ?>
+        <span class="binder__type">Farde</span>
+        <h1 class="binder__title">
+        <?php echo $BinderActiveData['binder__name']; ?>
+        </h1> 
+        <ul class="family">
+            <li class="family__item">
+                <a href="" class="family__link">
+                <?php echo $BinderActiveData['binder__name']; ?> 
+                </a>
+            </li>
+        </ul> 
+        <form class="binder__modifie" method="POST">
+            <input name="binderidtoupdate" value="<?php echo $BinderActiveData['binder__id'] ?>" type="hidden">
+            <input name="binderdescriptionupdate" value="" type="hidden">
+            <div id="binder-update" class="oui">
+                <?php echo $BinderActiveData['binder__description']; ?> 
+            </div>
+            <button type="submit" name="updatebinder">let's go</button> 
+        </form>
 
     </main>      
 
@@ -92,7 +84,6 @@
             <div id="binderlayers" class="tease">
                 <!-- show layer components -->
                 <?php 
-                    $BinderLayerData->execute([$_GET['binderid']]);
                     foreach ($BinderLayerData as $row) {
                         include 'components/tease/tease--layer.php';
                     }

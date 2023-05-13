@@ -10,12 +10,12 @@ $activeuser = $_SESSION['id'];
     if (isset($_GET["y"])) {
         $y = $_GET["y"];
 
-        $documentchapterQuery = "SELECT * FROM chelv__documents where document__name LIKE '$y%' AND document__chapter='$activeid' AND document__owner='$activeuser';"; 
-
-        $documentchapterResult = mysqli_query($db, $documentchapterQuery);
+        $documentchapterQuery = $db->prepare("SELECT * FROM chelv__documents where document__name LIKE '$y%' AND document__chapter=? AND document__owner=?"); 
+        $documentchapterQuery->execute([$_GET['chapterid'], $_SESSION['id']]);
+        $documentchapterData = $documentchapterQuery->fetchAll();
             
-        if (mysqli_num_rows($documentchapterResult) > 0) {
-            while ($row = mysqli_fetch_assoc($documentchapterResult)) { ?>
+        if ($documentchapterData) {
+            foreach ($documentchapterData as $row) { ?>
 
                 <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
                 <h4><?php echo $row["document__name"]; ?></h4>  

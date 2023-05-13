@@ -2,7 +2,6 @@
 
     // get user id
     $activeuser = $_SESSION['id'];
-    echo $ExplorerBase;
 
 ?>
 

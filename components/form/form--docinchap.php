@@ -3,6 +3,7 @@
     <input class="aside__addinput aside__addinput--title" type="text" name="documentname">
     <input class="hidden" type="text" name="documentbinder" value="<?php echo $ChapterActiveData['chapter__binder']; ?>" readonly="readonly">
     <input class="hidden" type="text" name="documentlayer" value="<?php echo $ChapterActiveData['chapter__layer']; ?>" readonly="readonly">
+    <input class="hidden" type="text" name="documentversion" value="default" readonly="readonly">
     <input class="hidden" type="number" name="documenthaschapter" value="1" readonly="readonly">
     <input class="hidden" id="documentchapter" type="text" name="documentchapter" value="<?php echo $ChapterActiveData['chapter__id']; ?>" readonly="readonly">
 

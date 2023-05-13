@@ -1,4 +1,4 @@
-# Simple Workflow with Laravel Mix and twig.
+# Simple Workflow with Laravel Mix.
 
 ## Install
 

@@ -1,13 +1,13 @@
 <ul class="family">
     <?php 
-        $activebinder = $LayerActiveData['layer__binder'];
-        $layerbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-        $binderparent = mysqli_fetch_array($layerbinder);
+        $layerbinderQuery = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id=? AND binder__owner='$activeuser';");
+        $layerbinderQuery->execute([$LayerActiveData['layer__binder']]);
+        $layerbinderData = $layerbinderQuery->fetch();
 
     ?>
     <li class="family__item">
-        <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
-            <?php echo $binderparent['binder__name']; ?> 
+        <a href="<?php echo 'binder.php?binderid='.$layerbinderData['binder__id']; ?>" class="family__link">
+            <?php echo $layerbinderData['binder__name']; ?> 
         </a>
     </li>
 

@@ -1,18 +1,31 @@
 <?php
 
     if (isset($_POST['submitbinder'])) {
-        $bindername = mysqli_real_escape_string($db, $_POST['bindername']);
-        $binderdescription = mysqli_real_escape_string($db, $_POST['binderdescription']);
+        $bindername = $_POST['bindername'];
+        $binderdescription = $_POST['binderdescription'];
         $binderowner = $_SESSION['id'];
         $bindercreation = date('Y-m-d H:i:s');
         $binderopened = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO chelv__binders (binder__name, binder__description, binder__owner, binder__creation, binder__opened) VALUES ('$bindername', '$binderdescription', '$binderowner', '$bindercreation', '$binderopened') ");   
-    };
+
+        $stmt = $db->prepare("INSERT INTO chelv__binders (binder__name, binder__description, binder__owner, binder__creation, binder__opened) VALUES (:bindername, :binderdescription, :binderowner, :bindercreation, :binderopened)");
+        $stmt->bindParam(':bindername', $bindername);
+        $stmt->bindParam(':binderdescription', $binderdescription);
+        $stmt->bindParam(':binderowner', $binderowner);
+        $stmt->bindParam(':bindercreation', $bindercreation);
+        $stmt->bindParam(':binderopened', $binderopened);
+
+        $stmt->execute();
+    }
 
     if (isset($_POST['updatebinder'])) {
-        $binderdescription = mysqli_real_escape_string($db, $_POST['binderdescriptionupdate']);
-        $binderid = mysqli_real_escape_string($db, $_POST['binderidtoupdate']);
-        mysqli_query($db, "UPDATE chelv__binders SET binder__description = '$binderdescription' WHERE binder__id = '$binderid' ");  
+        $binderdescription = $_POST['binderdescriptionupdate'];
+        $binderid = $_POST['binderidtoupdate'];
+    
+        $stmt = $db->prepare("UPDATE chelv__binders SET binder__description = :binderdescription WHERE binder__id = :binderid");
+        $stmt->bindParam(':binderdescription', $binderdescription);
+        $stmt->bindParam(':binderid', $binderid);
+    
+        $stmt->execute();
     }
 
     //del avce méthode get

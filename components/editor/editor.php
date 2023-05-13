@@ -2,10 +2,11 @@
 
 include '../../utils/config.php';
 
-    $activenote = $_GET['q'];
-    $query = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__id = '$activenote' ;");
+    $query = $db->prepare("SELECT * FROM chelv__notes WHERE note__id = ? ;");
+    $query->execute([$_GET['q']]);
+    $data = $query->fetchAll();
 
-    while ($row = mysqli_fetch_array($query)) {
+    foreach ($data as $row) {
         echo $row['note__description'];
     };
 ?>

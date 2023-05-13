@@ -1,24 +1,23 @@
 <ul class="family">
 
 <?php 
-    $activebinder = $ChapterActiveData['chapter__binder'];
-    $chapterbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-    $binderparent = mysqli_fetch_array($chapterbinder);
+    $chapterbinderQuery = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id=? AND binder__owner='$activeuser';");
+    $chapterbinderQuery->execute([$ChapterActiveData['chapter__binder']]);
+    $chapterbinderData = $chapterbinderQuery->fetch();
 
-    $activelayer = $ChapterActiveData['chapter__layer'];
-    $chapterlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activelayer' AND layer__owner='$activeuser';");
-    $layerparent = mysqli_fetch_array($chapterlayer);
-
+    $chapterlayerQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=? AND layer__owner='$activeuser';");
+    $chapterlayerQuery->execute([$ChapterActiveData['chapter__layer']]);
+    $chapterlayerData = $chapterlayerQuery->fetch();
 ?>
 <li class="family__item">
-    <a href="<?php echo 'binder.php?binderid='.$binderparent['binder__id']; ?>" class="family__link">
-        <?php echo $binderparent['binder__name']; ?> 
+    <a href="<?php echo 'binder.php?binderid='.$chapterbinderData['binder__id']; ?>" class="family__link">
+        <?php echo $chapterbinderData['binder__name']; ?> 
     </a>
 </li>
 
 <li class="family__item">
-    <a href="<?php echo 'layer.php?layerid='.$layerparent['layer__id']; ?>" class="family__link">
-    <?php echo $layerparent['layer__name']; ?> 
+    <a href="<?php echo 'layer.php?layerid='.$chapterlayerData['layer__id']; ?>" class="family__link">
+    <?php echo $chapterlayerData['layer__name']; ?> 
     </a>
 </li>
 

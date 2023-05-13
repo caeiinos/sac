@@ -7,25 +7,28 @@
     //connect the db
     include 'utils/notlog/notlog.php';
 
+    //recupére l'utilisateur
+    $activeuser = $_SESSION['id'];
+
     // find the chapter
-    $activeid = $_GET['chapterid'];
-    $ChapterActiveQuery = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__id='$activeid';");
-    $ChapterActiveData = mysqli_fetch_array($ChapterActiveQuery);
-   // find pagetitle
+    $ChapterActiveQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__id=? AND chapter__owner = '$activeuser'");
+    $ChapterActiveQuery->execute([$_GET['chapterid']]);
+    $ChapterActiveData = $ChapterActiveQuery->fetch();
+    // find pagetitle
     $pagetitle = $ChapterActiveData['chapter__name'];
     //find base for explorer
     $ExplorerBase = $ChapterActiveData['explorer__base'];
 
     // trouver les chapitres
-    $activeuser = $_SESSION['id']; 
-    $ChapterDocQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__chapter='$activeid' AND document__owner='$activeuser' AND document__version='default';");
-
+    $ChapterDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__chapter=? AND document__owner='$activeuser' AND document__version='default';");
+    $ChapterDocQuery->execute([$_GET['chapterid']]);
+    $ChapterDocData = $ChapterDocQuery->fetchAll();
     // update the date
     $NewModified = date('Y-m-d H:i:s');
-    mysqli_query($db, "UPDATE chelv__chapters SET chapter__opened = '$NewModified' WHERE chapter__id='$activeid';");   
-
+    $ChapterActiveUpdate = $db->prepare("UPDATE chelv__chapters SET chapter__opened = ? WHERE chapter__id=?");   
+    $ChapterActiveUpdate->execute([$NewModified, $_GET['chapterid']]);
     //403 and 404
-    if (mysqli_num_rows($ChapterActiveQuery)== 0) {
+    if (!$ChapterActiveData) {
         header("Location: 404.php");
     } else if ($activeuser != $ChapterActiveData['chapter__owner']) {
         header("Location: 403.php");
@@ -72,7 +75,7 @@
             <input class="chapterdocuments__search"  type="text" name="search" placeholder="Search...">
             <div id="chapterdocuments" class="tease">
                 <!-- show document  -->
-                <?php while ($ChapterDocRow = mysqli_fetch_array($ChapterDocQuery)) { 
+                <?php foreach ($ChapterDocData as $ChapterDocRow) { 
                     include 'components/tease/tease--docinchap.php'; 
                 } ?>
             </div>

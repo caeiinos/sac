@@ -23,12 +23,15 @@ $sitedescription = ' '
 		</title>
 
 		<meta name="description" content="<?php echo $sitedescription ?>">
-		<!-- <link rel="stylesheet" href="dist/styles/app.css" type="text/css" media="screen"/> -->
+		<link rel="stylesheet" href="dist/styles/app.css" type="text/css" media="screen"/>
 		<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
-
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">		
+		
 		<meta name="twitter:card" content="avatar de caeiinos">
 		<meta name="twitter:site" content="@JeanDeRoy1">
 		<meta name="twitter:creator" content="@JeanDeRoy1">

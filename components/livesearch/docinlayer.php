@@ -2,19 +2,15 @@
 
 include '../../utils/config.php';
 
-$activeid = $_GET['documentid'];
-
-$activeuser = $_SESSION['id'];
-
     if (isset($_GET["y"])) {
         $y = $_GET["y"];
 
-        $documentlayerQuery = "SELECT * FROM chelv__documents where document__name LIKE '$y%' AND document__layer='$activeid' AND document__owner='$activeuser';"; 
-
-        $documentlayerResult = mysqli_query($db, $documentlayerQuery);
+        $documentlayerQuery = $db->prepare("SELECT * FROM chelv__documents where document__name LIKE '$y%' AND document__layer=? AND document__owner=?"); 
+        $documentlayerQuery->execute([$_GET['layerid'], $_SESSION['id']]);
+        $documentlayerData = $documentlayerQuery->fetchAll();
             
-        if (mysqli_num_rows($documentlayerResult) > 0) {
-            while ($row = mysqli_fetch_assoc($documentlayerResult)) { ?>
+        if ($documentlayerData) {
+            foreach ($documentlayerData as $row) { ?>
 
                 <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
                 <h4><?php echo $row["document__name"]; ?></h4>  

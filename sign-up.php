@@ -6,16 +6,22 @@
     include 'utils/config.php';
 
     if (isset($_POST['email'])) {
-        
         $email = $_POST['email'];
         $name = $_POST['name'];
         $password = $_POST['password'];
         $confirmed__password = $_POST['confirmed__password'];
         $created = date('Y-m-d H:i:s');
-
+    
         if ($password == $confirmed__password) {
             $encrypted__password = hash('sha256', $password);
-            mysqli_query($db, "INSERT INTO chelv__users (user__email, user__name, user__password, user__creation) VALUES ('$email', '$name', '$encrypted__password', '$created') "); 
+    
+            $stmt = $db->prepare("INSERT INTO chelv__users (user__email, user__name, user__password, user__creation) VALUES (:email, :name, :encrypted_password, :created)");
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':encrypted_password', $encrypted__password);
+            $stmt->bindParam(':created', $created);
+    
+            $stmt->execute();
         } else {
             echo "<p>password not the same as confirmed password</p>";
         }

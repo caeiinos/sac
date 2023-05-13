@@ -7,22 +7,25 @@
     //connect the db
     include 'utils/notlog/notlog.php';
 
+    //recupére l'utilisateur
+    $activeuser = $_SESSION['id'];
+
     // trouver l'intercalaire
-    $activeid = $_GET['documentid'];
-    $DocActiveQuery = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__id='$activeid';");
-    $DocActiveData = mysqli_fetch_array($DocActiveQuery);
+    $DocActiveQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__id=? AND document__owner = '$activeuser'");
+    $DocActiveQuery->execute([$_GET['documentid']]);
+    $DocActiveData = $DocActiveQuery->fetch();
    // find pagetitle
     $pagetitle = $DocActiveData['document__name'];
     //find base for explorer
     $ExplorerBase = $DocActiveData['explorer__base'];
     
     // trouver les notes   
-    $activeuser = $_SESSION['id'];
-    $DocNoteQuery = mysqli_query($db, "SELECT * FROM chelv__notes WHERE note__document='$activeid';");
-    $DocNoteData = $DocNoteQuery->fetch_all(MYSQLI_ASSOC);
+    $DocNoteQuery = $db->prepare("SELECT * FROM chelv__notes WHERE note__document=? AND note__owner = '$activeuser'");
+    $DocNoteQuery->execute([$_GET['documentid']]);
+    $DocNoteData = $DocNoteQuery->fetchAll();
 
     //403 and 404
-    if (mysqli_num_rows($DocActiveQuery)== 0) {
+    if (!$DocActiveData) {
         header("Location: 404.php");
     } else if ($activeuser != $DocActiveData['document__owner']) {
         header("Location: 403.php");
@@ -60,9 +63,10 @@
             <ul>
                 <?php 
                 
-                $binderversion = mysqli_query($db, "SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
-
-                while ($rowversion = mysqli_fetch_array($binderversion)) { 
+                $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
+                $binderversion->execute();
+                $binderversionData = $binderversion->fetchAll();
+                foreach ($binderversionData as $rowversion) { 
 
                 ?>
                 <li>

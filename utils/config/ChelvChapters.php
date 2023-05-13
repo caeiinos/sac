@@ -1,15 +1,23 @@
 <?php
 
     if (isset($_POST['submitchapter'])) {
-        $chaptername = mysqli_real_escape_string($db, $_POST['chaptername']);
-        $chapterbinder = mysqli_real_escape_string($db, $_POST['chapterbinder']);
-        $chapterlayer = mysqli_real_escape_string($db, $_POST['chapterlayer']);
+        $chaptername = $_POST['chaptername'];
+        $chapterbinder = $_POST['chapterbinder'];
+        $chapterlayer = $_POST['chapterlayer'];
         $chapterowner = $_SESSION['id'];
         $chaptercreation = date('Y-m-d H:i:s');
         $chapteropened = date('Y-m-d H:i:s');
-        mysqli_query($db, "INSERT INTO chelv__chapters (chapter__name, chapter__binder, chapter__layer, chapter__owner, chapter__creation, chapter__opened) VALUES ('$chaptername', '$chapterbinder', '$chapterlayer', '$chapterowner', '$chaptercreation', '$chapteropened') ");   
-    };
 
+        $stmt = $db->prepare("INSERT INTO chelv__chapters (chapter__name, chapter__binder, chapter__layer, chapter__owner, chapter__creation, chapter__opened) VALUES (:chaptername, :chapterbinder, :chapterlayer, :chapterowner, :chaptercreation, :chapteropened)");
+        $stmt->bindParam(':chaptername', $chaptername);
+        $stmt->bindParam(':chapterbinder', $chapterbinder);
+        $stmt->bindParam(':chapterlayer', $chapterlayer);
+        $stmt->bindParam(':chapterowner', $chapterowner);
+        $stmt->bindParam(':chaptercreation', $chaptercreation);
+        $stmt->bindParam(':chapteropened', $chapteropened);
+
+        $stmt->execute();
+    }
     //del avce méthode get
     if (isset($_GET['del_chapter'])) {
         $id = $_GET['del_chapter'];

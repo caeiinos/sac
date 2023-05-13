@@ -12,15 +12,16 @@
         $password = $_POST['password'];
         $encrypted__password = hash('sha256', $password);
 
-        $result = mysqli_query($db, "SELECT * FROM chelv__users WHERE user__email='$email' AND user__password='$encrypted__password';");
-
-        if (mysqli_num_rows($result) > 0) {
-
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['id'] = $row['user__id'];
-            $_SESSION['email'] = $row['user__email'];
-            $_SESSION['name'] = $row['user__name'];
-
+        $result = $db->prepare("SELECT * FROM chelv__users WHERE user__email='$email' AND user__password='$encrypted__password';");
+        $result->execute();
+        $resultData = $result->fetchAll();
+        
+        if (count($resultData) > 0) {
+            foreach ($resultData as $row) {
+                $_SESSION['id'] = $row['user__id'];
+                $_SESSION['email'] = $row['user__email'];
+                $_SESSION['name'] = $row['user__name'];
+            }
             header("Location: index.php");
         }
     }

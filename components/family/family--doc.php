@@ -1,18 +1,19 @@
 <ul class="family">
 
     <?php 
-        $activebinder = $DocActiveData['document__binder'];
-        $documentbinder = mysqli_query($db, "SELECT * FROM chelv__binders WHERE binder__id='$activebinder' AND binder__owner='$activeuser';");
-        $binderparent = mysqli_fetch_array($documentbinder);
+        $documentbinder = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id=? AND binder__owner='$activeuser';");
+        $documentbinder->execute([$DocActiveData['document__binder']]);
+        $binderparent = $documentbinder->fetch();
 
-        $activelayer = $DocActiveData['document__layer'];
-        $documentlayer = mysqli_query($db, "SELECT * FROM chelv__layers WHERE layer__id='$activelayer' AND layer__owner='$activeuser';");
-        $layerparent = mysqli_fetch_array($documentlayer);
+        $documentlayer = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=? AND layer__owner='$activeuser';");
+        $documentlayer->execute([$DocActiveData['document__layer']]);
+        $layerparent = $documentlayer->fetch();
 
         if ($DocActiveData['document__haschapter']) {
             $activechapter = $DocActiveData['document__chapter'];
-            $documentchapter = mysqli_query($db, "SELECT * FROM chelv__chapters WHERE chapter__id='$activelayer' AND chapter__owner='$activeuser';");
-            $chapterparent = mysqli_fetch_array($documentchapter);                    
+            $documentchapter = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__id=? AND chapter__owner='$activeuser';");
+            $documentchapter->execute([$DocActiveData['document__chapter']]);
+            $chapterparent = $documentchapter->fetch();                    
         }
     
     ?>
