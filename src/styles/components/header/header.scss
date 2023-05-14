@@ -1,12 +1,22 @@
 @import 'nav/nav';
 
-.header {
+.header{
+  width: 100%;
+  grid-column: 1/-1;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  background-color: $grey--back;
+}
+
+.header__nav {
     display: flex;
     align-items: center;
     width: 100%;
-    width: 1600px;
-    margin: 0 auto;
     margin-bottom: 16px;
+    border: 4px solid $black;
+    box-shadow: 5px 5px 0px $black;
+    border-radius: 20px;
 }
 
 .header__logo {
@@ -22,14 +32,17 @@
   background-color: $grey--back;
   border-radius: 10px;
   margin: 0px 16px;
+  border: 4px solid $black;
+  border-radius: 10px;
 }
 
 .header__search{
   position: relative;
   z-index: 3;
-  padding: 8px 32px;
+  padding: 6px 32px;
   font-size: 16px;
   width: 90%;
+
 }
 
 .header__link{
@@ -51,6 +64,7 @@
   border-radius: 10px;
   transition: all .2s;
   padding: 6px 12px;
+  filter: drop-shadow(4px 4px 0px $black);
 
   &:hover{
     background-color: $contrast--hover;

@@ -7,4 +7,100 @@ body{
     background-color: $grey--back;
     color: $black;
     font-family: 'Poppins', sans-serif;
+    background-image: url('../assets/back.png');
+}
+
+.page{
+    display: grid;
+    grid-template-rows: 80px;
+    grid-gap: 26px;
+    margin: 0 auto;
+    max-width: 1700px;
+    height: 100vh;
+    padding-bottom:48px;
+}
+  
+@media screen and (max-width: 1700px) {
+    .page {
+        margin-left: 45px;
+        margin-right: 45px;
+    }
+}
+
+.page--accueil{
+    grid-template-columns: 275px 1fr;
+}
+
+.page--binders{
+    grid-template-columns: 275px 1fr 400px;
+}
+
+.page--layer{
+    grid-template-columns: 275px 1fr 1fr;
+    grid-template-rows: 80px 125px; 
+
+    .explorer{
+        grid-row: 2/4;
+        grid-column: 1;
+    }
+
+    .content--layer{
+        grid-row: 2;
+        grid-column: 2/-1;    
+    }
+
+    .aside--chapter{
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    .aside--document{
+        grid-column: 3;
+        grid-row: 3;
+    }
+}
+
+.page--chapitre{
+    grid-template-columns: 275px 1fr;
+    grid-template-rows: 80px 125px;
+
+    .explorer{
+        grid-row: 2/4;
+        grid-column: 1;
+    }
+
+    .content--chapter{
+        grid-row: 2;
+        grid-column: 2/-1;    
+    }
+
+    .aside--document{
+        grid-column: 2;
+        grid-row: 3;
+    }
+}
+
+.page--document{
+    grid-template-columns: 275px 275px 1fr;
+    grid-template-rows: 80px 125px;
+
+    .explorer{
+        grid-row: 2/4;
+        grid-column: 1;
+    }
+
+    .content--document{
+        grid-row: 2;
+        grid-column: 2/-1;    
+    }
+
+    .aside--link{
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    .aside--note{
+        grid-column: 3;
+        grid-row: 3;
+    }
 }

@@ -1,0 +1,88 @@
+.explorer--front{
+    border: 4px solid $black;
+    box-shadow: 7px 7px 0px $black;
+    border-radius: 20px;
+}
+
+.explorer__trigger--add{
+    background: $contrast;
+    border: 4px solid $black;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 15px;
+    font-weight: 700;
+    padding: 8px 16px;
+    color: #fefefe;
+}
+
+.explorer__search{
+    width: 102%;
+    margin-left: -1%;
+    border-bottom: solid 4px $black;
+    border-top: solid 4px $black;
+    padding: 8px 40px ;
+    margin-top: 16px;
+}
+
+.explorer__binderlist{
+    padding-left: 40px;
+    margin-top: 16px;
+}
+
+.explorer__binderitem{
+    margin-bottom: 5px;
+}
+
+.explorer__binderlink{
+    color: $contrast;
+    transition: all .3s;
+
+    &:hover{
+        color: $contrast--hover;
+    }
+}
+
+.explorer{
+    border: 4px solid #313131;
+    box-shadow: 7px 7px 0px #313131;
+    border-radius: 20px;
+    background-color: $grey--back;
+}
+
+.explorer__list{
+    padding: 8px 24px;
+    display: grid;
+    grid-template-rows: 54px;
+    gap: 16px;
+
+}
+
+.explorer__title{
+    position: relative;
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0%;
+        left: 0%;
+        width: calc(100% + 48px);
+        height: 4px;
+        background-color: #313131;
+        transform: translate(-24px);
+    }
+}
+
+.explorer__title--Chapter{
+    padding-left: 16px;
+    font-weight: 600;
+}
+
+.explorer__title--docinchap{
+    padding-left: 32px;
+    font-weight: 400;
+}
+
+.explorer__title--doc{
+    padding-left: 16px;
+    font-weight: 400;
+}
