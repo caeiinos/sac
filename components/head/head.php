@@ -23,8 +23,8 @@ $sitedescription = ' '
 		</title>
 
 		<meta name="description" content="<?php echo $sitedescription ?>">
-		<link rel="stylesheet" href="dist/styles/app.css" type="text/css" media="screen"/>
 		<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+		<link rel="stylesheet" href="dist/styles/app.css" type="text/css" media="screen"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

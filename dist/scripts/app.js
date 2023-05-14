@@ -120,23 +120,16 @@ if (QuillNoteIf) {
 }
 
 // show add
-const trigger = document.querySelectorAll('.aside__trigger');
-const form = document.querySelectorAll('.aside__addform');
-const submit = document.querySelectorAll('.aside__addsubmit');
+const trigger = document.querySelectorAll('.form__trigger');
+const form = document.querySelectorAll('.form');
 for (let i = 0; i < trigger.length; i++) {
   trigger[i].addEventListener("click", show);
   function show() {
-    if (form[i].classList.contains('aside__addform--active')) {
-      form[i].classList.remove('aside__addform--active');
+    if (form[i].classList.contains('form--active')) {
+      form[i].classList.remove('form--active');
     } else {
-      form[i].classList.add('aside__addform--active');
+      form[i].classList.add('form--active');
     }
-  }
-}
-for (let i = 0; i < submit.length; i++) {
-  submit[i].addEventListener("click", deshow);
-  function deshow() {
-    form[i].classList.add('aside__addform--active');
   }
 }
 

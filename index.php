@@ -29,12 +29,15 @@
     <main class="content">
 
         <div class="library">
-            <h1 class="tease__titletype">Mes fardes</h1>
-            <select class="tease__filter" name="binderfilter" class="damn">
-                <option value="binder__name">nom</option>
-                <option value="binder__creation">création</option>
-                <option value="binder__opened">récent</option>
-            </select>
+            <div class="library__head">
+                <h1 class="library__title">Mes fardes</h1>
+                <select class="library__filter" name="binderfilter" class="damn">
+                    <option value="binder__name">nom</option>
+                    <option value="binder__creation">création</option>
+                    <option value="binder__opened">récent</option>
+                </select>                
+            </div>
+
 
 
             <div id="tease--binder" class="tease tease--binder">

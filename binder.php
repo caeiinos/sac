@@ -48,24 +48,27 @@
 
     <!-- binder content -->
     <main class="content content--binder">
-        <span class="binder__type">Farde</span>
-        <h1 class="binder__title">
-        <?php echo $BinderActiveData['binder__name']; ?>
-        </h1> 
-        <ul class="family">
-            <li class="family__item">
-                <a href="" class="family__link">
-                <?php echo $BinderActiveData['binder__name']; ?> 
-                </a>
-            </li>
-        </ul> 
+        <div class="binder__head">
+            <span class="binder__type">Farde</span>
+            <h1 class="binder__title">
+            <?php echo $BinderActiveData['binder__name']; ?>
+            </h1> 
+            <ul class="family">
+                <li class="family__item">
+                    <a href="" class="family__link">
+                    <?php echo $BinderActiveData['binder__name']; ?> 
+                    </a>
+                </li>
+            </ul> 
+        </div>
+
         <form class="binder__modifie" method="POST">
             <input name="binderidtoupdate" value="<?php echo $BinderActiveData['binder__id'] ?>" type="hidden">
             <input name="binderdescriptionupdate" value="" type="hidden">
             <div id="binder-update" class="oui">
                 <?php echo $BinderActiveData['binder__description']; ?> 
             </div>
-            <button type="submit" name="updatebinder">let's go</button> 
+            <button class="modifie__submit--binder" type="submit" name="updatebinder">let's go</button> 
         </form>
 
     </main>      
@@ -75,30 +78,29 @@
 
         <h2 class="aside__title aside__title--layer">Les intercalaires</h2>
 
-        <!-- add layer /components -->
-        <?php include 'components/form/form--layer.php'; ?>
         <!-- every layer -->
         <form class="BinderLayer__form" action="search.php" method="get">
             <!-- layer search -->
             <input class="BinderLayer__search"  type="text" name="search" placeholder="Search...">
-            <div id="binderlayers" class="tease">
-                <!-- show layer components -->
-                <?php 
-                    foreach ($BinderLayerData as $row) {
-                        include 'components/tease/tease--layer.php';
-                    }
-                ?>
-            </div>
-        </form>
-        
 
+        </form>
+
+        <div id="binderlayers" class="tease">
+            <!-- show layer components -->
+            <?php 
+                foreach ($BinderLayerData as $row) {
+                    include 'components/tease/tease--layer.php';
+                }
+            ?>
+        </div>       
+        
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouvelle Intercalaire</p>
+        </button>
     </aside>
 
-
-        <!-- show content -->
-
-        
-
+    <!-- add layer /components -->
+    <?php include 'components/form/form--layer.php'; ?>    
 
     
 </body>

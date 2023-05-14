@@ -48,47 +48,56 @@
     <?php include 'components/form/form--note.php'; ?>
 
     <!-- layer content -->
-    <main class="content content--layer">
+    <main class="content content--document">
         <span class="layer__type">Intercalaire</span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
         <!-- get family -->
         <?php include 'components/family/family--doc.php'; ?> 
+        
+        <div class="version">
+            <div class="version__choice">
+                <button class="version__trigger">
+                    <?php echo $DocActiveData['document__version']; ?>
+                </button>
+                <ul class="version__list">
+                    <?php 
+                    
+                    $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
+                    $binderversion->execute();
+                    $binderversionData = $binderversion->fetchAll();
+                    foreach ($binderversionData as $rowversion) { 
 
-        <div>
-            <button>
-                <?php echo $DocActiveData['document__version']; ?>
-            </button>
-            <ul>
-                <?php 
-                
-                $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
-                $binderversion->execute();
-                $binderversionData = $binderversion->fetchAll();
-                foreach ($binderversionData as $rowversion) { 
-
-                ?>
-                <li>
-                    <p>
-                        <?php echo $rowversion['document__version']; ?>
-                    </p>
-                </li>
-                <?php } ?>
-            </ul>
+                    ?>
+                    <li class="version__item">
+                        <p>
+                            <?php echo $rowversion['document__version']; ?>
+                        </p>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        
+            <div class="versionadd__trigger">
+                <button class="version__item">
+                    +
+                </button>
+                <!-- form to add version -->
+                <?php include 'components/form/form--version.php'; ?>
+            </div>  
         </div>
-    
-        <div>
-            <button>
-                +
-            </button>
-            <!-- form to add version -->
-            <?php include 'components/form/form--version.php'; ?>
-        </div>    
+  
     </main>   
 
+    <aside class="aside aside--link">
+        <h2 class="aside__title">
+            Liens utiles
+        </h2>
+    </aside>
+
     <!-- document -->
-    <aside class="aside aside--document">
+    <aside class="aside aside--note">
 
         <h2 class="aside__title aside__title--document">Les notes</h2>
 
@@ -105,7 +114,7 @@
         </div>
 
         <!-- add note  -->
-        <button class="note__add">nouvelle note</button>
+        <button class="form__trigger note__add">nouvelle note</button>
     </aside>
     
 </body>

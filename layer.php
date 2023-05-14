@@ -68,26 +68,23 @@
     <aside class="aside aside--chapter">
 
         <h2 class="aside__title aside__title--chapter">Les chapitres</h2>
-        <!-- add chapter  -->
-        <div class="aside__add aside__add--chapter aside__item aside__item--chapter">
-            <button class="aside__trigger aside__trigger--add">
-                <p>Nouveau chapitre</p>
-            </button>
-
-            <!-- form to add chapter -->
-            <?php include 'components/form/form--chapter.php'; ?>
-        </div>
 
         <form class="layerchapters__form" action="search.php" method="get">
             <input class="layerchapters__search"  type="text" name="search" placeholder="Search...">
-            <div id="layerchapters" class="tease">
-                <!-- show chapter  -->
-                <?php 
-                foreach ($LayerChapterData as $LayerChapterRow) {  
-                    include 'components/tease/tease--chapter.php';
-                } ?>
-            </div>
         </form>
+
+        <div id="layerchapters" class="tease">
+            <!-- show chapter  -->
+            <?php 
+            foreach ($LayerChapterData as $LayerChapterRow) {  
+                include 'components/tease/tease--chapter.php';
+            } ?>
+        </div>
+
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouveau chapitre</p>
+        </button>
+
     </aside>
 
     
@@ -96,26 +93,27 @@
 
         <h2 class="aside__title aside__title--document">Les documents</h2>
         <!-- add document  -->
-        <div class="aside__add aside__add--document aside__item aside__item--document">
-            <button class="aside__trigger aside__trigger--add">
-                <p>Nouveau document</p>
-            </button>
-
-            <!-- form to add document -->
-            <?php include 'components/form/form--doc.php'; ?>
-        </div>
 
         <form class="layerdocuments__form" action="search.php" method="get">
             <input class="layerdocuments__search"  type="text" name="search" placeholder="Search...">
-            <div id="layerdocuments" class="tease">
-                <!-- show document  -->
-                <?php 
-                foreach ($LayerDocData as $LayerDocRow) {
-                    include 'components/tease/tease--doc.php';
-                } ?>
-            </div>
         </form>
+
+        <div id="layerdocuments" class="tease tease--layer">
+            <!-- show document  -->
+            <?php 
+            foreach ($LayerDocData as $LayerDocRow) {
+                include 'components/tease/tease--doc.php';
+            } ?>
+        </div>
+
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouveau document</p>
+        </button>
     </aside>
+
+    <?php include 'components/form/form--chapter.php'; ?>
     
+    <?php include 'components/form/form--doc.php'; ?>
+
 </body>
 </html>

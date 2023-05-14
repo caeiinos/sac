@@ -2,12 +2,12 @@
 <!-- 
     <h3 class="explorer__title">explorer</h3> -->
 
-    <ul class="explorer__list">
+    <ul class="explorer__list--front">
 
         <div class="explorer__binder">
             
-        <div class="aside__add  aside__item">
-            <button class="aside__trigger aside__trigger--add">
+        <div class=" explorer__add  explorer__item">
+            <button class="form__trigger explorer__trigger explorer__trigger--add">
                     <p>Nouveau classeur</p>
                 </button>
 
@@ -16,7 +16,7 @@
                 ?>
             </div>
 
-            <form class="explorer__form" action="search.php" method="get">
+            <form class="explorer__livesearch" action="search.php" method="get">
                 <input class="explorer__search"  type="text" name="search" placeholder="Search...">
                 <div id="explorersearch">
                     <ul class="explorer__binderlist">

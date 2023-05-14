@@ -2,17 +2,15 @@
 
 include '../../utils/config.php';
 
-$activeuser = $_SESSION['id'];
-
     if (isset($_GET["q"])) {
         $q = $_GET["q"];
 
-        $ProjectQuery = "SELECT * FROM chelv__binders where binder__name LIKE '$q%' AND binder__owner='$activeuser';"; 
-
-        $ProjectResult = mysqli_query($db, $ProjectQuery);
+        $ProjectQuery = $db->prepare("SELECT * FROM chelv__binders where binder__name LIKE '$q%' AND binder__owner=?"); 
+        $ProjectQuery->execute([$_SESSION['id']]);
+        $ProjectData = $ProjectQuery->fetchAll();
             
-        if (mysqli_num_rows($ProjectResult) > 0) {
-            while ($row = mysqli_fetch_assoc($ProjectResult)) { ?>
+        if ($ProjectData ) {
+            foreach ($ProjectData as $row) { ?>
 
                 <a href="binder.php?binderid=<?php echo $row["binder__id"]; ?>">
                 <h4><?php echo $row["binder__name"]; ?></h4>  

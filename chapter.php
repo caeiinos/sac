@@ -48,7 +48,7 @@
     <?php include 'components/explorer/explorer.php'; ?>
 
     <!-- layer content -->
-    <main class="content content--layer">
+    <main class="content content--chapter">
         <span class="layer__type">Intercalaire</span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
@@ -61,27 +61,26 @@
     <aside class="aside aside--document">
 
         <h2 class="aside__title aside__title--document">Les intercalaires</h2>
-        <!-- add document  -->
-        <div class="aside__add aside__add--document aside__item aside__item--document">
-            <button class="aside__trigger aside__trigger--add">
-                <p>Nouveau document</p>
-            </button>
-
-            <!-- form to add document -->
-            <?php include 'components/form/form--docinchap.php'; ?>
-        </div>
 
         <form class="chapterdocuments__form" action="search.php" method="get">
             <input class="chapterdocuments__search"  type="text" name="search" placeholder="Search...">
-            <div id="chapterdocuments" class="tease">
-                <!-- show document  -->
-                <?php foreach ($ChapterDocData as $ChapterDocRow) { 
-                    include 'components/tease/tease--docinchap.php'; 
-                } ?>
-            </div>
         </form>
-    </aside>
 
+        <div id="chapterdocuments" class="tease">
+            <!-- show document  -->
+            <?php foreach ($ChapterDocData as $ChapterDocRow) { 
+                include 'components/tease/tease--docinchap.php'; 
+            } ?>
+        </div>
+
+        <!-- add document  -->
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouveau document</p>
+        </button>
+    </aside>
+    
+    <!-- form to add document -->
+    <?php include 'components/form/form--docinchap.php'; ?>
 
 </body>
 </html>
