@@ -10,16 +10,20 @@ include '../../utils/config.php';
         $documentlayerData = $documentlayerQuery->fetchAll();
             
         if ($documentlayerData) {
-            foreach ($documentlayerData as $row) { ?>
+            foreach ($documentlayerData as $LayerDocRow) { ?>
 
-                <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
-                <h4><?php echo $row["document__name"]; ?></h4>  
+                <a class="tease__link" href="<?php echo 'document.php?documentid='.$LayerDocRow['document__id']; ?>">
+                    <h4 class="tease__title tease__title--document">
+                        <?php echo $LayerDocRow['document__name']; ?>
+                    </h4>
                 </a>
                 
             <?php }
-        }else {
-            echo "<h6>no data found</h6>";
-        }
+        }else { ?>
+            <p class="explorer__no">
+                Aucun résultat trouvé. Réessayez avec un autre recherche
+            </p>
+        <?php }
 
     }
 ?>

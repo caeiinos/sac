@@ -447,6 +447,8 @@ button,
 input {
   background-color: transparent;
   border: transparent solid;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 input:focus-visible {
@@ -529,8 +531,8 @@ h6 {
   background-color: #5F00B6;
   border-radius: 10px;
   transition: all 0.2s;
+  border: 4px solid #313131;
   padding: 6px 12px;
-  filter: drop-shadow(4px 4px 0px #313131);
 }
 .header__sign:hover {
   background-color: #49008C;
@@ -602,15 +604,40 @@ h6 {
   padding-left: 24px;
 }
 
+.note {
+  padding-left: 24px;
+  margin-top: 8px;
+  border-bottom: 4px dashed;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .aside__trigger, .note__add {
   position: absolute;
   bottom: 16px;
   right: 16px;
   color: #F5F5F5;
   background-color: #5F00B6;
+  border: 4px solid #313131;
   border-radius: 10px;
   transition: all 0.2s;
   padding: 6px 12px;
+  filter: drop-shadow(4px 4px 0px #313131);
+}
+
+.note__content {
+  position: relative;
+}
+
+.note__modifie {
+  position: absolute;
+  right: 16px;
+  color: #5F00B6;
+  background-color: #DADADA;
+  border: 4px solid #313131;
+  border-radius: 10px;
+  transition: all 0.2s;
+  padding: 4px 12px;
   filter: drop-shadow(4px 4px 0px #313131);
 }
 
@@ -632,14 +659,14 @@ h6 {
 .form__head {
   background: #DADADA;
   border: 4px solid #313131;
-  box-shadow: 15px 15px 0px #313131;
+  box-shadow: 7px 7px 0px #313131;
   border-radius: 10px;
   width: 400px;
   margin: auto;
   padding: 48px 24px;
   display: grid;
   padding: 16px 24px;
-  margin-top: 80px;
+  margin-top: 40px;
   margin-bottom: 32px;
 }
 
@@ -650,7 +677,7 @@ h6 {
 .form__add {
   background: #DADADA;
   border: 4px solid #313131;
-  box-shadow: 15px 15px 0px #313131;
+  box-shadow: 7px 7px 0px #313131;
   border-radius: 10px;
   width: 726px;
   margin: auto;
@@ -660,9 +687,14 @@ h6 {
 }
 
 .form__label {
-  padding-left: 16px;
+  padding: 0px 16px;
   font-weight: 700;
-  margin-bottom: -4px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: 16px;
+  border: 4px solid;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 0px;
 }
 
 .form__input {
@@ -687,10 +719,9 @@ h6 {
 
 .form__cancel {
   border: 4px solid #313131;
-  box-shadow: 7px 7px 0px #313131;
+  box-shadow: 4px 4px 0px #313131;
   border-radius: 10px;
   display: block;
-  margin-top: 15px;
   font-weight: 700;
   padding: 8px 16px;
   color: #5F00B6;
@@ -698,10 +729,9 @@ h6 {
 
 .form__submit {
   border: 4px solid #313131;
-  box-shadow: 7px 7px 0px #313131;
+  box-shadow: 4px 4px 0px #313131;
   border-radius: 10px;
   display: block;
-  margin-top: 15px;
   font-weight: 700;
   padding: 8px 16px;
   background-color: #5F00B6;
@@ -712,6 +742,7 @@ h6 {
   border: 4px solid #313131;
   box-shadow: 7px 7px 0px #313131;
   border-radius: 20px;
+  background-color: #DADADA;
 }
 
 .explorer__trigger--add {
@@ -851,6 +882,11 @@ h6 {
   gap: 8px;
 }
 
+.family__separator {
+  font-weight: 700;
+  letter-spacing: -3px;
+}
+
 .binder__type {
   display: block;
   margin-bottom: -16px;
@@ -909,7 +945,8 @@ h6 {
 
 .version__trigger {
   color: #5F00B6;
-  background-color: #F5F5F5;
+  background-color: #DADADA;
+  border: 4px solid #313131;
   border-radius: 10px;
   transition: all 0.2s;
   padding: 4px 12px;
@@ -920,6 +957,7 @@ h6 {
   color: #F5F5F5;
   background-color: #5F00B6;
   border-radius: 10px;
+  border: 4px solid #313131;
   transition: all 0.2s;
   padding: 4px 12px;
   filter: drop-shadow(4px 4px 0px #313131);
@@ -927,6 +965,49 @@ h6 {
 
 .version__list {
   display: none;
+}
+
+.notfound {
+  width: 500px;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  padding: 8px 40px 40px;
+  background: #DADADA;
+  border: 4px solid #313131;
+  box-shadow: 7px 7px 0px #313131;
+  border-radius: 10px;
+}
+
+.notfound__title {
+  text-align: center;
+  font-size: 64px;
+  position: relative;
+  margin-top: -8px;
+}
+.notfound__title::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 0%;
+  width: calc(100% + 80px);
+  height: 4px;
+  background-color: #313131;
+  transform: translate(-40px);
+}
+
+.notfound__text {
+  margin-bottom: 32px;
+}
+
+.notfound__link {
+  color: #F5F5F5;
+  background-color: #5F00B6;
+  border-radius: 10px;
+  transition: all 0.2s;
+  padding: 6px 12px;
+  filter: drop-shadow(4px 4px 0px #313131);
+  border: 4px solid #313131;
 }
 
 body {

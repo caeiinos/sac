@@ -10,6 +10,7 @@
         <input name="notedocument" value="<?php echo $DocActiveData['document__id']; ?>" type="hidden">
         <input name="notedescription" value="" type="hidden">
 
+        <label class="form__label form__label--document" for="documentname">contenu</label>
         <div class="form__editor">
             <div id="editor-container" class="oui">
                 <p>Hello World!</p>
@@ -20,7 +21,7 @@
 
         <div class="form__button">
             <button class="form__cancel">Annuler</button>
-            <button class="form__submit" type="submit" name="submitbinder">Valider</button>
+            <button class="form__submit" type="submit" name="submitnote">Valider</button>
         </div>   
     </form>
 </div>

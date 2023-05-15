@@ -20,9 +20,11 @@ include '../../utils/config.php';
                 </section>
                 
             <?php }
-        }else {
-            echo "<h6>no data found</h6>";
-        }
+        }else { ?>
+            <p class="explorer__no">
+                Aucun résultat trouvé. Réessayez avec un autre recherche
+            </p>
+        <?php }
 
     }
 ?>

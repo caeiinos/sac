@@ -18,13 +18,15 @@ $activeuser = $_SESSION['id'];
             foreach ($documentchapterData as $row) { ?>
 
                 <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
-                <h4><?php echo $row["document__name"]; ?></h4>  
+                    <h4><?php echo $row["document__name"]; ?></h4>  
                 </a>
                 
             <?php }
-        }else {
-            echo "<h6>no data found</h6>";
-        }
+        }else { ?>
+            <p class="explorer__no">
+                Aucun résultat trouvé. Réessayez avec un autre recherche
+            </p>
+        <?php }
 
     }
 ?>

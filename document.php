@@ -24,6 +24,11 @@
     $DocNoteQuery->execute([$_GET['documentid']]);
     $DocNoteData = $DocNoteQuery->fetchAll();
 
+    // trouver les notes   
+    $DocLinkQuery = $db->prepare("SELECT * FROM chelv__links WHERE link__document=? AND link__owner = '$activeuser'");
+    $DocLinkQuery->execute([$_GET['documentid']]);
+    $DocLinkData = $DocLinkQuery->fetchAll();
+
     //403 and 404
     if (!$DocActiveData) {
         header("Location: 404.php");
@@ -43,9 +48,6 @@
 
     <!-- explorer -->
     <?php include 'components/explorer/explorer.php'; ?>
-
-    <!-- note editor and creator -->
-    <?php include 'components/form/form--note.php'; ?>
 
     <!-- layer content -->
     <main class="content content--document">
@@ -80,11 +82,9 @@
             </div>
         
             <div class="versionadd__trigger">
-                <button class="version__item">
+                <button class="form__trigger version__item">
                     +
                 </button>
-                <!-- form to add version -->
-                <?php include 'components/form/form--version.php'; ?>
             </div>  
         </div>
   
@@ -94,6 +94,16 @@
         <h2 class="aside__title">
             Liens utiles
         </h2>
+
+        <div id="documentnotes" class="tease">
+            <!-- show note  -->
+            <?php foreach ($DocLinkData as $row) {
+                include 'components/tease/tease--link.php';                    
+            } ?>
+        </div>
+
+        <!-- add note  -->
+        <button class="form__trigger note__add">nouveau lien</button>
     </aside>
 
     <!-- document -->
@@ -116,6 +126,15 @@
         <!-- add note  -->
         <button class="form__trigger note__add">nouvelle note</button>
     </aside>
+
+    <!-- form to add version -->
+    <?php include 'components/form/form--version.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php include 'components/form/form--link.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php include 'components/form/form--note.php'; ?>
     
 </body>
 </html>

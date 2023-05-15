@@ -1,0 +1,42 @@
+.notfound{
+    width: 500px;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 8px 40px 40px;
+    background: $grey--back;
+    border: 4px solid #313131;
+    box-shadow: 7px 7px 0px #313131;
+    border-radius: 10px;
+}
+
+.notfound__title{
+    text-align: center;
+    font-size: 64px;
+    position: relative;
+    margin-top: -8px;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        left: 0%;
+        width: calc(100% + 80px);
+        height: 4px;
+        background-color: #313131;
+        transform: translate(-40px);
+    }
+}
+
+.notfound__text{
+    margin-bottom: 32px;
+}
+
+.notfound__link{
+    color: $white;
+    background-color: #5F00B6;
+    border-radius: 10px;
+    transition: all 0.2s;
+    padding: 6px 12px;
+    filter: drop-shadow(4px 4px 0px #313131);
+    border: 4px solid $black;
+}

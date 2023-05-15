@@ -11,8 +11,6 @@
 
             <h2 class="explorer__title">explorer</h2>
 
-            <!-- <?php include '../livesearch/livesearch--explorer' ?> -->
-
             <ul class="explorer__projet">
 
                 <!-- get layer from binder -->

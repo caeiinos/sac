@@ -31,6 +31,9 @@
     //fonctions pour les documents
     include 'config/ChelvDocuments.php';
 
-    //fonctions pour les documents
+    //fonctions pour les notes
     include 'config/ChelvNotes.php';
+    
+    //fonctions pour les liens
+    include 'config/ChelvLinks.php';
 ?>

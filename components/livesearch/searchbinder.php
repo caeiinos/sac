@@ -10,16 +10,22 @@ include '../../utils/config.php';
         $ProjectData = $ProjectQuery->fetchAll();
             
         if ($ProjectData ) {
-            foreach ($ProjectData as $row) { ?>
-
-                <a href="binder.php?binderid=<?php echo $row["binder__id"]; ?>">
-                <h4><?php echo $row["binder__name"]; ?></h4>  
-                </a>
-                
+            foreach ($ProjectData as $NavBinderRow) { ?>
+            
+                <ul class="explorer__binderlist">
+                    <li class="explorer__binderitem">
+                        <a class="explorer__binderlink" href="<?php echo 'binder.php?binderid='.$NavBinderRow['binder__id']; ?>">
+                            <?php echo $NavBinderRow['binder__name']; ?>
+                        </a>
+                    </li>
+                </ul>                
+            
             <?php }
-        }else {
-            echo "<h6>no data found</h6>";
-        }
+        }else { ?>
+            <p class="explorer__no">
+                Aucun résultat trouvé. Réessayez avec un autre recherche
+            </p>
+        <?php }
 
     }
 ?>

@@ -12,6 +12,10 @@
     </li>
 
     <li class="family__item">
+        <p class="family__separator">>></p>
+    </li>
+
+    <li class="family__item">
         <a href="" class="family__link">
         <?php echo $pagetitle ?> 
         </a>

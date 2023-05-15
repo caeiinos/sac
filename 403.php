@@ -10,15 +10,15 @@
     // inclure la balise head
     include 'components/head/head.php';
 ?>
-<body>
+<body class="page">
     
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>
 
-    <section>
-        <h1>403</h1>
-        <h2>Vous vous êtes perdu?</h2>
-        <p>Oh là ! Il semble que vous ayez rencontré une barrière inattendue. Malheureusement, l'accès à cette page est interdit. Vous pourriez être confronté à une erreur 403, ce qui signifie que vous n'avez pas les autorisations nécessaires pour afficher son contenu.</p>
-        <a href="index.php">retourner en lieu sur</a>
+    <section class="notfound">
+        <h1 class="notfound__title">403!</h1>
+        <h2 class="notfound__subtitle">Vous vous êtes perdu?</h2>
+        <p class="notfound__text">Accès interdit : vous avez atteint une barrière inattendue. Malheureusement, l'accès à cette page est restreint.</p>
+        <a class="notfound__link" href="index.php">retourner en lieu sur</a>
     </section>
 </body>

@@ -10,15 +10,19 @@ include '../../utils/config.php';
         $chapterlayerData = $chapterlayerQuery->fetchAll();
             
         if ($chapterlayerData) {
-            foreach ($chapterlayerData as $row) { ?>
+            foreach ($chapterlayerData as $LayerChapterRow) { ?>
 
-                <a href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
-                <h4><?php echo $row["chapter__name"]; ?></h4>  
+                <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$LayerChapterRow['chapter__id']; ?>">
+                    <h4 class="tease__title tease__title--layer">
+                        <?php echo $LayerChapterRow['chapter__name']; ?>
+                    </h4>
                 </a>
                 
             <?php }
-        }else {
-            echo "<h6>no data found</h6>";
-        }
+        }else { ?>
+            <p class="explorer__no">
+                Aucun résultat trouvé. Réessayez avec un autre recherche
+            </p>
+        <?php }
     }
 ?>

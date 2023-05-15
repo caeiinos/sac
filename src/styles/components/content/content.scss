@@ -63,6 +63,11 @@
     gap: 8px;
 }
 
+.family__separator{
+    font-weight: 700;
+    letter-spacing: -3px;
+}
+
 .binder__type{
     display: block;
     margin-bottom: -16px;
@@ -97,7 +102,7 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    color: #F5F5F5;
+    color: $white;
     background-color: #5F00B6;
     border-radius: 10px;
     transition: all 0.2s;
@@ -121,7 +126,8 @@
 
 .version__trigger{
     color: #5F00B6;
-    background-color: #F5F5F5;
+    background-color: $grey--back;
+    border: 4px solid $black;
     border-radius: 10px;
     transition: all 0.2s;
     padding: 4px 12px;
@@ -129,9 +135,10 @@
 }
 
 .version__item{
-    color: #F5F5F5;
+    color: $white;
     background-color: #5F00B6;
     border-radius: 10px;
+    border: 4px solid $black;
     transition: all 0.2s;
     padding: 4px 12px;
     filter: drop-shadow(4px 4px 0px #313131);

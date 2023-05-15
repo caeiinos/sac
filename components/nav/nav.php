@@ -1,7 +1,7 @@
 <header class="header">
     <nav class="header__nav">
         <a class="header__logo" href="index.php" >
-        <?php include 'C:\xampp\htdocs\sac\components\svg\logo.php ' ?>
+        <?php include 'components\svg\logo.php ' ?>
         </a>
         <form class="header__form" action="search.php" method="get">
             <input class="header__search"  type="text" name="search" placeholder="Search...">

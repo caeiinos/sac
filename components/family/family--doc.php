@@ -24,9 +24,17 @@
     </li>
 
     <li class="family__item">
+        <p class="family__separator">>></p>
+    </li>
+
+    <li class="family__item">
         <a href="<?php echo 'layer.php?layerid='.$layerparent['layer__id']; ?>" class="family__link">
         <?php echo $layerparent['layer__name']; ?> 
         </a>
+    </li>
+
+    <li class="family__item">
+        <p class="family__separator">>></p>
     </li>
 
     <?php if ($DocActiveData['document__haschapter']) { ?>
@@ -34,6 +42,10 @@
             <a href="<?php echo 'chapter.php?chapterid='.$chapterparent['chapter__id']; ?>" class="family__link">
             <?php echo $chapterparent['chapter__name']; ?> 
             </a>
+        </li>
+
+        <li class="family__item">
+            <p class="family__separator">>></p>
         </li>
     <?php } ?>
 
