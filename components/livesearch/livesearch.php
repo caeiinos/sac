@@ -18,9 +18,9 @@ $activeuser = $_SESSION['id'];
         $BinderQuery->execute();
         foreach ($BinderQuery as $row) { ?>
 
-            <a href="binder.php?binderid=<?php echo $row["binder__id"]; ?>">
-                <h4><?php echo $row["binder__name"]; ?></h4>  
-                <p>farde</p>          
+            <a class="livesearch__link" href="binder.php?binderid=<?php echo $row["binder__id"]; ?>">
+                <h4 class="livesearch__title"><?php echo $row["binder__name"]; ?></h4>  
+                <p class="livesearch__type">farde</p>          
             </a>
 
         <?php }
@@ -28,9 +28,9 @@ $activeuser = $_SESSION['id'];
         $LayerQuery->execute();
         foreach ($LayerQuery as $row) { ?>
 
-            <a href="layer.php?layerid=<?php echo $row["layer__id"]; ?>">
-                <h4><?php echo $row["layer__name"]; ?></h4>  
-                <p>intercalaire</p>          
+            <a class="livesearch__link" href="layer.php?layerid=<?php echo $row["layer__id"]; ?>">
+                <h4 class="livesearch__title"><?php echo $row["layer__name"]; ?></h4>  
+                <p class="livesearch__type">intercalaire</p>          
             </a>
 
         <?php }
@@ -38,9 +38,9 @@ $activeuser = $_SESSION['id'];
         $ChapQuery->execute();
         foreach ($ChapQuery as $row ) { ?>
 
-            <a href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
-                <h4><?php echo $row["chapter__name"]; ?></h4>  
-                <p>chapitre</p>          
+            <a class="livesearch__link" href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
+                <h4 class="livesearch__title"><?php echo $row["chapter__name"]; ?></h4>  
+                <p class="livesearch__type">chapitre</p>          
             </a>
 
         <?php }
@@ -48,9 +48,9 @@ $activeuser = $_SESSION['id'];
         $DocQuery->execute();
         foreach ($DocQuery as $row) { ?>
 
-            <a href="document.php?documentid=<?php echo $row["document__id"]; ?>">
-                <h4><?php echo $row["document__name"]; ?></h4>  
-                <p>document</p>          
+            <a class="livesearch__link" href="document.php?documentid=<?php echo $row["document__id"]; ?>">
+                <h4 class="livesearch__title"><?php echo $row["document__name"]; ?></h4>  
+                <p class="livesearch__type">document</p>          
             </a>
 
         <?php }

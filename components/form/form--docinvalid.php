@@ -1,4 +1,4 @@
-<div class="form form__back">
+<div class="form--active form__back">
     <section class="form__head">
         <h2 class="form__title">
             Créer une DOCUMENT
@@ -7,6 +7,7 @@
 
     <form class="form__add form--document" method="POST">
         <label class="form__label form__label--document" for="documentname">Titre</label>
+        <p class="form__invalid">Veuillez remplir ce champ</p>
         <input class="form__input form__input--document" type="text" name="documentname">
         <input class="hidden" type="hidden" name="documentbinder" value="<?php echo $LayerActiveData['layer__binder']; ?>" readonly="readonly">
         <input class="hidden" id="documentlayer" type="hidden" name="documentlayer" value="<?php echo $LayerActiveData['layer__id']; ?>" readonly="readonly">

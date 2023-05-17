@@ -34,7 +34,7 @@
                 <select class="library__filter" name="binderfilter" class="damn">
                     <option value="binder__name">nom</option>
                     <option value="binder__creation">création</option>
-                    <option value="binder__opened">récent</option>
+                    <option value="binder__opened DESC">récent</option>
                 </select>                
             </div>
 
@@ -56,7 +56,11 @@
     
     </main>
    
-
+    <?php 
+        if (isset($errorbinder)) {
+        include 'components/form/form--invalid.php'; 
+        }
+    ?>
 
     
 </body>

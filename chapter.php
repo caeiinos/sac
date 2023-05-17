@@ -17,7 +17,7 @@
     // find pagetitle
     $pagetitle = $ChapterActiveData['chapter__name'];
     //find base for explorer
-    $ExplorerBase = $ChapterActiveData['explorer__base'];
+    $ExplorerBase = $ChapterActiveData['chapter__binder'];
 
     // trouver les chapitres
     $ChapterDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__chapter=? AND document__owner='$activeuser' AND document__version='default';");
@@ -49,7 +49,7 @@
 
     <!-- layer content -->
     <main class="content content--chapter">
-        <span class="layer__type">Intercalaire</span>
+        <span class="layer__type">Chapitre</span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
@@ -60,7 +60,7 @@
     <!-- document -->
     <aside class="aside aside--document">
 
-        <h2 class="aside__title aside__title--document">Les intercalaires</h2>
+        <h2 class="aside__title aside__title--document">Les documents</h2>
 
         <form class="chapterdocuments__form" action="search.php" method="get">
             <input class="chapterdocuments__search"  type="text" name="search" placeholder="Search...">
@@ -79,6 +79,12 @@
         </button>
     </aside>
     
+    <?php 
+        if (isset($errordoc)) {
+        include 'components/form/form--docinchapinvalid.php'; 
+        }
+    ?>
+
     <!-- form to add document -->
     <?php include 'components/form/form--docinchap.php'; ?>
 

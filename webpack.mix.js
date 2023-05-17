@@ -30,7 +30,7 @@ mix
   })
   .sourceMaps()
   .browserSync({
-    proxy: "http://localhost:8080/sac/",
+    proxy: "http://localhost/sac/",
     files: [
       'dist/**/*.css',
       'dist/**/*.js',

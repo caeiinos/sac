@@ -16,7 +16,7 @@
     </li>
 
     <li class="family__item">
-        <p class="family__separator">></p>
+        <p class="family__separator">>></p>
     </li>
 
     <li class="family__item">

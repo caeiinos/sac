@@ -10,15 +10,14 @@ include '../../utils/config.php';
         foreach ($query as $row) { ?>
 
             <!-- fardes -->
-            <a class="tease__link" href="<?php echo 'binder.php?binderid='.$row['binder__id']; ?>">
-                    <span class="tease__type">farde</span>
-                    <h4 class="tease__title">
-                        <?php echo $row['binder__name']; ?>
-                    </h4>
-                    <p class="tease__description">
-                        <?php echo $row['binder__description']; ?> 
-                    </p>
-
+            <a class=" tease__link--binder" href="<?php echo 'binder.php?binderid='.$row['binder__id']; ?>">
+                <span class=" tease__type--binder">farde</span>
+                <h4 class=" tease__title--binder">
+                    <?php echo $row['binder__name']; ?>
+                </h4>
+                <p>
+                    dernière ouverture : <?php echo $row['binder__opened']; ?> 
+                </p>
             </a> 
 
         <?php }

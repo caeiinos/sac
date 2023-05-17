@@ -17,7 +17,7 @@
     // find pagetitle
     $pagetitle = $BinderActiveData['binder__name'];
     //find base for explorer
-    $ExplorerBase = $BinderActiveData['explorer__base'];
+    $ExplorerBase = $BinderActiveData['binder__id'];
 
     //recupére les projets de l'utilisateur
     $BinderLayerQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__binder = ? AND layer__owner='$activeuser';");
@@ -68,7 +68,7 @@
             <div id="binder-update" class="oui">
                 <?php echo $BinderActiveData['binder__description']; ?> 
             </div>
-            <button class="modifie__submit--binder" type="submit" name="updatebinder">let's go</button> 
+            <button class="modifie__submit--binder" type="submit" name="updatebinder">Sauvegarder</button> 
         </form>
 
     </main>      
@@ -99,8 +99,17 @@
         </button>
     </aside>
 
+    <?php 
+        if (isset($errorlayer)) {
+        include 'components/form/form--layerinvalid.php'; 
+        }
+    ?>
+
     <!-- add layer /components -->
     <?php include 'components/form/form--layer.php'; ?>    
+
+    <!-- add layer /components -->
+    <?php include 'components/nophone/nophone.php'; ?>    
 
     
 </body>

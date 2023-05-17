@@ -1,11 +1,11 @@
-<div class="form form__back">
+<div class="form note__editor form__back">
     <section class="form__head">
         <h2 class="form__title">
             Éditeur de NOTES
         </h2>
     </section>
 
-    <form class="form__add note__editor" method="POST">
+    <form class="form__add" method="POST">
         <input id="noteid" name="noteid" type="hidden">
         <input name="notedocument" value="<?php echo $DocActiveData['document__id']; ?>" type="hidden">
         <input name="notedescription" value="" type="hidden">
@@ -20,8 +20,8 @@
         </div>  
 
         <div class="form__button">
-            <button class="form__cancel">Annuler</button>
             <button class="form__submit" type="submit" name="submitnote">Valider</button>
+            <button class="form__cancel">Annuler</button>
         </div>   
     </form>
 </div>

@@ -1,20 +1,25 @@
 <?php
 
     if (isset($_POST['submitbinder'])) {
-        $bindername = $_POST['bindername'];
-        $binderdescription = $_POST['binderdescription'];
-        $binderowner = $_SESSION['id'];
-        $bindercreation = date('Y-m-d H:i:s');
-        $binderopened = date('Y-m-d H:i:s');
+        if (empty($_POST['bindername'])) {
+            $errorbinder = true;
+        } else {
+           $bindername = $_POST['bindername'];
+           $binderdescription = $_POST['binderdescription'];
+           $binderowner = $_SESSION['id'];
+           $bindercreation = date('Y-m-d H:i:s');
+           $binderopened = date('Y-m-d H:i:s');
 
-        $stmt = $db->prepare("INSERT INTO chelv__binders (binder__name, binder__description, binder__owner, binder__creation, binder__opened) VALUES (:bindername, :binderdescription, :binderowner, :bindercreation, :binderopened)");
-        $stmt->bindParam(':bindername', $bindername);
-        $stmt->bindParam(':binderdescription', $binderdescription);
-        $stmt->bindParam(':binderowner', $binderowner);
-        $stmt->bindParam(':bindercreation', $bindercreation);
-        $stmt->bindParam(':binderopened', $binderopened);
+           $stmt = $db->prepare("INSERT INTO chelv__binders (binder__name, binder__description, binder__owner, binder__creation, binder__opened) VALUES (:bindername, :binderdescription, :binderowner, :bindercreation, :binderopened)");
+           $stmt->bindParam(':bindername', $bindername);
+           $stmt->bindParam(':binderdescription', $binderdescription);
+           $stmt->bindParam(':binderowner', $binderowner);
+           $stmt->bindParam(':bindercreation', $bindercreation);
+           $stmt->bindParam(':binderopened', $binderopened);
 
-        $stmt->execute();
+           $stmt->execute();
+        }
+
     }
 
     if (isset($_POST['updatebinder'])) {

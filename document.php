@@ -17,7 +17,7 @@
    // find pagetitle
     $pagetitle = $DocActiveData['document__name'];
     //find base for explorer
-    $ExplorerBase = $DocActiveData['explorer__base'];
+    $ExplorerBase = $DocActiveData['document__binder'];
     
     // trouver les notes   
     $DocNoteQuery = $db->prepare("SELECT * FROM chelv__notes WHERE note__document=? AND note__owner = '$activeuser'");
@@ -51,7 +51,7 @@
 
     <!-- layer content -->
     <main class="content content--document">
-        <span class="layer__type">Intercalaire</span>
+        <span class="layer__type">Document</span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 
@@ -73,16 +73,16 @@
 
                     ?>
                     <li class="version__item">
-                        <p>
+                        <a href="document.php?documentid=<?php echo $rowversion['document__id']; ?>" class="version__link">
                             <?php echo $rowversion['document__version']; ?>
-                        </p>
+                        </a>
                     </li>
                     <?php } ?>
                 </ul>
             </div>
         
             <div class="versionadd__trigger">
-                <button class="form__trigger version__item">
+                <button class="form__trigger version__add">
                     +
                 </button>
             </div>  
@@ -95,7 +95,7 @@
             Liens utiles
         </h2>
 
-        <div id="documentnotes" class="tease">
+        <div class="tease tease--link">
             <!-- show note  -->
             <?php foreach ($DocLinkData as $row) {
                 include 'components/tease/tease--link.php';                    
@@ -111,11 +111,6 @@
 
         <h2 class="aside__title aside__title--document">Les notes</h2>
 
-        <form class="documentnotes__form" method="get">
-            <input class="documentnotes__search"  type="text" name="search" placeholder="Search...">
-            <input id="notedocument" value="<?php echo $DocActiveData['document__id'] ?>" type="hidden">
-        </form>
-
         <div id="documentnotes" class="note">
             <!-- show note  -->
             <?php foreach ($DocNoteData as $row) {
@@ -127,8 +122,16 @@
         <button class="form__trigger note__add">nouvelle note</button>
     </aside>
 
+
     <!-- form to add version -->
     <?php include 'components/form/form--version.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php 
+        if (isset($errorlink)) {
+        include 'components/form/form--linkinvalid.php'; 
+        }
+    ?>
 
     <!-- note editor and creator -->
     <?php include 'components/form/form--link.php'; ?>

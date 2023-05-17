@@ -25,6 +25,7 @@ canvas,
 svg {
     display: block;
     max-width: 100%;
+    flex-shrink: 0;
 }
 
 input,
@@ -50,11 +51,18 @@ input {
     background-color: transparent;
     border: transparent solid;
     font-size: 16px;
+}
+
+button{
     cursor: pointer;
 }
 
 input:focus-visible{
     outline: none;
+}
+
+path{
+    fill: #5F00B6;
 }
 
 p,
@@ -71,3 +79,23 @@ h6 {
 #__next {
     isolation: isolate;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #3131312b;
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #3131313f;
+    border-radius: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #1313133f;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  

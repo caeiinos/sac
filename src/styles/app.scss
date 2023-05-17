@@ -11,7 +11,6 @@ body{
 }
 
 .page{
-    display: grid;
     grid-template-rows: 80px;
     grid-gap: 26px;
     margin: 0 auto;
@@ -32,7 +31,7 @@ body{
 }
 
 .page--binders{
-    grid-template-columns: 275px 1fr 400px;
+    grid-template-columns: 275px 1fr 360px;
 }
 
 .page--layer{
@@ -102,5 +101,43 @@ body{
     .aside--note{
         grid-column: 3;
         grid-row: 3;
+    }
+}
+
+.nophone{
+    position: absolute;
+    z-index: 25;
+    width: calc(100vw + 45px);
+    height: 120vh;
+    background: $contrast;
+    transform: translate(-45px);
+    top: 0%;
+
+    .notfound{
+        margin-top: 48px;
+        width: 80%;
+    }
+
+    .notfound__title{
+        font-size: 32px;
+        padding-bottom: 8px;
+    }
+
+    .notfound__subtitle{
+        font-size: 24px;
+    }
+
+    .notfound__text{
+        font-size: 16px;
+    }
+}
+
+@media(min-width:1300px){
+    .nophone{
+        display: none;
+    }
+
+    .page{
+        display: grid;
     }
 }

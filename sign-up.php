@@ -6,25 +6,45 @@
     include 'utils/config.php';
 
     if (isset($_POST['email'])) {
-        $email = $_POST['email'];
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        $confirmed__password = $_POST['confirmed__password'];
-        $created = date('Y-m-d H:i:s');
-    
-        if ($password == $confirmed__password) {
-            $encrypted__password = hash('sha256', $password);
-    
-            $stmt = $db->prepare("INSERT INTO chelv__users (user__email, user__name, user__password, user__creation) VALUES (:email, :name, :encrypted_password, :created)");
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':encrypted_password', $encrypted__password);
-            $stmt->bindParam(':created', $created);
-    
-            $stmt->execute();
-        } else {
-            echo "<p>password not the same as confirmed password</p>";
+
+        if (empty($_POST['email'])) {
+            $errormail = true;
+        };
+
+        if (empty($_POST['password'])) {
+            $errorpassword = true;
+        };
+
+        if (empty($_POST['username'])) {
+            $errorusername = true;
+        };
+
+        if (empty($_POST['confirmed__password'])) {
+            $errorconfpassword = true;
+        };
+
+        if (!empty($_POST['confirmed__password']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])) {
+            $email = $_POST['email'];
+            $name = $_POST['name'];
+            $password = $_POST['password'];
+            $confirmed__password = $_POST['confirmed__password'];
+            $created = date('Y-m-d H:i:s');
+        
+            if ($password == $confirmed__password) {
+                $encrypted__password = hash('sha256', $password);
+        
+                $stmt = $db->prepare("INSERT INTO chelv__users (user__email, user__name, user__password, user__creation) VALUES (:email, :name, :encrypted_password, :created)");
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':name', $name);
+                $stmt->bindParam(':encrypted_password', $encrypted__password);
+                $stmt->bindParam(':created', $created);
+        
+                $stmt->execute();
+            } else {
+                $passworconfnotok = true;
+            }        
         }
+
     }
 
     // inclure la balise head
@@ -32,44 +52,48 @@
 
 ?>
 
-<body>
+<body class="sign">
 
-    <h1>
+    <h1 class="sign__title">
         inscrivez-vous à
     </h1>
 
-    <form role="form" method="post">
-        <div>
-            <input type="email" name="email" id="email">
-            <label for="email">
+    <form class="sign__form" role="form" method="post">
+            <?php if (isset($errormail)) { ?>
+                <p class="form__invalid">Veuillez remplir ce champ</p>
+            <?php } ?>
+            <label class="sign__label" for="email">
                 email
             </label>
-        </div>
-        <div>
-            <input type="text" name="name" id="surname">
-            <label for="name">
+            <input class="sign__input" type="email" name="email" id="email">
+            <?php if (isset($errorusername)) { ?>
+                <p class="form__invalid">Veuillez remplir ce champ</p>
+            <?php } ?>
+            <label class="sign__label" for="name">
                 Nom d'utilisateur
             </label>
-        </div>
-        <div>   
-            <input type="password" name="password" id="password">
-            <label for="password">
+            <input class="sign__input" type="text" name="name" id="surname">
+            <?php if (isset($errorpassword)) { ?>
+                <p class="form__invalid">Veuillez remplir ce champ</p>
+            <?php } ?>
+            <label class="sign__label" for="password">
                 Mot de passe
             </label>
-        </div>
-        <div>
-            <input type="password" name="confirmed__password" id="confirmed__password">
-            <label for="confirmed__password">
+            <input class="sign__input" type="password" name="password" id="password">
+            <?php if (isset($errorconfpassword)) { ?>
+                <p class="form__invalid">Veuillez remplir ce champ</p>
+            <?php } ?>
+            <label class="sign__label" for="confirmed__password">
                 confirmation du mot de passe
             </label>
-        </div>
+            <input class="sign__input" type="password" name="confirmed__password" id="confirmed__password">
 
-        <button type="submit">Créer mon compte</button>    
+        <button class="sign__submit" type="submit">Créer mon compte</button>    
     </form>
 
-    <div>
-        <p>déjà sur CHELV ?</p>
-        <a href="sign-in.php"> Connectez-vous</a>
+    <div class="sign__go">
+        <p class="go__text">déjà sur CHELV ?</p>
+        <a class="go__link" href="sign-in.php"> Connectez-vous</a>
     </div>
 </body>
 </html>

@@ -24,8 +24,12 @@ if (QuillBinderIf) {
   var QuilBinder = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#binder-quill', {
     modules: {
       toolbar: [[{
-        header: [2, false]
-      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+        header: [2, 3, 4, false]
+      }], ['bold', 'italic', 'underline'], ['link', 'blockquote', 'code-block', 'image'], [{
+        list: 'ordered'
+      }, {
+        list: 'bullet'
+      }]]
     },
     placeholder: 'Compose an epic...',
     theme: 'snow' // or 'bubble'
@@ -49,8 +53,12 @@ if (QuillBinderUIf) {
   var QuilBinderU = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#binder-update', {
     modules: {
       toolbar: [[{
-        header: [2, false]
-      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+        header: [2, 3, 4, false]
+      }], ['bold', 'italic', 'underline'], ['link', 'blockquote', 'code-block', 'image'], [{
+        list: 'ordered'
+      }, {
+        list: 'bullet'
+      }]]
     },
     placeholder: 'Compose an epic...',
     theme: 'snow' // or 'bubble'
@@ -74,8 +82,12 @@ if (QuillNoteIf) {
   var QuillNote = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#editor-container', {
     modules: {
       toolbar: [[{
-        header: [2, false]
-      }], ['bold', 'italic', 'underline'], ['image', 'code-block']]
+        header: [2, 3, 4, false]
+      }], ['bold', 'italic', 'underline'], ['link', 'blockquote', 'code-block', 'image'], [{
+        list: 'ordered'
+      }, {
+        list: 'bullet'
+      }]]
     },
     placeholder: 'Compose an epic...',
     theme: 'snow' // or 'bubble'
@@ -103,7 +115,7 @@ if (QuillNoteIf) {
   // put note in form--note for modification
   for (let i = 0; i < QuillNoteModifie.length; i++) {
     QuillNoteModifie[i].addEventListener('click', function () {
-      QuillNoteEditor.classList.add("noteeditor--active");
+      QuillNoteEditor.classList.add("form--active");
       var str = this.id;
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function () {
@@ -130,6 +142,26 @@ for (let i = 0; i < trigger.length; i++) {
     } else {
       form[i].classList.add('form--active');
     }
+  }
+}
+
+// show note option
+const notetrigger = document.querySelectorAll('.note__trigger');
+const noteoption = document.querySelectorAll('.note__overlay');
+for (let i = 0; i < notetrigger.length; i++) {
+  notetrigger[i].addEventListener("click", triggeroption);
+  function triggeroption() {
+    noteoption[i].classList.toggle('note__overlay--active');
+  }
+}
+
+// show note version
+const versiontrigger = document.querySelectorAll('.version__trigger');
+const versionoption = document.querySelectorAll('.version__list');
+for (let i = 0; i < versiontrigger.length; i++) {
+  versiontrigger[i].addEventListener("click", triggerversion);
+  function triggerversion() {
+    versionoption[i].classList.toggle('version__list--active');
   }
 }
 
@@ -244,28 +276,9 @@ if (chapterdocumentssearch) {
   });
 }
 
-// livesearch for notes in document
-
-var documentnotessearch = document.querySelector(".documentnotes__search");
-if (documentnotessearch) {
-  documentnotessearch.addEventListener('keyup', function () {
-    let activedocument = document.getElementById("notedocument");
-    let documentid = activedocument.value;
-    let documentnotescontent = this.value;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("documentnotes").innerHTML = this.responseText;
-      }
-    };
-    xmlhttp.open("GET", "components/livesearch/noteindoc.php?documentid=" + documentid + "&y=" + documentnotescontent, true);
-    xmlhttp.send();
-  });
-}
-
 // filter
 
-var projectfilter = document.querySelector(".tease__filter");
+var projectfilter = document.querySelector(".library__filter");
 if (projectfilter) {
   projectfilter.addEventListener('change', function () {
     let choice = this.value;

@@ -17,14 +17,14 @@
     // find pagetitle
     $pagetitle = $LayerActiveData['layer__name'];
     //find base for explorer
-    $ExplorerBase = $LayerActiveData['explorer__base'];
+    $ExplorerBase = $LayerActiveData['layer__binder'];
 
     // trouver les chapitres
     $LayerChapterQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__layer=? AND chapter__owner='$activeuser';");
     $LayerChapterQuery->execute([$_GET['layerid']]);
     $LayerChapterData = $LayerChapterQuery->fetchAll();
     // trouver les documents
-    $LayerDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__owner='$activeuser' AND document__haschapter=0 ;");
+    $LayerDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__owner='$activeuser' AND document__haschapter=0  AND document__version='default';");
     $LayerDocQuery->execute([$_GET['layerid']]);
     $LayerDocData = $LayerDocQuery->fetchAll();
 
@@ -73,7 +73,7 @@
             <input class="layerchapters__search"  type="text" name="search" placeholder="Search...">
         </form>
 
-        <div id="layerchapters" class="tease">
+        <div id="layerchapters" class="tease tease--short">
             <!-- show chapter  -->
             <?php 
             foreach ($LayerChapterData as $LayerChapterRow) {  
@@ -98,7 +98,7 @@
             <input class="layerdocuments__search"  type="text" name="search" placeholder="Search...">
         </form>
 
-        <div id="layerdocuments" class="tease tease--layer">
+        <div id="layerdocuments" class="tease tease--short">
             <!-- show document  -->
             <?php 
             foreach ($LayerDocData as $LayerDocRow) {
@@ -111,8 +111,20 @@
         </button>
     </aside>
 
+    <?php 
+        if (isset($errorchap)) {
+        include 'components/form/form--chapterinvalid.php'; 
+        }
+    ?>
+
     <?php include 'components/form/form--chapter.php'; ?>
     
+    <?php 
+        if (isset($errordoc)) {
+        include 'components/form/form--docinvalid.php'; 
+        }
+    ?>
+
     <?php include 'components/form/form--doc.php'; ?>
 
 </body>

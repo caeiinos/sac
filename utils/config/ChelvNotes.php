@@ -27,9 +27,11 @@
     }
 
     //del avce méthode get
-    if (isset($_GET['del_note'])) {
-        $id = $_GET['del_note'];
-        mysqli_query($db, "DELETE FROM Mynotes WHERE id=$id");
+    if (isset($_POST['del_note'])) {
+        $id = $_POST['idtodelete'];
+        $stmt = $db->prepare("DELETE FROM chelv__notes WHERE note__id=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
 ?>
