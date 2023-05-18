@@ -11,7 +11,7 @@
     $activeuser = $_SESSION['id'];
 
     // find the layer
-    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=? AND layer__owner = '$activeuser'");
+    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=?");
     $LayerActiveQuery->execute([$_GET['layerid']]);
     $LayerActiveData = $LayerActiveQuery->fetch();
     // find pagetitle
@@ -70,7 +70,7 @@
         <h2 class="aside__title aside__title--chapter">Les chapitres</h2>
 
         <form class="layerchapters__form" action="search.php" method="get">
-            <input class="layerchapters__search"  type="text" name="search" placeholder="Search...">
+            <input class="layerchapters__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 
         <div id="layerchapters" class="tease tease--short">
@@ -95,7 +95,7 @@
         <!-- add document  -->
 
         <form class="layerdocuments__form" action="search.php" method="get">
-            <input class="layerdocuments__search"  type="text" name="search" placeholder="Search...">
+            <input class="layerdocuments__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 
         <div id="layerdocuments" class="tease tease--short">
@@ -126,6 +126,9 @@
     ?>
 
     <?php include 'components/form/form--doc.php'; ?>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
 
 </body>
 </html>

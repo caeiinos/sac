@@ -62,6 +62,8 @@
         }
     ?>
 
-    
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>
+        
 </body>
 </html>

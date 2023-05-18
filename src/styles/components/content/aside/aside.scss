@@ -18,13 +18,27 @@
     border-bottom:4px solid #313131;
 }
 
-.BinderLayer__search, .layerdocuments__search, .layerchapters__search, .chapterdocuments__form, .documentnotes__search{
+.BinderLayer__form, .layerdocuments__form, .layerchapters__form, .chapterdocuments__form{
+    position: relative;
+    &::after{
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 18px;
+        left: 16px;
+        transform: translateY(-50%);
+        background-image: url("../assets/search.svg");
+    }
+}
+
+.BinderLayer__search, .layerdocuments__search, .layerchapters__search, .chapterdocuments__form{
     outline: none;
     border: 0px;
     width: 100%;
     border-bottom: 4px solid #313131;
-    /* border-top: 4px solid #313131; */
     padding: 8px 16px;
+    padding-left: 44px;
 }
 
 .tease{

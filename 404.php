@@ -21,4 +21,9 @@
         <p class="notfound__text">Oh non ! Il semble que vous ayez atteint une page qui n'existe pas. La fameuse erreur 404. Ne vous inquiétez pas, cela arrive parfois lorsque l'on s'aventure dans des territoires inconnus.</p>
         <a class="notfound__link" href="index.php">retourner en lieu sur</a>
     </section>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
+
 </body>
+</html>

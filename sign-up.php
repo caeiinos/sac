@@ -15,7 +15,7 @@
             $errorpassword = true;
         };
 
-        if (empty($_POST['username'])) {
+        if (empty($_POST['name'])) {
             $errorusername = true;
         };
 
@@ -23,7 +23,7 @@
             $errorconfpassword = true;
         };
 
-        if (!empty($_POST['confirmed__password']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email'])) {
+        if (!empty($_POST['confirmed__password']) && !empty($_POST['name']) && !empty($_POST['password']) && !empty($_POST['email'])) {
             $email = $_POST['email'];
             $name = $_POST['name'];
             $password = $_POST['password'];
@@ -40,6 +40,8 @@
                 $stmt->bindParam(':created', $created);
         
                 $stmt->execute();
+
+                header("Location: sign-in.php");
             } else {
                 $passworconfnotok = true;
             }        
@@ -95,5 +97,9 @@
         <p class="go__text">déjà sur CHELV ?</p>
         <a class="go__link" href="sign-in.php"> Connectez-vous</a>
     </div>
+    
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
+
 </body>
 </html>

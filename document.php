@@ -11,7 +11,7 @@
     $activeuser = $_SESSION['id'];
 
     // trouver l'intercalaire
-    $DocActiveQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__id=? AND document__owner = '$activeuser'");
+    $DocActiveQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__id=?");
     $DocActiveQuery->execute([$_GET['documentid']]);
     $DocActiveData = $DocActiveQuery->fetch();
    // find pagetitle
@@ -138,6 +138,9 @@
 
     <!-- note editor and creator -->
     <?php include 'components/form/form--note.php'; ?>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
     
 </body>
 </html>

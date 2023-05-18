@@ -68,5 +68,9 @@
         <p class="go__text">Nouveau sur CHELV ?</p>
         <a class="go__link" href="sign-up.php"> Créer un compte</a>
     </div>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
+    
 </body>
 </html>

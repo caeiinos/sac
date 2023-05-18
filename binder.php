@@ -11,7 +11,7 @@
     //recupére l'utilisateur
     $activeuser = $_SESSION['id'];
 
-    $BinderActiveQuery = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id = ? AND binder__owner = '$activeuser'");
+    $BinderActiveQuery = $db->prepare("SELECT * FROM chelv__binders WHERE binder__id = ?");
     $BinderActiveQuery->execute([$_GET['binderid']]);
     $BinderActiveData = $BinderActiveQuery->fetch();
     // find pagetitle
@@ -81,7 +81,7 @@
         <!-- every layer -->
         <form class="BinderLayer__form" action="search.php" method="get">
             <!-- layer search -->
-            <input class="BinderLayer__search"  type="text" name="search" placeholder="Search...">
+            <input class="BinderLayer__search"  type="text" name="search" placeholder="rechercher...">
 
         </form>
 
@@ -108,7 +108,7 @@
     <!-- add layer /components -->
     <?php include 'components/form/form--layer.php'; ?>    
 
-    <!-- add layer /components -->
+    <!-- no phone -->
     <?php include 'components/nophone/nophone.php'; ?>    
 
     

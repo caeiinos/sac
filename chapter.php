@@ -11,7 +11,7 @@
     $activeuser = $_SESSION['id'];
 
     // find the chapter
-    $ChapterActiveQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__id=? AND chapter__owner = '$activeuser'");
+    $ChapterActiveQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__id=?");
     $ChapterActiveQuery->execute([$_GET['chapterid']]);
     $ChapterActiveData = $ChapterActiveQuery->fetch();
     // find pagetitle
@@ -63,7 +63,7 @@
         <h2 class="aside__title aside__title--document">Les documents</h2>
 
         <form class="chapterdocuments__form" action="search.php" method="get">
-            <input class="chapterdocuments__search"  type="text" name="search" placeholder="Search...">
+            <input class="chapterdocuments__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 
         <div id="chapterdocuments" class="tease">
@@ -87,6 +87,9 @@
 
     <!-- form to add document -->
     <?php include 'components/form/form--docinchap.php'; ?>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
 
 </body>
 </html>

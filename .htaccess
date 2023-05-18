@@ -1,8 +1,17 @@
-ErrorDocument 404 /sac/404.php
+# ErrorDocument 404 /sac/404.php
+
+# RewriteEngine On
+# RewriteBase /
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME}\.php -f
+# RewriteRule ^binder/([0-9]+)$ /sac/binder.php?binderid=$1 [L]
+# RewriteRule ^layer/([0-9]+)$ /sac/lyer.php?layerid=$1 [L]
+
+ErrorDocument 404 https://jean-deroy.be/projets/tfe/404.php
 
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^binder/([0-9]+)$ /sac/binder.php?binderid=$1 [L]
-RewriteRule ^layer/([0-9]+)$ /sac/lyer.php?layerid=$1 [L]
+RewriteRule https://jean-deroy.be/projets/tfe/^binder/([0-9]+)$ https://jean-deroy.be/projets/tfe/binder.php?binderid=$1 [L]
+RewriteRule https://jean-deroy.be/projets/tfe/^layer/([0-9]+)$ https://jean-deroy.be/projets/tfe/layer.php?layerid=$1 [L]

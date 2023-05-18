@@ -21,4 +21,9 @@
         <p class="notfound__text">Accès interdit : vous avez atteint une barrière inattendue. Malheureusement, l'accès à cette page est restreint.</p>
         <a class="notfound__link" href="index.php">retourner en lieu sur</a>
     </section>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
+    
 </body>
+</html>

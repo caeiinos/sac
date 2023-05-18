@@ -538,6 +538,17 @@ h6 {
   margin: 0px 16px;
   border: 4px solid #313131;
   border-radius: 10px;
+  position: relative;
+}
+.header__form::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 19px;
+  left: 16px;
+  transform: translateY(-50%);
+  background-image: url("../assets/search.svg");
 }
 
 .header__search {
@@ -546,6 +557,7 @@ h6 {
   padding: 6px 32px;
   font-size: 16px;
   width: 90%;
+  padding-left: 40px;
 }
 
 .header__link {
@@ -667,7 +679,7 @@ h6 {
 
 .tease__title--binder {
   font-weight: 900;
-  font-size: 48px;
+  font-size: 40px;
   border-bottom: 1px solid;
   word-wrap: normal;
   overflow: hidden;
@@ -802,13 +814,27 @@ h6 {
   border-bottom: 4px solid #313131;
 }
 
-.BinderLayer__search, .layerdocuments__search, .layerchapters__search, .chapterdocuments__form, .documentnotes__search {
+.BinderLayer__form, .layerdocuments__form, .layerchapters__form, .chapterdocuments__form {
+  position: relative;
+}
+.BinderLayer__form::after, .layerdocuments__form::after, .layerchapters__form::after, .chapterdocuments__form::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 18px;
+  left: 16px;
+  transform: translateY(-50%);
+  background-image: url("../assets/search.svg");
+}
+
+.BinderLayer__search, .layerdocuments__search, .layerchapters__search, .chapterdocuments__form {
   outline: none;
   border: 0px;
   width: 100%;
   border-bottom: 4px solid #313131;
-  /* border-top: 4px solid #313131; */
   padding: 8px 16px;
+  padding-left: 44px;
 }
 
 .tease {
@@ -1095,6 +1121,10 @@ h6 {
 
 .explorer__link--docinchap {
   padding-left: 32px;
+}
+
+#explorersearch .explorer__no {
+  padding-left: 40px;
 }
 
 .content {

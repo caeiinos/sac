@@ -17,7 +17,7 @@
             </div>
 
             <form class="explorer__livesearch" action="search.php" method="get">
-                <input class="explorer__search"  type="text" name="search" placeholder="Search...">
+                <input class="explorer__search"  type="text" name="search" placeholder="rechercher...">
                 <div id="explorersearch">
                     <ul class="explorer__binderlist">
                         <?php foreach ($IndexBinderData as $NavBinderRow) { ?>
