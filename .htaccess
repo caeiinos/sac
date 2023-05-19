@@ -7,11 +7,13 @@
 # RewriteRule ^binder/([0-9]+)$ /sac/binder.php?binderid=$1 [L]
 # RewriteRule ^layer/([0-9]+)$ /sac/lyer.php?layerid=$1 [L]
 
-ErrorDocument 404 https://jean-deroy.be/projets/tfe/404.php
+ErrorDocument 404 https://jean-deroy.be/projets/tfe/app/404.php
 
 RewriteEngine On
-RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule https://jean-deroy.be/projets/tfe/^binder/([0-9]+)$ https://jean-deroy.be/projets/tfe/binder.php?binderid=$1 [L]
-RewriteRule https://jean-deroy.be/projets/tfe/^layer/([0-9]+)$ https://jean-deroy.be/projets/tfe/layer.php?layerid=$1 [L]
+RewriteRule ^projets/tfe/app/binder/(\d+)$ projets/tfe/app/binder.php?binderid=$1 [L]
+RewriteRule ^projets/tfe/app/layer/(\d+)$ projets/tfe/app/layer.php?layerid=$1 [L]
+RewriteRule ^projets/tfe/app/chapter/(\d+)$ projets/tfe/app/chapter.php?chapterid=$1 [L]
+RewriteRule ^projets/tfe/app/document/(\d+)$ projets/tfe/app/document.php?documentid=$1 [L]
+RewriteRule ^projets/tfe/app/$ projets/tfe/app/index.php [L]
