@@ -130,6 +130,11 @@ body{
     }
 }
 
+.page .nophone{
+    width: calc(100% + 90px);
+    transform: translate(-45px);
+}
+
 @media(min-width:1300px){
     .nophone{
         display: none;
