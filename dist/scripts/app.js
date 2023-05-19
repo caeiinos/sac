@@ -41,7 +41,7 @@ if (QuillBinderIf) {
 
   // store wysiwyg content in input on keyup for binder
   var QuillBinderwys = document.querySelector('#binder-quill');
-  QuillBinderwys.addEventListener('keyup', function () {
+  QuillBinderwys.addEventListener('DOMSubtreeModified', function () {
     let QuillBinderValue = document.querySelector('input[name=binderdescription]');
     QuillBinderValue.value = QuilBinder.root.innerHTML.trim();
   });
@@ -70,7 +70,7 @@ if (QuillBinderUIf) {
 
   // store wysiwyg content in input on keyup for binder
   var QuillBinderUwys = document.querySelector('#binder-update');
-  QuillBinderUwys.addEventListener('keyup', function () {
+  QuillBinderUwys.addEventListener('DOMSubtreeModified', function () {
     let QuillBinderUValue = document.querySelector('input[name=binderdescriptionupdate]');
     QuillBinderUValue.value = QuilBinderU.root.innerHTML.trim();
   });
@@ -99,7 +99,7 @@ if (QuillNoteIf) {
 
   // store wysiwyg content in input on keyup for note
   var Quillwys = document.querySelector('.oui');
-  Quillwys.addEventListener('keyup', function () {
+  Quillwys.addEventListener('DOMSubtreeModified', function () {
     let QuillValueKeeper = document.querySelector('input[name=notedescription]');
     QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
   });
@@ -134,6 +134,7 @@ if (QuillNoteIf) {
 // show add
 const trigger = document.querySelectorAll('.form__trigger');
 const form = document.querySelectorAll('.form');
+const tofocus = document.querySelectorAll('.form__input--tofocus');
 for (let i = 0; i < trigger.length; i++) {
   trigger[i].addEventListener("click", show);
   function show() {
@@ -141,6 +142,9 @@ for (let i = 0; i < trigger.length; i++) {
       form[i].classList.remove('form--active');
     } else {
       form[i].classList.add('form--active');
+      if (tofocus[i]) {
+        tofocus[i].focus();
+      }
     }
   }
 }
@@ -167,21 +171,23 @@ for (let i = 0; i < versiontrigger.length; i++) {
 
 // livesearch
 var headerSearch = document.querySelector(".header__search");
-headerSearch.addEventListener('keyup', function () {
-  let str = this.value;
-  if (str.length == 0) {
-    document.getElementById("livesearch").innerHTML = "";
-    return;
-  }
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("livesearch").innerHTML = this.responseText;
+if (headerSearch) {
+  headerSearch.addEventListener('keyup', function () {
+    let str = this.value;
+    if (str.length == 0) {
+      document.getElementById("livesearch").innerHTML = "";
+      return;
     }
-  };
-  xmlhttp.open("GET", "components/livesearch/livesearch.php?q=" + str, true);
-  xmlhttp.send();
-});
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("livesearch").innerHTML = this.responseText;
+      }
+    };
+    xmlhttp.open("GET", "components/livesearch/livesearch.php?q=" + str, true);
+    xmlhttp.send();
+  });
+}
 
 // livesearch for project explorer
 

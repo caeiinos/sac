@@ -55,12 +55,6 @@
         
     
     </main>
-   
-    <?php 
-        if (isset($errorbinder)) {
-        include 'components/form/form--invalid.php'; 
-        }
-    ?>
 
     <!-- no phone -->
     <?php include 'components/nophone/nophone.php'; ?>

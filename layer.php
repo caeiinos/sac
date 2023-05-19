@@ -111,19 +111,7 @@
         </button>
     </aside>
 
-    <?php 
-        if (isset($errorchap)) {
-        include 'components/form/form--chapterinvalid.php'; 
-        }
-    ?>
-
     <?php include 'components/form/form--chapter.php'; ?>
-    
-    <?php 
-        if (isset($errordoc)) {
-        include 'components/form/form--docinvalid.php'; 
-        }
-    ?>
 
     <?php include 'components/form/form--doc.php'; ?>
 

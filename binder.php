@@ -99,12 +99,6 @@
         </button>
     </aside>
 
-    <?php 
-        if (isset($errorlayer)) {
-        include 'components/form/form--layerinvalid.php'; 
-        }
-    ?>
-
     <!-- add layer /components -->
     <?php include 'components/form/form--layer.php'; ?>    
 

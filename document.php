@@ -66,7 +66,17 @@
                 <ul class="version__list">
                     <?php 
                     
-                    $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name='$pagetitle' AND document__owner='$activeuser';");
+                    $versionname = $DocActiveData['document__name'];
+                    $versionbinder = $DocActiveData['document__binder'];
+                    $versionlayer = $DocActiveData['document__layer'];
+                    $versionchapter = $DocActiveData['document__chapter'];
+                    
+                    $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name=:versionname AND document__owner=:activeuser AND document__binder=:versionbinder AND document__layer=:versionlayer AND document__chapter=:versionchapter");
+                    $binderversion->bindParam(':versionname', $versionname);
+                    $binderversion->bindParam(':activeuser', $activeuser);
+                    $binderversion->bindParam(':versionbinder', $versionbinder);
+                    $binderversion->bindParam(':versionlayer', $versionlayer);
+                    $binderversion->bindParam(':versionchapter', $versionchapter);
                     $binderversion->execute();
                     $binderversionData = $binderversion->fetchAll();
                     foreach ($binderversionData as $rowversion) { 
@@ -125,13 +135,6 @@
 
     <!-- form to add version -->
     <?php include 'components/form/form--version.php'; ?>
-
-    <!-- note editor and creator -->
-    <?php 
-        if (isset($errorlink)) {
-        include 'components/form/form--linkinvalid.php'; 
-        }
-    ?>
 
     <!-- note editor and creator -->
     <?php include 'components/form/form--link.php'; ?>

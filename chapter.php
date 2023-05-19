@@ -78,12 +78,6 @@
             <p>Nouveau document</p>
         </button>
     </aside>
-    
-    <?php 
-        if (isset($errordoc)) {
-        include 'components/form/form--docinchapinvalid.php'; 
-        }
-    ?>
 
     <!-- form to add document -->
     <?php include 'components/form/form--docinchap.php'; ?>
