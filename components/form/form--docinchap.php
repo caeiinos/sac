@@ -1,4 +1,4 @@
-<div class="form form__back">
+<div class="form <?php if (isset($errordoc)) { echo "form--active"; } ?> form__back">
     <section class="form__head">
         <h2 class="form__title">
             Créer une DOCUMENT
@@ -6,8 +6,11 @@
     </section>
 
     <form class="form__add form--document" method="POST">
+        <?php if (isset($errordoc)) { ?>
+            <p class="form__invalid">Veuillez remplir ce champ</p>
+        <?php } ?>        
         <label class="form__label form__label--title" for="documentname">Titre</label>
-        <input class="form__input form__input--title" type="text" name="documentname">
+        <input class="form__input form__input--title form__input--tofocus" type="text" name="documentname" autofocus>
         <input class="hidden" type="hidden" name="documentbinder" value="<?php echo $ChapterActiveData['chapter__binder']; ?>" readonly="readonly">
         <input class="hidden" type="hidden" name="documentlayer" value="<?php echo $ChapterActiveData['chapter__layer']; ?>" readonly="readonly">
         <input class="hidden" type="hidden" name="documentversion" value="default" readonly="readonly">

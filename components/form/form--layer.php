@@ -1,4 +1,4 @@
-<div class="form form__back">
+<div class="form <?php if (isset($errorlayer)) { echo "form--active"; } ?>  form__back">
     <section class="form__head">
         <h2 class="form__title">
             Créer une intercalaire
@@ -6,8 +6,11 @@
     </section>
 
     <form class="form__add form--layer" method="POST">
+        <?php if (isset($errorlayer)) { ?>
+            <p class="form__invalid">Veuillez remplir ce champ</p>
+        <?php } ?>
         <label class="form__label form__label--layer" for="layername">Titre</label>
-        <input class="form__input form__input--layer" type="text" name="layername">
+        <input class="form__input form__input--layer form__input--tofocus" type="text" name="layername" autofocus>
         <input class="hidden" id="layerbinder" type="hidden" name="layerbinder" value="<?php echo $BinderActiveData['binder__id']; ?>" readonly="readonly">
 
         <div class="form__button">

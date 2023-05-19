@@ -1,4 +1,4 @@
-<div class="form form__back">
+<div class="form <?php if (isset($errorbinder)) { echo "form--active"; } ?> form__back">
     <section class="form__head">
         <h2 class="form__title">
             Créer une FARDE
@@ -6,8 +6,11 @@
     </section>
 
     <form class="form__add form explorer__form" method="POST">
+        <?php if (isset($errorbinder)) { ?>
+            <p class="form__invalid">Veuillez remplir ce champ</p>
+        <?php } ?>
         <label class="form__label" for="bindername">Titre</label>
-        <input class="form__input" type="text" id="bindername" name="bindername">
+        <input class="form__input form__input--tofocus" type="text" id="bindername" name="bindername" autofocus>
         
         <label class="form__label" for="bindername">Description</label>
         <input type="hidden" id="binderdescription" name="binderdescription">      
