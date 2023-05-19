@@ -66,3 +66,9 @@
     gap: 8px;
     margin-top: 32px;
 }
+
+@media(max-width:600px){
+    .sign__go,.sign__title,.sign__form{
+        display: none;
+    }
+}

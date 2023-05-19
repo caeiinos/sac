@@ -40,3 +40,9 @@
     filter: drop-shadow(4px 4px 0px #313131);
     border: 4px solid $black;
 }
+
+@media(max-width:600px){
+    .page > .notfound{
+        display: none;
+    }
+}
