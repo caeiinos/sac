@@ -6,7 +6,7 @@ if (isset($pagetitle)) {
     $primarytitle = 'Accueil - CHELV';
 }
 
-$sitedescription = ' '
+$sitedescription = 'Optimisez votre gestion de projet avec CHELV, le gestionnaire de projet intuitif et puissant. Suivez l\'avancement des tâches et organisez vos ressources efficacement. Essayez dès maintenant !'
 
 ?>
 
@@ -14,7 +14,6 @@ $sitedescription = ' '
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,14 +37,14 @@ $sitedescription = ' '
 		<meta name="twitter:title" content="Jean De Roy">
 		<meta name="twitter:description" content="<?php echo $sitedescription ?>">
 
-		<meta name="twitter:image" content="dist/assets/logo.png">
+		<meta name="twitter:image" content="https://jean-deroy.be/projets/tfe/app/dist/assets/favicon.png">
 
 		<meta property="og:site__name" content="jean-deroy"/>
 		<meta property="og:title" content="Jean De Roy"/>
 		<meta property="og:description" content="<?php echo $sitedescription ?>"/>
 		<meta property="og:type" content="website"/>
 		<meta property="og:url" content=""/>
-		<meta property="og:image" content="dist/assets/logo.png"/>
+		<meta property="og:image" content="https://jean-deroy.be/projets/tfe/app/dist/assets/favicon.png"/>
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 
@@ -54,4 +53,3 @@ $sitedescription = ' '
 
         <script src="dist/scripts/app.js" defer></script> 
 	</head>
-</html>
