@@ -13,9 +13,7 @@
         <label class="form__label form__label--document" for="documentname">contenu</label>
         <div class="form__editor">
             <div id="editor-container" class="oui">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
+                <p>Commencez votre prise de <strong>notes</strong></p>
             </div>
         </div>  
 

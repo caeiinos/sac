@@ -16,9 +16,7 @@
         <input type="hidden" id="binderdescription" name="binderdescription">      
         <div class="form__editor">
             <div id="binder-quill" class="binderform__quill">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
+                <p>Commencez à écrire dans votre nouveau <strong>classeur</strong></p>
             </div>
         </div>  
  

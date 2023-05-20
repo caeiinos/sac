@@ -46,10 +46,10 @@ $activeuser = $_SESSION['id'];
         <?php }
 
         $DocQuery->execute();
-        foreach ($DocQuery as $row) { ?>
+        foreach ($DocQuery as $DocActiveData) { ?>
 
-            <a class="livesearch__link" href="document.php?documentid=<?php echo $row["document__id"]; ?>">
-                <h4 class="livesearch__title"><?php echo $row["document__name"]; ?></h4>  
+            <a class="livesearch__link" href="document.php?documentid=<?php echo $DocActiveData["document__id"]; ?>">
+                <h4 class="livesearch__title"><?php echo $DocActiveData["document__name"]; ?></h4>  
                 <p class="livesearch__type">document</p>          
             </a>
 
