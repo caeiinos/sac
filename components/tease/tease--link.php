@@ -5,10 +5,8 @@
           <?php echo $row['link__name']; ?>    
         </p>
     </a>
-    <form method="POST" name="del_link">
-        <input type="hidden" name="idtodelete" value="<?php echo $row['link__id'] ?>">
-        <button class="link__del" type="submit" name="del_link">
-            <?php include 'components/svg/trash.php' ?>
-        </button>  
-    </form>
+    <button class="delete__trigger">
+        <?php include 'components/svg/trash.php' ?>
+    </button>
+        <?php include 'components/delete/delete--link.php' ?>
 </section>

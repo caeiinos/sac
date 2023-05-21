@@ -57,7 +57,7 @@
 <body class="sign">
 
     <h1 class="sign__title">
-        inscrivez-vous à
+        inscrivez-vous à CHELV
     </h1>
 
     <form class="sign__form" role="form" method="post">

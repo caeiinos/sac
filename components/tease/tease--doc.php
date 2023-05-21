@@ -5,10 +5,8 @@
             <?php echo $LayerDocRow['document__name']; ?>
         </h4>
     </a>
-    <form method="POST" name="del_doc">
-        <input type="hidden" name="idtodelete" value="<?php echo $LayerDocRow['document__id'] ?>">
-        <button class="doc__del" type="submit" name="del_doc">
-            <?php include 'components/svg/trash.php' ?>
-        </button>  
-    </form>    
+    <button class="delete__trigger">
+        <?php include 'components/svg/trash.php' ?>
+    </button>
+        <?php include 'components/delete/delete--document.php' ?>
 </section>

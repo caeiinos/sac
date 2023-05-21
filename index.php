@@ -30,7 +30,7 @@
 
         <div class="library">
             <div class="library__head">
-                <h1 class="library__title">Mes fardes</h1>
+                <h1 class="library__title">Mes Classeurs</h1>
                 <select class="library__filter" name="binderfilter" class="damn">
                     <option value="binder__name">nom</option>
                     <option value="binder__creation">création</option>

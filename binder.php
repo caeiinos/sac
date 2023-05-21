@@ -49,7 +49,7 @@
     <!-- binder content -->
     <main class="content content--binder">
         <div class="binder__head">
-            <span class="binder__type">Farde</span>
+            <span class="binder__type">Classeur</span>
             <h1 class="binder__title">
             <?php echo $BinderActiveData['binder__name']; ?>
             </h1> 

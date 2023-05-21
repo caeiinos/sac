@@ -9,9 +9,9 @@ include '../../utils/config.php';
         $query->execute([$_SESSION['id']]);
         foreach ($query as $row) { ?>
 
-            <!-- fardes -->
+            <!-- Classeurs -->
             <a class=" tease__link--binder" href="<?php echo 'binder.php?binderid='.$row['binder__id']; ?>">
-                <span class=" tease__type--binder">farde</span>
+                <span class=" tease__type--binder">Classeur</span>
                 <h4 class=" tease__title--binder">
                     <?php echo $row['binder__name']; ?>
                 </h4>

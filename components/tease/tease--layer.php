@@ -5,10 +5,9 @@
             <?php echo $row['layer__name']; ?>
         </h4>
     </a>
-    <form method="POST" name="del_layer">
-        <input type="hidden" name="idtodelete" value="<?php echo $row['layer__id'] ?>">
-        <button class="layer__del" type="submit" name="del_layer">
-            <?php include 'components/svg/trash.php' ?>
-        </button>  
-    </form>    
+    <button class="delete__trigger">
+        <?php include 'components/svg/trash.php' ?>
+    </button>
+        <?php include 'components/delete/delete--layer.php' ?>
+
 </section>

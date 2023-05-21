@@ -42,7 +42,7 @@
 <body class="sign">
 
     <h1 class="sign__title">
-        Connectez-vous à
+        Connectez-vous à CHELV
     </h1>
 
     <form class="sign__form" role="form" method="post">
@@ -61,7 +61,7 @@
         </label>
         <input class="sign__input" type="password" name="password" id="password">
 
-        <button class="sign__submit" type="submit">Submit</button>    
+        <button class="sign__submit" type="submit">Connectez-vous</button>    
     </form>
 
     <div class="sign__go">
