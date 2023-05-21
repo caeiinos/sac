@@ -44,6 +44,30 @@
         $documentchapter = $docbasedel['document__chapter'];
         $documentowner = $docbasedel['document__owner'];
 
+        $seldoc = $db->prepare("SELECT * FROM chelv__documents WHERE document__name=:documentname AND document__binder=:documentbinder AND document__layer=:documentlayer AND document__haschapter=:documenthaschapter AND document__chapter=:documentchapter AND document__owner=:documentowner");
+        
+        $seldoc->bindParam(':documentname', $documentname);
+        $seldoc->bindParam(':documentbinder', $documentbinder);
+        $seldoc->bindParam(':documentlayer', $documentlayer);
+        $seldoc->bindParam(':documenthaschapter', $documenthaschapter);
+        $seldoc->bindParam(':documentchapter', $documentchapter);
+        $seldoc->bindParam(':documentowner', $documentowner);
+
+        $seldoc->execute();
+
+        foreach ($seldoc as $row) {
+            $noteDocId = $row['document__id'];
+            // Delete corresponding entries from chelv__notes
+            $delNotes = $db->prepare("DELETE FROM chelv__notes WHERE note__document=:noteDocId");
+            $delNotes->bindParam(':noteDocId', $noteDocId);
+            $delNotes->execute();
+
+            // Delete corresponding entries from chelv__links
+            $delLinks = $db->prepare("DELETE FROM chelv__links WHERE link__document=:noteDocId");
+            $delLinks->bindParam(':noteDocId', $noteDocId);
+            $delLinks->execute();
+        }
+
         $deldoc = $db->prepare("DELETE FROM chelv__documents WHERE document__name=:documentname AND document__binder=:documentbinder AND document__layer=:documentlayer AND document__haschapter=:documenthaschapter AND document__chapter=:documentchapter AND document__owner=:documentowner");
         
         $deldoc->bindParam(':documentname', $documentname);
@@ -54,6 +78,7 @@
         $deldoc->bindParam(':documentowner', $documentowner);
 
         $deldoc->execute();
+
     }
 
 ?>

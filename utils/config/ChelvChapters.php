@@ -28,6 +28,27 @@
         $stmt = $db->prepare("DELETE FROM chelv__chapters WHERE chapter__id=:id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+
+        $stmt = $db->prepare("SELECT * FROM chelv__documents WHERE document__chapter=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        
+        foreach ($stmt as $row) {
+            $noteDocId = $row['document__id'];
+            // Delete corresponding entries from chelv__notes
+            $delNotes = $db->prepare("DELETE FROM chelv__notes WHERE note__document=:noteDocId");
+            $delNotes->bindParam(':noteDocId', $noteDocId);
+            $delNotes->execute();
+
+            // Delete corresponding entries from chelv__links
+            $delLinks = $db->prepare("DELETE FROM chelv__links WHERE link__document=:noteDocId");
+            $delLinks->bindParam(':noteDocId', $noteDocId);
+            $delLinks->execute();
+        }
+
+        $stmt = $db->prepare("DELETE FROM chelv__documents WHERE document__chapter=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
 ?>

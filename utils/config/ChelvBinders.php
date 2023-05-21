@@ -34,9 +34,41 @@
     }
 
     //del avce méthode get
-    if (isset($_GET['del_binder'])) {
-        $id = $_GET['del_binder'];
-        mysqli_query($db, "DELETE FROM chelv__binders WHERE id=$id");
+    if (isset($_POST['del_binder'])) {
+        $id = $_POST['idtodelete'];
+
+        $stmt = $db->prepare("DELETE FROM chelv__binders WHERE binder__id=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();   
+
+        $stmt = $db->prepare("DELETE FROM chelv__layers WHERE layer__binder=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();    
+
+        $stmt = $db->prepare("DELETE FROM chelv__chapters WHERE chapter__binder=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute(); 
+
+        $stmt = $db->prepare("SELECT * FROM chelv__documents WHERE document__binder=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        foreach ($stmt as $row) {
+            $noteDocId = $row['document__id'];
+            // Delete corresponding entries from chelv__notes
+            $delNotes = $db->prepare("DELETE FROM chelv__notes WHERE note__document=:noteDocId");
+            $delNotes->bindParam(':noteDocId', $noteDocId);
+            $delNotes->execute();
+
+            // Delete corresponding entries from chelv__links
+            $delLinks = $db->prepare("DELETE FROM chelv__links WHERE link__document=:noteDocId");
+            $delLinks->bindParam(':noteDocId', $noteDocId);
+            $delLinks->execute();
+        }
+        
+        $stmt = $db->prepare("DELETE FROM chelv__documents WHERE document__binder=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
 ?>
