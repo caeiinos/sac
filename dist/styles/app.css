@@ -713,7 +713,8 @@ h6 {
   right: 16px;
 }
 .del__button--binder:hover {
-  color: #49008C;
+  color: #F5F5F5;
+  background-color: #49008C;
 }
 
 @media screen and (min-width: 1350px) {
@@ -855,6 +856,10 @@ h6 {
   text-overflow: ellipsis;
 }
 
+.delete__trigger:hover path {
+  fill: #49008C;
+}
+
 .delete {
   position: fixed;
   top: 0;
@@ -903,7 +908,8 @@ h6 {
   transition: all 0.2s;
 }
 .delete__cancel:hover {
-  color: #49008C;
+  background-color: #49008C;
+  color: #F5F5F5;
 }
 
 .delete__submit {
@@ -914,6 +920,11 @@ h6 {
   font-weight: 700;
   padding: 8px 16px;
   background-color: #5F00B6;
+  color: #F5F5F5;
+  transition: all 0.2s;
+}
+.delete__submit:hover {
+  background-color: #49008C;
   color: #F5F5F5;
 }
 
@@ -1102,6 +1113,11 @@ h6 {
   font-weight: 700;
   padding: 8px 16px;
   color: #5F00B6;
+  transition: all 0.2s;
+}
+.form__cancel:hover {
+  background-color: #49008C;
+  color: #F5F5F5;
 }
 
 .form__submit {
@@ -1112,6 +1128,11 @@ h6 {
   font-weight: 700;
   padding: 8px 16px;
   background-color: #5F00B6;
+  color: #F5F5F5;
+  transition: all 0.2s;
+}
+.form__submit:hover {
+  background-color: #49008C;
   color: #F5F5F5;
 }
 
