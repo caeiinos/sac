@@ -1,7 +1,7 @@
 <div class="form <?php if (isset($errorbinder)) { echo "form--active"; } ?> form__back">
     <section class="form__head">
         <h2 class="form__title">
-            Créer une FARDE
+            Créer une Classeur
         </h2>
     </section>
 
@@ -17,6 +17,7 @@
         <div class="form__editor">
             <div id="binder-quill" class="binderform__quill">
                 <p>Commencez à écrire dans votre nouveau <strong>classeur</strong></p>
+                <p><br></p>
             </div>
         </div>  
  

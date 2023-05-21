@@ -14,6 +14,7 @@
         <div class="form__editor">
             <div id="editor-container" class="oui">
                 <p>Commencez votre prise de <strong>notes</strong></p>
+                <p><br></p>
             </div>
         </div>  
 
