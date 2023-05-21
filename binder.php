@@ -95,7 +95,7 @@
         </div>       
         
         <button class="form__trigger aside__trigger aside__trigger--add">
-            <p>Nouvelle Intercalaire</p>
+            <p>Nouveau Intercalaire</p>
         </button>
     </aside>
 
