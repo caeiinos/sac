@@ -166,6 +166,17 @@ for (let i = 0; i < versiontrigger.length; i++) {
   }
 }
 
+// show del form
+const deltrigger = document.querySelectorAll('.delete__trigger');
+const deloption = document.querySelectorAll('.delete');
+
+for (let i = 0; i < deltrigger.length; i++) {
+  deltrigger[i].addEventListener("click", triggerdel);
+  function triggerdel() {
+    deloption[i].classList.toggle('delete--active')
+  }
+}
+
 
 // livesearch
 var headerSearch = document.querySelector(".header__search");
