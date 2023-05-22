@@ -1,107 +1,149 @@
-<?php 
+<?php   
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
-    include 'utils/DbConnect.php';
+    include 'utils/config.php';
 
-    //fonctions pour les projets
-    include 'utils/Myprojects.php';
+    //connect the db
+    include 'utils/notlog/notlog.php';
 
-    //fonctions pour les intercalaires
-    include 'utils/Mylayers.php';
-
-    //fonctions pour les chapitres
-    include 'utils/MyChapters.php';
-
-    //fonctions pour les documents
-    include 'utils/MyDocuments.php';
-
-    //fonctions pour les notes
-    include 'utils/MyNotes.php';
-
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
-
+    //recupére l'utilisateur
+    $activeuser = $_SESSION['id'];
 
     // trouver l'intercalaire
-    $activeid = $_GET['documentid'];
+    $DocActiveQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__id=?");
+    $DocActiveQuery->execute([$_GET['documentid']]);
+    $DocActiveData = $DocActiveQuery->fetch();
+   // find pagetitle
+    $pagetitle = $DocActiveData['document__name'];
+    //find base for explorer
+    $ExplorerBase = $DocActiveData['document__binder'];
+    
+    // trouver les notes   
+    $DocNoteQuery = $db->prepare("SELECT * FROM chelv__notes WHERE note__document=? AND note__owner = '$activeuser'");
+    $DocNoteQuery->execute([$_GET['documentid']]);
+    $DocNoteData = $DocNoteQuery->fetchAll();
 
-    $activeproject = mysqli_query($db, "SELECT * FROM mydocuments WHERE id='$activeid';");
+    // trouver les notes   
+    $DocLinkQuery = $db->prepare("SELECT * FROM chelv__links WHERE link__document=? AND link__owner = '$activeuser'");
+    $DocLinkQuery->execute([$_GET['documentid']]);
+    $DocLinkData = $DocLinkQuery->fetchAll();
 
-    $activedata = mysqli_fetch_array($activeproject);
-
-    $pagetitle = $activedata['title'];
-
-    // trouver les chapitres
-    $activetitle = $activedata['fullname'];;
-
-    $ProjectChild = mysqli_query($db, "SELECT * FROM mynotes WHERE parent='$activetitle';");
+    //403 and 404
+    if (!$DocActiveData) {
+        header("Location: 404.php");
+    } else if ($activeuser != $DocActiveData['document__owner']) {
+        header("Location: 403.php");
+    }
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 
 <body class="page page--document">
-    
+
     <!-- navbar -->
-    <?php include 'components/nav.php'; ?>
+    <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
-    <?php include 'components/explorer.php'; ?>
+    <?php include 'components/explorer/explorer.php'; ?>
 
+    <!-- layer content -->
     <main class="content content--document">
-
-        <!-- nav pour le content filtre, add, ect... -->
-        <aside class="aside aside--accueil">      
-            <h1 class="aside__title">
-                Document >>
-                <span><?php echo $pagetitle ?></span>
-            </h1>
-            
-            <div class="aside__content">
-                <div class="aside__filtre aside__item">
-                    <button class="aside__filtrebutton">
-                        <?php include 'components/svg/filter.php'; ?>
-                    </button>
-                </div>
-            </div>
-
-        </aside>
-
-        <h2 class="filter__title">2023</h2>
-        <!-- show content -->
-        <h3 class="pre-tease">Les notes</h3>
-
-        <div class="note">
-            <!-- show note  -->
-            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
-
-                <section class="note__content">
-                    <h4 class="note__title">
-                        <?php echo $row['title']; ?>
-                    </h4>
-                    <p class="note__description">
-                        <?php echo $row['content']; ?>  
-                    </p>
-            </section>
-            <?php } ?>
-        </div>
+        <span class="layer__type">Document</span>
+        <h1 class="layer__title">
+        <?php echo $pagetitle ?>
+        </h1> 
+        <!-- get family -->
+        <?php include 'components/family/family--doc.php'; ?> 
         
-        <!-- add note  -->
-        <div class="writer">  
-            <form class="writer__form" method="POST">
+        <div class="version">
+            <div class="version__choice">
+                <button class="version__trigger">
+                    <?php echo $DocActiveData['document__version']; ?>
+                </button>
+                <ul class="version__list">
+                    <?php 
+                    
+                    $versionname = $DocActiveData['document__name'];
+                    $versionbinder = $DocActiveData['document__binder'];
+                    $versionlayer = $DocActiveData['document__layer'];
+                    $versionchapter = $DocActiveData['document__chapter'];
+                    
+                    $binderversion = $db->prepare("SELECT * FROM chelv__documents WHERE document__name=:versionname AND document__owner=:activeuser AND document__binder=:versionbinder AND document__layer=:versionlayer AND document__chapter=:versionchapter");
+                    $binderversion->bindParam(':versionname', $versionname);
+                    $binderversion->bindParam(':activeuser', $activeuser);
+                    $binderversion->bindParam(':versionbinder', $versionbinder);
+                    $binderversion->bindParam(':versionlayer', $versionlayer);
+                    $binderversion->bindParam(':versionchapter', $versionchapter);
+                    $binderversion->execute();
+                    $binderversionData = $binderversion->fetchAll();
+                    foreach ($binderversionData as $rowversion) { 
 
-                <label class="writer__label writer__label--title" for="notetitle">Titre</label>
-                <input class="writer__input" type="text" name="notetitle">
-                <label class="writer__label writer__label--description" for="notecontent">Description</label>
-                <input class="writer__input writer__input--description" type="text" name="notecontent">
-                <input class="hidden" type="text" name="noteparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
-
-                <button class="writer__submit" type="submit" name="submitnote">valider</button>
-            </form>
+                    ?>
+                    <li class="version__item">
+                        <a href="document.php?documentid=<?php echo $rowversion['document__id']; ?>" class="version__link">
+                            <?php echo $rowversion['document__version']; ?>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        
+            <div class="versionadd__trigger">
+                <button class="form__trigger version__add">
+                    +
+                </button>
+            </div>  
         </div>
-    </main>
+  
+    </main>   
+
+    <aside class="aside aside--link">
+        <h2 class="aside__title">
+            Liens utiles
+        </h2>
+
+        <div class="tease tease--link">
+            <!-- show note  -->
+            <?php foreach ($DocLinkData as $row) {
+                include 'components/tease/tease--link.php';                    
+            } ?>
+        </div>
+
+        <!-- add note  -->
+        <button class="form__trigger note__add">nouveau lien</button>
+    </aside>
+
+    <!-- document -->
+    <aside class="aside aside--note">
+
+        <h2 class="aside__title aside__title--document">Les notes</h2>
+
+        <div id="documentnotes" class="note">
+            <!-- show note  -->
+            <?php foreach ($DocNoteData as $row) {
+                include 'components/tease/tease--note.php';                    
+            } ?>
+        </div>
+
+        <!-- add note  -->
+        <button class="form__trigger note__add">nouvelle note</button>
+    </aside>
+
+
+    <!-- form to add version -->
+    <?php include 'components/form/form--version.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php include 'components/form/form--link.php'; ?>
+
+    <!-- note editor and creator -->
+    <?php include 'components/form/form--note.php'; ?>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
     
 </body>
 </html>

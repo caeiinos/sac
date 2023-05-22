@@ -2,174 +2,121 @@
     date_default_timezone_set("Europe/Brussels");
 
     //connect the db
-    include 'utils/DbConnect.php';
+    include 'utils/config.php';
 
-    //fonctions pour les projets
-    include 'utils/Myprojects.php';
+    //connect the db
+    include 'utils/notlog/notlog.php';
 
-    //fonctions pour les intercalaires
-    include 'utils/Mylayers.php';
+    //recupére l'utilisateur
+    $activeuser = $_SESSION['id'];
 
-    //fonctions pour les chapitres
-    include 'utils/MyChapters.php';
-
-    //fonctions pour les documents
-    include 'utils/MyDocuments.php';
-
-    //fonctions pour les examens
-    include 'utils/MyExams.php';
-
-    // trouver l'intercalaire
-    $activeid = $_GET['layerid'];
-
-    $activeproject = mysqli_query($db, "SELECT * FROM mylayers WHERE id='$activeid';");
-
-    $activedata = mysqli_fetch_array($activeproject);
-
-    $pagetitle = $activedata['title'];
+    // find the layer
+    $LayerActiveQuery = $db->prepare("SELECT * FROM chelv__layers WHERE layer__id=?");
+    $LayerActiveQuery->execute([$_GET['layerid']]);
+    $LayerActiveData = $LayerActiveQuery->fetch();
+    // find pagetitle
+    $pagetitle = $LayerActiveData['layer__name'];
+    //find base for explorer
+    $ExplorerBase = $LayerActiveData['layer__binder'];
 
     // trouver les chapitres
-    $activetitle = $activedata['fullname'];
+    $LayerChapterQuery = $db->prepare("SELECT * FROM chelv__chapters WHERE chapter__layer=? AND chapter__owner='$activeuser';");
+    $LayerChapterQuery->execute([$_GET['layerid']]);
+    $LayerChapterData = $LayerChapterQuery->fetchAll();
+    // trouver les documents
+    $LayerDocQuery = $db->prepare("SELECT * FROM chelv__documents WHERE document__layer=? AND document__owner='$activeuser' AND document__haschapter=0  AND document__version='default';");
+    $LayerDocQuery->execute([$_GET['layerid']]);
+    $LayerDocData = $LayerDocQuery->fetchAll();
 
-    $ProjectChild = mysqli_query($db, "SELECT * FROM mychapters WHERE parent='$activetitle';");
-
-    $ChapterExams = mysqli_query($db, "SELECT * FROM myexams WHERE parent='$activetitle';");
+    // update the date
+    $NewModified = date('Y-m-d H:i:s');
+    $LayerActiveUpdate = $db->prepare("UPDATE chelv__layers SET layer__opened = ? WHERE layer__id=?;");  
+    $LayerActiveUpdate->execute([$NewModified, $_GET['layerid']]);
+    //403 and 404
+    if (!$LayerActiveData) {
+        header("Location: 404.php");
+    } else if ($activeuser != $LayerActiveData['layer__owner']) {
+        header("Location: 403.php");
+    }
 
     // inclure la balise head
-    include 'components/head.php';
+    include 'components/head/head.php';
 
 ?>
 
-<body class="page page--intercalaire">
+<body class="page page--layer">
 
     <!-- navbar -->
-    <?php include 'components/nav.php'; ?>
+    <?php include 'components/nav/nav.php'; ?>
 
     <!-- explorer -->
-    <?php include 'components/explorer.php'; ?>
+    <?php include 'components/explorer/explorer.php'; ?>
 
+    <!-- layer content -->
     <main class="content content--layer">
 
-        <!-- nav pour le content filtre, add, ect... -->
-        <aside class="aside aside--layer">
-            <h1 class="aside__title">
-                Intercalaire >>
-                <span><?php echo $pagetitle ?></span>
-            </h1>
+        <span class="layer__type">Intercalaire</span>
+        <h1 class="layer__title">
+        <?php echo $pagetitle ?>
+        </h1> 
 
-            <div class="aside__content">
-                <div class="aside__filtre aside__item">
-                    <button class="aside__filtrebutton">
-                        <?php include 'components/svg/filter.php'; ?>
-                    </button>
-                </div>
-                <!-- add chapter  -->
-                <div class="aside__add  aside__item">
-                    <button class="aside__trigger aside__trigger--add">
-                        <p>Nouveau chapitre</p>
-                    </button>
+        <!-- get family -->
+        <?php include 'components/family/family--layer.php'; ?>
+    </main>   
 
-                    <form class="aside__addform" method="POST">
-                        <label class="aside__addlabel aside__addlabel--title" for="chaptertitle class="aside__addsubmit"">Titre</label>
-                        <input class="aside__addinput aside__addinput--title" type="text" name="chaptertitle">
-                        <input class="hidden" type="text" name="chapterparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
-                        <input class="hidden" type="text" name="chapterbase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
+    <!-- chapter -->
+    <aside class="aside aside--chapter">
 
-                        <button class="aside__addsubmit" type="submit" name="submitchapter">valider</button>
-                    </form>
-                </div>
+        <h2 class="aside__title aside__title--chapter">Les chapitres</h2>
 
-                <!-- add exams  -->
-                <div class="aside__add  aside__item">
-                    <button class="aside__trigger aside__trigger--add">
-                        <p>Nouveau document</p>
-                    </button>
+        <form class="layerchapters__form" method="get">
+            <input class="layerchapters__search"  type="text" name="search" placeholder="rechercher...">
+        </form>
 
-                    <form class="aside__addform" method="POST">
-                        <label class="aside__addlabel aside__addlabel--title" for="examtitle">Titre</label>
-                        <input class="aside__addinput aside__addinput--title" type="text" name="examtitle">
-                        <input class="hidden" type="text" name="examparent" value="<?php echo $activedata['fullname']; ?>" readonly="readonly">
-                        <input class="hidden" type="text" name="exambase" value="<?php echo $activedata['base']; ?>" readonly="readonly">
-
-                        <button class="aside__addsubmit" type="submit" name="submitexam">valider</button>
-                    </form>
-                </div>
-            </div>
-        </aside>
-
-        <h2 class="filter__title">2023</h2>
-
-        <h3 class="pre-tease">Les chapitres</h3>
-        <!-- show content -->
-        <div class="tease">
+        <div id="layerchapters" class="tease tease--short">
             <!-- show chapter  -->
-            <?php while ($row = mysqli_fetch_array($ProjectChild)) { ?> 
-                <section class="tease__content tease__content--chapter">
-                    <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$row['id']; ?>">
-                        
-                        <h4 class="tease__title tease__title--chapter">
-                            <?php echo $row['title']; ?>
-                        </h4>
-                        <ul class="tease__data">
-                            <li class="tease__item">
-                                <?php 
-
-                                    $chapterpapa = $row['fullname'];
-
-                                    // nbr de chapitres
-                                    $ChildDocument = mysqli_query($db, "SELECT COUNT(title) AS documentnumber FROM mydocuments where parent LIKE '$chapterpapa%';");
-
-                                    $ChildExam = mysqli_query($db, "SELECT COUNT(title) AS examnumber FROM myexams where parent LIKE '$chapterpapa%';");
-
-                                    $documentsnumber = mysqli_fetch_array($ChildDocument);
-
-                                    $examsnumber = mysqli_fetch_array($ChildExam);
-
-                                ?> 
-                                <p class="tease__fact">
-                                    documents
-                                </p>
-                                <p class="tease__number">
-                                    <?php echo $documentsnumber['documentnumber'] + $examsnumber['examnumber']; ?>
-                                </p>
-                            </li>
-                        </ul>
-                    </a>
-            </section>
-            <?php } ?>
+            <?php 
+            foreach ($LayerChapterData as $LayerChapterRow) {  
+                include 'components/tease/tease--chapter.php';
+            } ?>
         </div>
 
-        <h3 class="pre-tease">Les documents</h3>
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouveau chapitre</p>
+        </button>
 
-        <div class="tease">
-        <!-- show exams  -->
-            <?php while ($e = mysqli_fetch_array($ChapterExams)) { ?> 
+    </aside>
 
-                <section class="tease__content  tease__content--document">
-                    <a class="tease__link" href="<?php echo 'exam.php?examid='.$e['id']; ?>">
-                        <h4 class="tease__title tease__title--document">
-                            <?php echo $e['title']; ?>
-                        </h4>
-                        <ul class="tease__data">
-                            <li class="tease__item">
-                                <?php 
-                                    // projet parent
-                                    $projetpapa = $e['fullname'];
-
-                                    // nbr d'intercalaires
-                                    $noteChild = mysqli_query($db, "SELECT COUNT(title) AS notenumber FROM mynotes WHERE parent='$projetpapa';");
-                                
-                                    $notesnumber = mysqli_fetch_array($noteChild);
-                                
-                                ?> 
-                                <p class="tease__fact">Notes</p>
-                                <p class="tease__number"> <?php echo $notesnumber['notenumber']; ?></p>
-                            </li>
-                        </ul>
-                    </a>
-                </section>
-            <?php } ?>
-    </main>
     
+    <!-- document -->
+    <aside class="aside aside--document">
+
+        <h2 class="aside__title aside__title--document">Les documents</h2>
+        <!-- add document  -->
+
+        <form class="layerdocuments__form" method="get">
+            <input class="layerdocuments__search"  type="text" name="search" placeholder="rechercher...">
+        </form>
+
+        <div id="layerdocuments" class="tease tease--short">
+            <!-- show document  -->
+            <?php 
+            foreach ($LayerDocData as $LayerDocRow) {
+                include 'components/tease/tease--doc.php';
+            } ?>
+        </div>
+
+        <button class="form__trigger aside__trigger aside__trigger--add">
+            <p>Nouveau document</p>
+        </button>
+    </aside>
+
+    <?php include 'components/form/form--chapter.php'; ?>
+
+    <?php include 'components/form/form--doc.php'; ?>
+
+    <!-- no phone -->
+    <?php include 'components/nophone/nophone.php'; ?>  
+
 </body>
 </html>
