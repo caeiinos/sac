@@ -62,7 +62,7 @@
 
         <h2 class="aside__title aside__title--document">Les documents</h2>
 
-        <form class="chapterdocuments__form" action="search.php" method="get">
+        <form class="chapterdocuments__form" method="get">
             <input class="chapterdocuments__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 

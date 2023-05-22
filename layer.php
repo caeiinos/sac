@@ -69,7 +69,7 @@
 
         <h2 class="aside__title aside__title--chapter">Les chapitres</h2>
 
-        <form class="layerchapters__form" action="search.php" method="get">
+        <form class="layerchapters__form" method="get">
             <input class="layerchapters__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 
@@ -94,7 +94,7 @@
         <h2 class="aside__title aside__title--document">Les documents</h2>
         <!-- add document  -->
 
-        <form class="layerdocuments__form" action="search.php" method="get">
+        <form class="layerdocuments__form" method="get">
             <input class="layerdocuments__search"  type="text" name="search" placeholder="rechercher...">
         </form>
 

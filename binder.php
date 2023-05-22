@@ -79,7 +79,7 @@
         <h2 class="aside__title aside__title--layer">Les intercalaires</h2>
 
         <!-- every layer -->
-        <form class="BinderLayer__form" action="search.php" method="get">
+        <form class="BinderLayer__form" method="get">
             <!-- layer search -->
             <input class="BinderLayer__search"  type="text" name="search" placeholder="rechercher...">
 

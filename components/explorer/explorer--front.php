@@ -16,7 +16,7 @@
                 ?>
             </div>
 
-            <form class="explorer__livesearch" action="search.php" method="get">
+            <form class="explorer__livesearch" method="get">
                 <input class="explorer__search"  type="text" name="search" placeholder="rechercher...">
                 <div id="explorersearch">
                     <ul class="explorer__binderlist">
