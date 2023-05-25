@@ -61,6 +61,7 @@
     padding-left: 24px;
     margin-top: 8px;
     height: fit-content;
+    min-height: 120px;
     max-height: calc(100vh - 80px - 40px - 125px - 40px - 54px - 44px - 56px - 6px);
     overflow-y: auto;
     overflow-x: hidden;

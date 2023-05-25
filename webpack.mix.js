@@ -29,16 +29,6 @@ mix
     }
   })
   .sourceMaps()
-  .browserSync({
-    proxy: "http://localhost/sac/",
-    files: [
-      'dist/**/*.css',
-      'dist/**/*.js',
-      '*.php',
-      'utils/*.php',
-      'components/*.php'
-    ]
-  })
   .webpackConfig({
     devtool: 'source-map',
     resolve: {

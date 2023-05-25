@@ -4,13 +4,17 @@
         if (empty($_POST['layername'])) {
             $errorlayer = true;
         } else {
-            $layername = $_POST['layername'];
+            $layername = $_POST['layername'];            
+            $layercolor = $_POST['layercolor'];
+            $layershape = $_POST['layershape'];
             $layerbinder = $_POST['layerbinder'];
             $layerowner = $_SESSION['id'];
             $layercreation = date('Y-m-d H:i:s');
             $layeropened = date('Y-m-d H:i:s');
 
-            $stmt = $db->prepare("INSERT INTO chelv__layers (layer__name, layer__binder, layer__owner, layer__creation, layer__opened) VALUES (:layername, :layerbinder, :layerowner, :layercreation, :layeropened)");
+            $stmt = $db->prepare("INSERT INTO chelv__layers (layer__name, layer__color, layer__shape, layer__binder, layer__owner, layer__creation, layer__opened) VALUES (:layername, :layercolor, :layershape, :layerbinder, :layerowner, :layercreation, :layeropened)");
+            $stmt->bindParam(':layercolor', $layercolor);
+            $stmt->bindParam(':layershape', $layershape);
             $stmt->bindParam(':layername', $layername);
             $stmt->bindParam(':layerbinder', $layerbinder);
             $stmt->bindParam(':layerowner', $layerowner);

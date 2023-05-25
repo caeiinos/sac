@@ -1,0 +1,15 @@
+.note__content{
+    ul{
+        padding-left: 40px;
+        list-style: circle;        
+    }
+
+    a{
+        color:$contrast;
+        transition: all .2s;
+        &:hover{
+            color: $contrast--hover;
+        }
+    }
+
+}

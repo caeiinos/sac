@@ -5,6 +5,8 @@
             $errordoc = true;
         } else {
             $documentname = $_POST['documentname'];
+            $documentcolor = $_POST['documentcolor'];
+            $documentshape = $_POST['documentshape'];
             $documentversion = $_POST['documentversion'];
             $documentbinder = $_POST['documentbinder'];
             $documentlayer = $_POST['documentlayer'];
@@ -14,8 +16,10 @@
             $documentcreation = date('Y-m-d H:i:s');
             $documentopened = date('Y-m-d H:i:s');
 
-            $stmt = $db->prepare("INSERT INTO chelv__documents (document__name, document__version, document__binder, document__layer, document__haschapter, document__chapter, document__owner, document__creation, document__opened) VALUES (:documentname, :documentversion, :documentbinder, :documentlayer, :documenthaschapter, :documentchapter, :documentowner, :documentcreation, :documentopened)");
+            $stmt = $db->prepare("INSERT INTO chelv__documents (document__name, document__color, document__shape, document__version, document__binder, document__layer, document__haschapter, document__chapter, document__owner, document__creation, document__opened) VALUES (:documentname, :documentcolor, :documentshape, :documentversion, :documentbinder, :documentlayer, :documenthaschapter, :documentchapter, :documentowner, :documentcreation, :documentopened)");
             $stmt->bindParam(':documentname', $documentname);
+            $stmt->bindParam(':documentcolor', $documentcolor);
+            $stmt->bindParam(':documentshape', $documentshape);
             $stmt->bindParam(':documentversion', $documentversion);
             $stmt->bindParam(':documentbinder', $documentbinder);
             $stmt->bindParam(':documentlayer', $documentlayer);

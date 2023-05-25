@@ -144,17 +144,6 @@ for (let i = 0; i < trigger.length; i++) {
   }
 }
 
-// show note option
-const notetrigger = document.querySelectorAll('.note__trigger');
-const noteoption = document.querySelectorAll('.note__overlay');
-
-for (let i = 0; i < notetrigger.length; i++) {
-  notetrigger[i].addEventListener("click", triggeroption);
-  function triggeroption() {
-    noteoption[i].classList.toggle('note__overlay--active')
-  }
-}
-
 // show note version
 const versiontrigger = document.querySelectorAll('.version__trigger');
 const versionoption = document.querySelectorAll('.version__list');

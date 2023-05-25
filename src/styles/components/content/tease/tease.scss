@@ -105,6 +105,7 @@
 .note__content{
     position: relative;
     margin-bottom: 32px;
+    min-height: 80px;
     &::after{
         content: '';
         position: absolute;
@@ -141,7 +142,7 @@
     flex-direction: column;
     align-items: flex-start;
     position: absolute;
-    left: -140%;
+    right:0%;
     top: 0%;
     color: #5F00B6;
     background-color: #DADADA;
@@ -151,10 +152,6 @@
     filter: drop-shadow(4px 4px 0px #313131);
     z-index: 8;
     
-    display: none;
-}
-
-.note__overlay--active{
     display: flex;
 }
 

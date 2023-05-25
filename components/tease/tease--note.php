@@ -1,8 +1,5 @@
 <section id="<?php echo $row['note__id']; ?>" class="note__content">
     <div class="note__option">   
-        <button class="note__trigger" id="<?php echo $row['note__id'] ?>">
-            option
-        </button>
         <div class="note__overlay">
             <button class="note__modifie" id="<?php echo $row['note__id'] ?>">
                 modifier

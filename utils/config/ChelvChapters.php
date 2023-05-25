@@ -5,14 +5,18 @@
             $errorchap = true;
         } else {
             $chaptername = $_POST['chaptername'];
+            $chaptercolor = $_POST['chaptercolor'];
+            $chaptershape = $_POST['chaptershape'];
             $chapterbinder = $_POST['chapterbinder'];
             $chapterlayer = $_POST['chapterlayer'];
             $chapterowner = $_SESSION['id'];
             $chaptercreation = date('Y-m-d H:i:s');
             $chapteropened = date('Y-m-d H:i:s');
     
-            $stmt = $db->prepare("INSERT INTO chelv__chapters (chapter__name, chapter__binder, chapter__layer, chapter__owner, chapter__creation, chapter__opened) VALUES (:chaptername, :chapterbinder, :chapterlayer, :chapterowner, :chaptercreation, :chapteropened)");
+            $stmt = $db->prepare("INSERT INTO chelv__chapters (chapter__name, chapter__color, chapter__shape, chapter__binder, chapter__layer, chapter__owner, chapter__creation, chapter__opened) VALUES (:chaptername, :chaptercolor, :chaptershape, :chapterbinder, :chapterlayer, :chapterowner, :chaptercreation, :chapteropened)");
             $stmt->bindParam(':chaptername', $chaptername);
+            $stmt->bindParam(':chaptercolor', $chaptercolor);
+            $stmt->bindParam(':chaptershape', $chaptershape);
             $stmt->bindParam(':chapterbinder', $chapterbinder);
             $stmt->bindParam(':chapterlayer', $chapterlayer);
             $stmt->bindParam(':chapterowner', $chapterowner);
