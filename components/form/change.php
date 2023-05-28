@@ -5,7 +5,7 @@
         </h2>
     </section>
 
-    <form class="form__add form explorer__form" method="POST">
+    <form class="form__add explorer__form" method="POST">
 
         <label class="form__label" for="bindername">Titre</label>
         <input class="form__input form__input--tofocus" value="<?php echo $BinderActiveData['binder__name'] ?>" type="text" id="bindername" name="bindername" autofocus>

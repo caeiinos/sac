@@ -1,4 +1,4 @@
-<div class="form <?php if (isset($errorlayer)) { echo "form--active"; } ?>  form__back">
+<div class="form <?php if (isset($errorlayer)) { echo "form--active"; } ?> form__back">
     <section class="form__head">
         <h2 class="form__title">
             Créer un intercalaire
