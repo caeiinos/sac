@@ -1,5 +1,5 @@
-<section class="tease__content  <?php echo $LayerChapterRow['chapter__color']; ?>">
-    <a class="tease__link" href="<?php echo 'chapter.php?chapterid='.$LayerChapterRow['chapter__id']; ?>">
+<section class="tease__content">
+    <a class="tease__link <?php echo $LayerChapterRow['chapter__color']; ?>" href="<?php echo 'chapter.php?chapterid='.$LayerChapterRow['chapter__id']; ?>">
         <?php 
             $chaptersvg = 'components/svg/chapter--' . $LayerChapterRow['chapter__shape'] .'.php';
             include $chaptersvg; 

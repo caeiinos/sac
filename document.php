@@ -18,11 +18,6 @@
     $pagetitle = $DocActiveData['document__name'];
     //find base for explorer
     $ExplorerBase = $DocActiveData['document__binder'];
-    
-    // trouver les notes   
-    $DocNoteQuery = $db->prepare("SELECT * FROM chelv__notes WHERE note__document=? AND note__owner = '$activeuser'");
-    $DocNoteQuery->execute([$_GET['documentid']]);
-    $DocNoteData = $DocNoteQuery->fetchAll();
 
     // trouver les notes   
     $DocLinkQuery = $db->prepare("SELECT * FROM chelv__links WHERE link__document=? AND link__owner = '$activeuser'");
@@ -41,7 +36,7 @@
 
 ?>
 
-<body class="page page--document">
+<body class="page page--document <?php echo $DocActiveData['document__shape'] ?>" data-theme="<?php echo $DocActiveData['document__color'] ?>">
 
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>
@@ -59,6 +54,11 @@
         <?php include 'components/family/family--doc.php'; ?> 
         
         <div class="version">
+                    
+            <button class="form__trigger change--doc">
+                <p>Modifier</p>
+            </button>
+
             <div class="version__choice">
                 <button class="version__trigger">
                     <?php echo $DocActiveData['document__version']; ?>
@@ -120,27 +120,23 @@
     <aside class="aside aside--note">
 
         <h2 class="aside__title aside__title--document">Les notes</h2>
-
-        <div id="documentnotes" class="note">
-            <!-- show note  -->
-            <?php foreach ($DocNoteData as $row) {
-                include 'components/tease/tease--note.php';                    
-            } ?>
-        </div>
-
-        <!-- add note  -->
-        <button class="form__trigger note__add">nouvelle note</button>
+        <form class="" method="POST">
+            <input name="docidtoupdate" value="<?php echo $DocActiveData['document__id'] ?>" type="hidden">
+            <input name="doccontentonupdate" value="" type="hidden">
+            <div id="documentnotes" class="note">
+                <?php echo $DocActiveData['document__content']?>
+            </div> 
+            <button class="modifie__submit--binder" type="submit" name="updatenote">Sauvegarder</button> 
+        </form>
     </aside>
-
+    
+    <?php include 'components/form/change--doc.php'; ?>
 
     <!-- form to add version -->
     <?php include 'components/form/form--version.php'; ?>
 
     <!-- note editor and creator -->
     <?php include 'components/form/form--link.php'; ?>
-
-    <!-- note editor and creator -->
-    <?php include 'components/form/form--note.php'; ?>
 
     <!-- no phone -->
     <?php include 'components/nophone/nophone.php'; ?>  

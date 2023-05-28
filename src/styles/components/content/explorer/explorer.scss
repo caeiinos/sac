@@ -1,13 +1,13 @@
 .explorer--front{
-    border: 4px solid $black;
-    box-shadow: 7px 7px 0px $black;
+    border: 4px solid var(--black);
+    box-shadow: 7px 7px 0px var(--black);
     border-radius: 20px;
-    background-color: $grey--back;
+    background-color: var(--grey--back);
 }
 
 .explorer__trigger--add{
-    background: $contrast;
-    border: 4px solid $black;
+    background: var(--contrast);
+    border: 4px solid var(--black);
     border-radius: 10px;
     margin: 0 auto;
     display: block;
@@ -17,15 +17,15 @@
     color: #fefefe;
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
+        background: var(--contrast--hover); 
     }
 }
 
 .explorer__search{
     width: 102%;
     margin-left: -1%;
-    border-bottom: solid 4px $black;
-    border-top: solid 4px $black;
+    border-bottom: solid 4px var(--black);
+    border-top: solid 4px var(--black);
     padding: 8px 40px ;
     margin-top: 16px;
 }
@@ -53,11 +53,11 @@
 
 .explorer__binderlink{
     font-weight: 800;
-    color: $contrast;
+    color: var(--contrast);
     transition: all .3s;
 
     &:hover{
-        color: $contrast--hover;
+        color: var(--contrast--hover);
     }
 }
 
@@ -65,7 +65,7 @@
     border: 4px solid #313131;
     box-shadow: 7px 7px 0px #313131;
     border-radius: 20px;
-    background-color: $grey--back;
+    background-color: var(--grey--back);
 }
 
 .explorer__list{
@@ -116,16 +116,16 @@
 .explorer__link{
     display: flex;
     align-items: center;
-    color: $contrast;
+    color: var(--contrast);
     path{
-        fill: $contrast;
+        fill: var(--contrast);
         transition: all;
       }
     
       &:hover{
-        color: $contrast--hover;
-        path{
-          fill: $contrast--hover;
+        color: var(--contrast--hover);
+        path, circle, rect{
+          fill: var(--contrast--hover);
         }
       }
 }

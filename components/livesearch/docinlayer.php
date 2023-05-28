@@ -13,18 +13,19 @@ include '../../utils/config.php';
             foreach ($documentlayerData as $LayerDocRow) { ?>
 
                 <section class="tease__content">
-                    <a class="tease__link" href="<?php echo 'document.php?documentid='.$LayerDocRow['document__id']; ?>">
-                        <?php include '../svg/document.php' ?>
+                    <a class="tease__link <?php echo $LayerDocRow['document__color']; ?>" href="<?php echo 'document.php?documentid='.$LayerDocRow['document__id']; ?>">
+                        <?php 
+                            $docsvg = '../svg/document--' . $LayerDocRow['document__shape'] .'.php';
+                            include $docsvg; 
+                        ?>
                         <h4 class="tease__title tease__title--document">
                             <?php echo $LayerDocRow['document__name']; ?>
                         </h4>
                     </a>
-                    <form method="POST" name="del_doc">
-                        <input type="hidden" name="idtodelete" value="<?php echo $LayerDocRow['document__id'] ?>">
-                        <button class="doc__del" type="submit" name="del_doc">
-                            <?php include '../svg/trash.php' ?>
-                        </button>  
-                    </form>    
+                    <button class="delete__trigger">
+                        <?php include '../svg/trash.php' ?>
+                    </button>
+                        <?php include '../delete/delete--document.php' ?>
                 </section>
                 
             <?php }

@@ -5,10 +5,10 @@
     }
 
     a{
-        color:$contrast;
+        color:var(--contrast);
         transition: all .2s;
         &:hover{
-            color: $contrast--hover;
+            color: var(--contrast--hover);
         }
     }
 

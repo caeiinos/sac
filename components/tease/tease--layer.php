@@ -1,5 +1,5 @@
-<section class="tease__content <?php echo $row['layer__color']; ?>">
-    <a class="tease__link tease__link--layer" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
+<section class="tease__content">
+    <a class="tease__link tease__link--layer <?php echo $row['layer__color']; ?>" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
         <?php 
             $layersvg = 'components/svg/layer--' . $row['layer__shape'] .'.php';
             include $layersvg; 

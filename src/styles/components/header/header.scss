@@ -5,7 +5,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;
-  background-color: $grey--back;
+  background-color: var(--grey--back);
 }
 
 .header__nav {
@@ -13,8 +13,8 @@
     align-items: center;
     width: 100%;
     margin-bottom: 16px;
-    border: 4px solid $black;
-    box-shadow: 5px 5px 0px $black;
+    border: 4px solid var(--black);
+    box-shadow: 5px 5px 0px var(--black);
     border-radius: 20px;
 }
 
@@ -26,23 +26,23 @@
   align-items: center;
   
   path{
-    fill: $black;
+    fill: var(--black);
     transition: all;
   }
 
   &:hover{
-    path{
-      fill: $contrast--hover;
+    path, circle, rect{
+      fill: var(--contrast--hover);
     }
   }
 }
 
 .header__form{
   flex: 1;  
-  background-color: $grey--back;
+  background-color: var(--grey--back);
   border-radius: 10px;
   margin: 0px 16px;
-  border: 4px solid $black;
+  border: 4px solid var(--black);
   border-radius: 10px;
   position: relative;
   &::after{
@@ -72,41 +72,41 @@
 }
 
 .header__log{
-  color: $contrast;
+  color: var(--contrast);
   transition: all .2s;
 
   &:hover{
-    color: $contrast--hover;
+    color: var(--contrast--hover);
   }
 }
 
 .header__sign{
-  color: $white;
-  background-color: $contrast;
+  color: var(--white);
+  background-color: var(--contrast);
   border-radius: 10px;
   transition: all .2s;
-  border: 4px solid $black;
+  border: 4px solid var(--black);
   padding: 6px 12px;
 
   &:hover{
-    background-color: $contrast--hover;
+    background-color: var(--contrast--hover);
   }
 
   path{
-    fill: $white;
+    fill: var(--white);
   }
 }
 
 .header__set{
   path{
-    fill: $contrast;
+    fill: var(--contrast);
     transition: all .2s;    
   }
 
 
   &:hover{
-    path{
-      fill: $contrast--hover;
+    path, circle, rect{
+      fill: var(--contrast--hover);
     }
   }
 }
@@ -114,7 +114,7 @@
 #livesearch{
   position: absolute;
   padding: 0 32px;
-  background: $grey--back;
+  background: var(--grey--back);
   width: calc(100% - 70px - 52px - 125px - 90px - 32px - 64px);
   z-index: 9;
   border: 4px solid;
@@ -123,16 +123,20 @@
   overflow: auto;
 }
 
+.livesearch__content{
+  display: flex;
+  gap: 8px;
+}
 
 .livesearch__link{
-  color: $contrast;
-  border-bottom: 4px dashed $black;
+  color: var(--contrast);
+  border-bottom: 4px dashed var(--black);
   display: block;
   padding: 4px;
   margin-bottom: 8px;
 
   &:hover{
-    color: $contrast--hover;
+    color: var(--contrast--hover);
   }
 
   &:first-child{

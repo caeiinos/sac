@@ -49,14 +49,14 @@
     height: fit-content;
     padding: 4px 8px;
     border-radius: 10px;
-    color: #5F00B6;
+    color: var(--contrast);
     position: absolute;
     transition: all 0.2s;
     top: 16px;
     right: 16px;
     &:hover{
-        color: $white;
-        background-color: $contrast--hover;
+        color: var(--white);
+        background-color: var(--contrast--hover);
     }
 }
 
@@ -111,7 +111,7 @@
         position: absolute;
         bottom: -16px;
         left: 0%;
-        border-bottom: 4px dashed $black;
+        border-bottom: 4px dashed var(--black);
         width: calc(100% + 24px);
         transform: translate(-24px);
     }
@@ -120,11 +120,11 @@
 .note__option{
     position: absolute;
     right: 16px;
-    color: #5F00B6;
+    color: var(--contrast);
 }
 
 .note__trigger{
-    color: #5F00B6;
+    color: var(--contrast);
     background-color: #DADADA;
     border: 4px solid #313131;
     border-radius: 10px;
@@ -133,8 +133,8 @@
     filter: drop-shadow(4px 4px 0px #313131);
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
-        color: $white;
+        background: var(--contrast--hover); 
+        color: var(--white);
     }
 }
 
@@ -144,7 +144,7 @@
     position: absolute;
     right:0%;
     top: 0%;
-    color: #5F00B6;
+    color: var(--contrast);
     background-color: #DADADA;
     border: 4px solid #313131;
     border-radius: 10px;
@@ -157,13 +157,13 @@
 
 .note__modifie{
     padding-top: 4px;
-    color: #5F00B6;
+    color: var(--contrast);
 }
 
 .note__del{
-    color: #5F00B6;
+    color: var(--contrast);
     border: 0;
-    border-top: 4px solid $black;
+    border-top: 4px solid var(--black);
     padding: 4px 8px;
 }
 
@@ -172,23 +172,23 @@
     align-items: baseline;
     justify-content: space-between;
     margin-bottom: 16px;
-    border-bottom: 4px dashed $black;
+    border-bottom: 4px dashed var(--black);
     padding-bottom: 4px;
 }
 
 .tease__link, .link__link{
     display: flex;
     align-items: center;
-    color: $contrast;
-    path{
-        fill: $contrast;
+    color: var(--contrast);
+    path, circle, rect{
+        fill: var(--contrast);
         transition: all;
       }
     
       &:hover{
-        color: $contrast--hover;
-        path{
-          fill: $contrast--hover;
+        color: var(--contrast--hover);
+        path, circle, rect{
+          fill: var(--contrast--hover);
         }
       }
 }
@@ -205,8 +205,8 @@
 
 .delete__trigger{
     &:hover{
-        path{
-            fill: $contrast--hover;
+        path, circle, rect{
+            fill: var(--contrast--hover);
         }
     }
 }
@@ -255,12 +255,12 @@
     display: block;
     font-weight: 700;
     padding: 8px 16px;
-    color: #5F00B6;
+    color: var(--contrast);
     transition: all .2s;
 
     &:hover{
-        background-color: $contrast--hover;
-        color: $white;
+        background-color: var(--contrast--hover);
+        color: var(--white);
     }
 }
 
@@ -271,12 +271,112 @@
     display: block;
     font-weight: 700;
     padding: 8px 16px;
-    background-color: #5F00B6;
+    background-color: var(--contrast);
     color: #F5F5F5;
     transition: all .2s;
 
     &:hover{
-        background-color: $contrast--hover;
-        color: $white;
+        background-color: var(--contrast--hover);
+        color: var(--white);
     }
+}
+
+
+.explorer, .tease, #livesearch{
+
+    .red{
+        color: #820000;
+
+        path, circle, rect{
+            fill: #820000;
+        }
+
+        &:hover{
+            color:#530000 ;
+
+            path, circle, rect{
+                fill: #530000;
+            }
+        }
+    }
+
+    .yellow{
+        color: #503917;
+
+        path, circle, rect{
+            fill: #503917;
+        }
+
+        &:hover{
+            color:#3a2910 ;
+
+            path, circle, rect{
+                fill: #3a2910;
+            }
+        }
+    }
+
+    .green{
+        color: #013C14;
+
+        path, circle, rect{
+            fill: #013C14;
+        }
+
+        &:hover{
+            color:#001f0a ;
+
+            path, circle, rect{
+                fill: #001f0a;
+            }
+        }
+    }
+
+    .blue{
+        color: #024187;
+
+        path, circle, rect{
+            fill: #024187;
+        }
+
+        &:hover{
+            color:#002f65 ;
+
+            path, circle, rect{
+                fill: #002f65;
+            }
+        }
+    }
+
+    .orange{
+        color: #6E2402;
+
+        path, circle, rect{
+            fill: #6E2402;
+        }
+
+        &:hover{
+            color:#421500 ;
+
+            path, circle, rect{
+                fill: #421500;
+            }
+        }
+    }  
+    
+    .purple{
+        color: #5F00B6;
+
+        path, circle, rect{
+            fill: #5F00B6;
+        }
+
+        &:hover{
+            color:#49008C ;
+
+            path, circle, rect{
+                fill: #49008C;
+            }
+        }
+    } 
 }

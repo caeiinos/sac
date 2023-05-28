@@ -6,7 +6,11 @@
     display: grid;
     grid-template-rows: 54px 50px;
     position: relative;
-    background-color: $grey--back;
+    background-color: var(--grey--back);
+
+    .ql-toolbar.ql-snow{
+        border-top: 0px;
+    }
 }
 
 .aside--link{
@@ -71,16 +75,16 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    color: $white;
-    background-color: #5F00B6;
-    border: 4px solid $black;
+    color: var(--white);
+    background-color: var(--contrast);
+    border: 4px solid var(--black);
     border-radius: 10px;
     transition: all 0.2s;
     padding: 6px 12px;
     filter: drop-shadow(4px 4px 0px #313131);
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
+        background: var(--contrast--hover); 
     }
 }
 

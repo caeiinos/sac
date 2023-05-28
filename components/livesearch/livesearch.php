@@ -34,8 +34,14 @@ $activeuser = $_SESSION['id'];
             
             ?>
 
-            <a class="livesearch__link" href="layer.php?layerid=<?php echo $row["layer__id"]; ?>">
-                <h4 class="livesearch__title livesearch__title--layer"><?php echo $row["layer__name"]; ?></h4>  
+            <a class="livesearch__link <?php echo $row["layer__color"]; ?>" href="layer.php?layerid=<?php echo $row["layer__id"]; ?>">
+                <div class="livesearch__content">
+                    <?php 
+                        $layersvg = '../svg/layer--' . $row['layer__shape'] .'.php';
+                        include $layersvg; 
+                    ?>
+                    <h4 class="livesearch__title livesearch__title--layer"><?php echo $row["layer__name"]; ?></h4>                      
+                </div>
                 <p class="livesearch__type">intercalaire issue de : <?php echo $layerbinderData["binder__name"]; ?></p>          
             </a>
 
@@ -54,8 +60,15 @@ $activeuser = $_SESSION['id'];
             
         ?>
 
-            <a class="livesearch__link" href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
-                <h4 class="livesearch__title livesearch__title--chapter"><?php echo $row["chapter__name"]; ?></h4>  
+            <a class="livesearch__link <?php echo $row["chapter__color"]; ?>" href="chapter.php?chapterid=<?php echo $row["chapter__id"]; ?>">
+                <div class="livesearch__content">
+                    <?php 
+                        $layersvg = '../svg/chapter--' . $row['chapter__shape'] .'.php';
+                        include $layersvg; 
+                    ?>
+                    <h4 class="livesearch__title livesearch__title--chapter"><?php echo $row["chapter__name"]; ?></h4>                
+                </div>
+  
                 <p class="livesearch__type">chapitre issue de : <?php echo $chapterbinderData["binder__name"]; ?>/<?php echo $chapterlayerData["layer__name"]; ?></p>          
             </a>
 
@@ -80,8 +93,15 @@ $activeuser = $_SESSION['id'];
             
         ?>
 
-        <a class="livesearch__link" href="document.php?documentid=<?php echo $row["document__id"]; ?>">
-            <h4 class="livesearch__title livesearch__title--document"><?php echo $row["document__name"]; ?></h4>  
+        <a class="livesearch__link <?php echo $row["document__color"]; ?>" href="document.php?documentid=<?php echo $row["document__id"]; ?>">
+            <div class="livesearch__content">
+                <?php 
+                        $layersvg = '../svg/document--' . $row['document__shape'] .'.php';
+                        include $layersvg; 
+                    ?>
+                <h4 class="livesearch__title livesearch__title--document"><?php echo $row["document__name"]; ?></h4>              
+            </div>
+
             <p class="livesearch__type">document issue de : <?php echo $documentbinderData["binder__name"]; ?>/<?php echo $documentlayerData["layer__name"]; ?><?php if($row['document__haschapter'] == 1){echo '/' . $documentchapterData["chapter__name"];} ?></p>          
         </a>
 

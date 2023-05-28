@@ -10,7 +10,7 @@
     border-radius: 20px;
     padding: 0 40px;
     position: relative;
-    background-color: $grey--back;
+    background-color: var(--grey--back);
 }
 
 .library__head{
@@ -37,14 +37,14 @@
 .library__filter{
     filter: drop-shadow(4px 4px 0px #313131);
     border: #313131 solid 4px;
-    background-color: $grey--back;
+    background-color: var(--grey--back);
     height: fit-content;
     padding: 4px 8px;
     border-radius: 10px;
-    color: $contrast;
+    color: var(--contrast);
     transition: all .2s;
     &:hover{
-        color: $contrast--hover;
+        color: var(--contrast--hover);
     }
 }
 
@@ -81,10 +81,10 @@
 }
 
 .family__link{
-    color: $contrast;
+    color: var(--contrast);
     transition: all .2s;
     &:hover{
-        color: $contrast--hover;
+        color: var(--contrast--hover);
     }
 }
 
@@ -140,15 +140,15 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    color: $white;
-    background-color: #5F00B6;
+    color: var(--white);
+    background-color: var(--contrast);
     border-radius: 10px;
     transition: all 0.2s;
     padding: 6px 12px;
     filter: drop-shadow(4px 4px 0px #313131);
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
+        background: var(--contrast--hover); 
     }
 }
 
@@ -167,32 +167,32 @@
 }
 
 .version__trigger{
-    color: #5F00B6;
-    background-color: $grey--back;
-    border: 4px solid $black;
+    color: var(--contrast);
+    background-color: var(--grey--back);
+    border: 4px solid var(--black);
     border-radius: 10px;
     transition: all 0.2s;
     padding: 4px 12px;
     filter: drop-shadow(4px 4px 0px #313131);
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
-        color: $white;
+        background: var(--contrast--hover); 
+        color: var(--white);
     }
 }
 
 .version__add{
-    color: $white;
-    background-color: #5F00B6;
+    color: var(--white);
+    background-color: var(--contrast);
     border-radius: 10px;
-    border: 4px solid $black;
+    border: 4px solid var(--black);
     transition: all 0.2s;
     padding: 4px 12px;
     filter: drop-shadow(4px 4px 0px #313131);
     transition: all .2s;
     &:hover{
-        background: $contrast--hover; 
-        color: $white;
+        background: var(--contrast--hover); 
+        color: var(--white);
     }
 }
 
@@ -206,7 +206,7 @@
     left: 0%;
     top: 120%;
     filter: drop-shadow(4px 4px 0px #313131);
-    background: $grey--back;
+    background: var(--grey--back);
     border: 4px solid #313131;
     border-radius: 10px;
     font-size: 16px;
@@ -215,13 +215,24 @@
 }
 
 .version__link{
-    color: $contrast;
+    color: var(--contrast);
 
     &:hover{
-        color: $contrast--hover;
+        color: var(--contrast--hover);
     }
 }
 
 .trash__path{
-    fill: $contrast;
+    fill: var(--contrast);
+}
+
+.change--doc{
+    color: var(--contrast);
+    background-color: var(--grey--back);
+    border: 4px solid var(--black);
+    border-radius: 10px;
+    transition: all 0.2s;
+    padding: 4px 12px;
+    filter: drop-shadow(4px 4px 0px #313131);
+    transition: all 0.2s;
 }

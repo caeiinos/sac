@@ -1,8 +1,36 @@
-$balcker: #131313;
-$black: #313131;
-$whiter: #F0F0F0;
-$white: #F5F5F5;
-$grey--back: #DADADA;
-$grey: #737373;
-$contrast: #5F00B6;
-$contrast--hover: #49008C;
+:root{
+    --balcker: #131313;
+    --black: #313131;
+    --whiter: #F0F0F0;
+    --white: #F5F5F5;
+    --grey--back: #DADADA;
+    --grey: #737373;
+    --contrast: #5F00B6;
+    --contrast--hover: #49008C;
+}
+
+[data-theme="blue"] {
+    --contrast: #024187;
+    --contrast--hover: #002f65;
+}   
+
+[data-theme="green"] {
+    --contrast: #013C14;
+    --contrast--hover: #001f0a;
+}   
+
+[data-theme="red"] {
+    --contrast: #820000;
+    --contrast--hover: #530000;
+}   
+
+[data-theme="orange"] {
+    --contrast: #6E2402;
+    --contrast--hover: #421500;
+}   
+
+[data-theme="yellow"] {
+    --contrast: #503917;
+    --contrast--hover: #3a2910;
+}  
+

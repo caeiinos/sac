@@ -16,18 +16,20 @@ $activeuser = $_SESSION['id'];
             foreach ($layerbinderQuery as $row) { ?>
 
                 <section class="tease__content">
-                    <a class="tease__link tease__link--layer" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
-                        <?php include '../svg/layer.php' ?>
+                    <a class="tease__link tease__link--layer <?php echo $row['layer__color']; ?>" href="<?php echo 'layer.php?layerid='.$row['layer__id']; ?>">
+                        <?php 
+                            $layersvg = '../svg/layer--' . $row['layer__shape'] .'.php';
+                            include $layersvg; 
+                        ?>
                         <h4 class="tease__title tease__title--layer">
                             <?php echo $row['layer__name']; ?>
                         </h4>
                     </a>
-                    <form method="POST" name="del_layer">
-                        <input type="hidden" name="idtodelete" value="<?php echo $row['layer__id'] ?>">
-                        <button class="layer__del" type="submit" name="del_layer">
-                            <?php include '../svg/trash.php' ?>
-                        </button>  
-                    </form>    
+                    <button class="delete__trigger">
+                        <?php include '../svg/trash.php' ?>
+                    </button>
+                        <?php include '../delete/delete--layer.php' ?>
+
                 </section>
                 
             <?php }

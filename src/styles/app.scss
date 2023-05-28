@@ -4,11 +4,36 @@
 @import "~quill/dist/quill.core.css";
 
 body{
-    background-color: $grey--back;
-    color: $black;
+    background-color: var(--grey--back);
+    color: var(--black);
     font-family: 'Poppins', sans-serif;
     background-image: url('../assets/back.png');
 }
+
+.square {
+    background-image: url('../assets/back--square.png');
+
+}   
+
+.pent {
+    background-image: url('../assets/back--pent.png');
+
+}   
+
+.hexa {
+    background-image: url('../assets/back--hexa.png');
+
+}   
+
+.triangle {
+    background-image: url('../assets/back--triangle.png');
+
+}   
+
+.star {
+    background-image: url('../assets/back--star.png');
+
+}  
 
 .page{
     grid-template-rows: 80px;
@@ -108,7 +133,7 @@ body{
     position: absolute;
     z-index: 25;
     height: 120vh;
-    background: $contrast;
+    background: var(--contrast);
     top: 0%;
 
     .notfound{

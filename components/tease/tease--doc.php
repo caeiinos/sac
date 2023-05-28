@@ -1,5 +1,5 @@
-<section class="tease__content <?php echo $LayerDocRow['document__color']; ?>">
-    <a class="tease__link" href="<?php echo 'document.php?documentid='.$LayerDocRow['document__id']; ?>">
+<section class="tease__content">
+    <a class="tease__link <?php echo $LayerDocRow['document__color']; ?>" href="<?php echo 'document.php?documentid='.$LayerDocRow['document__id']; ?>">
         <?php 
             $docsvg = 'components/svg/document--' . $LayerDocRow['document__shape'] .'.php';
             include $docsvg; 

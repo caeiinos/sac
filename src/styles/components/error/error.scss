@@ -3,7 +3,7 @@
     height: fit-content;
     margin: 0 auto;
     padding: 8px 40px 40px;
-    background: $grey--back;
+    background: var(--grey--back);
     border: 4px solid #313131;
     box-shadow: 7px 7px 0px #313131;
     border-radius: 10px;
@@ -32,13 +32,13 @@
 }
 
 .notfound__link{
-    color: $white;
-    background-color: #5F00B6;
+    color: var(--white);
+    background-color: var(--contrast);
     border-radius: 10px;
     transition: all 0.2s;
     padding: 6px 12px;
     filter: drop-shadow(4px 4px 0px #313131);
-    border: 4px solid $black;
+    border: 4px solid var(--black);
 }
 
 @media(max-width:600px){

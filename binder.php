@@ -60,6 +60,9 @@
                     </a>
                 </li>
             </ul> 
+            <button class="form__trigger change__trigger">
+                <p>Modifier</p>
+            </button>
         </div>
 
         <form class="binder__modifie" method="POST">
@@ -98,6 +101,9 @@
             <p>Nouveau Intercalaire</p>
         </button>
     </aside>
+
+    <!-- add layer /components -->
+    <?php include 'components/form/change.php'; ?>    
 
     <!-- add layer /components -->
     <?php include 'components/form/form--layer.php'; ?>    

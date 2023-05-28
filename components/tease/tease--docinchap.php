@@ -1,7 +1,7 @@
-<section class="tease__content <?php echo $ChapterDocRow['document__color']; ?>">
-    <a class="tease__link" href="<?php echo 'document.php?documentid='.$ChapterDocRow['document__id']; ?>">
+<section class="tease__content">
+    <a class="tease__link <?php echo $ChapterDocRow['document__color']; ?>" href="<?php echo 'document.php?documentid='.$ChapterDocRow['document__id']; ?>">
         <?php 
-            $docsvg = 'components/svg/document--' . $LayerDocRow['document__shape'] .'.php';
+            $docsvg = 'components/svg/document--' . $ChapterDocRow['document__shape'] .'.php';
             include $docsvg; 
         ?>        
         <h4 class="tease__title tease__title--document">
