@@ -4,8 +4,8 @@
         if (empty($_POST['linkname'])) {
             $errorlink = true;
         } else {
-            $linkname = $_POST['linkname'];
-            $linkurl = $_POST['linkurl'];
+            $linkname =  htmlspecialchars($_POST['linkname']);
+            $linkurl =  htmlspecialchars($_POST['linkurl']);
             $linkdocument = $_POST['linkdocument'];
             $linkowner = $_SESSION['id'];
             $linkcreation = date('Y-m-d H:i:s');

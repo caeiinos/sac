@@ -77,9 +77,9 @@ if (QuillBinderUIf) {
 }
 
 // quill js for note
-const QuillNoteIf = document.querySelector('#editor-container');
+const QuillNoteIf = document.querySelector('#documentnotes');
 if (QuillNoteIf) {
-  var QuillNote = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#editor-container', {
+  var QuillNote = new (quill__WEBPACK_IMPORTED_MODULE_1___default())('#documentnotes', {
     modules: {
       toolbar: [[{
         header: [2, 3, 4, false]
@@ -94,41 +94,15 @@ if (QuillNoteIf) {
   });
 
   // store wysiwyg content in input at load for note
-  var QuillValueKeeper = document.querySelector('input[name=notedescription]');
+  var QuillValueKeeper = document.querySelector('input[name=doccontentonupdate]');
   QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
 
   // store wysiwyg content in input on keyup for note
-  var Quillwys = document.querySelector('.oui');
+  var Quillwys = document.querySelector('#documentnotes');
   Quillwys.addEventListener('DOMSubtreeModified', function () {
-    let QuillValueKeeper = document.querySelector('input[name=notedescription]');
+    let QuillValueKeeper = document.querySelector('input[name=doccontentonupdate]');
     QuillValueKeeper.value = QuillNote.root.innerHTML.trim();
   });
-
-  // form--note querySelector
-  const QuillNoteAdd = document.querySelector(".note__add");
-  const QuillNoteEditor = document.querySelector(".note__editor");
-  const QuillNoteModifie = document.querySelectorAll(".note__modifie");
-  // form--note trigger on button click
-  QuillNoteAdd.addEventListener('click', function () {
-    QuillNoteEditor.classList.add("noteeditor--active");
-  });
-  // put note in form--note for modification
-  for (let i = 0; i < QuillNoteModifie.length; i++) {
-    QuillNoteModifie[i].addEventListener('click', function () {
-      QuillNoteEditor.classList.add("form--active");
-      var str = this.id;
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          let idtoupdate = document.querySelector("#noteid");
-          idtoupdate.value = str;
-          document.querySelector(".ql-editor").innerHTML = this.responseText;
-        }
-      };
-      xmlhttp.open("GET", "components/editor/editor.php?q=" + str, true);
-      xmlhttp.send();
-    });
-  }
 }
 
 // show add
@@ -146,16 +120,6 @@ for (let i = 0; i < trigger.length; i++) {
         tofocus[i].focus();
       }
     }
-  }
-}
-
-// show note option
-const notetrigger = document.querySelectorAll('.note__trigger');
-const noteoption = document.querySelectorAll('.note__overlay');
-for (let i = 0; i < notetrigger.length; i++) {
-  notetrigger[i].addEventListener("click", triggeroption);
-  function triggeroption() {
-    noteoption[i].classList.toggle('note__overlay--active');
   }
 }
 

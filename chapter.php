@@ -39,7 +39,7 @@
 
 ?>
 
-<body class="page page--chapitre">
+<body class="page page--chapitre"  data-theme="<?php echo $ChapterActiveData['chapter__color'] ?>">
 
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>
@@ -55,6 +55,9 @@
         </h1> 
         <!-- get family -->
         <?php include 'components/family/family--chapter.php'; ?> 
+        <button class="form__trigger change__trigger">
+            <p>Modifier</p>
+        </button>
     </main>   
 
     <!-- document -->
@@ -78,6 +81,9 @@
             <p>Nouveau document</p>
         </button>
     </aside>
+
+    <!-- form to add document -->
+    <?php include 'components/form/change--chapter.php'; ?>
 
     <!-- form to add document -->
     <?php include 'components/form/form--docinchap.php'; ?>

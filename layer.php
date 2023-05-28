@@ -44,7 +44,7 @@
 
 ?>
 
-<body class="page page--layer">
+<body class="page page--layer"  data-theme="<?php echo $LayerActiveData['layer__color'] ?>">
 
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>
@@ -53,7 +53,7 @@
     <?php include 'components/explorer/explorer.php'; ?>
 
     <!-- layer content -->
-    <main class="content content--layer">
+    <main class="content content--layer <?php echo 'content--' . $LayerActiveData['layer__color'] ?>">
 
         <span class="layer__type">Intercalaire</span>
         <h1 class="layer__title">
@@ -62,6 +62,9 @@
 
         <!-- get family -->
         <?php include 'components/family/family--layer.php'; ?>
+        <button class="form__trigger change__trigger">
+            <p>Modifier</p>
+        </button>
     </main>   
 
     <!-- chapter -->
@@ -110,6 +113,9 @@
             <p>Nouveau document</p>
         </button>
     </aside>
+
+    
+    <?php include 'components/form/change--layer.php'; ?>
 
     <?php include 'components/form/form--chapter.php'; ?>
 
