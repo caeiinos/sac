@@ -46,7 +46,15 @@
 
     <!-- layer content -->
     <main class="content content--document">
-        <span class="layer__type">Document</span>
+        <span class="layer__type">
+            <?php
+                if ($DocActiveData['document__haschapter'] = 0) {
+                    echo "Document";
+                } else {
+                    echo "Page";
+                }
+            ?>
+        </span>
         <h1 class="layer__title">
         <?php echo $pagetitle ?>
         </h1> 

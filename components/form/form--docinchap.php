@@ -1,7 +1,7 @@
 <div class="form <?php if (isset($errordoc)) { echo "form--active"; } ?> form__back">
     <section class="form__head">
         <h2 class="form__title">
-            Créer une DOCUMENT
+            Créer une PAGE
         </h2>
     </section>
 

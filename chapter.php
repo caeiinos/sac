@@ -63,7 +63,7 @@
     <!-- document -->
     <aside class="aside aside--document">
 
-        <h2 class="aside__title aside__title--document">Les documents</h2>
+        <h2 class="aside__title aside__title--document">Les pages</h2>
 
         <form class="chapterdocuments__form" method="get">
             <input class="chapterdocuments__search"  type="text" name="search" placeholder="rechercher...">
@@ -78,7 +78,7 @@
 
         <!-- add document  -->
         <button class="form__trigger aside__trigger aside__trigger--add">
-            <p>Nouveau document</p>
+            <p>Nouvelle page</p>
         </button>
     </aside>
 

@@ -102,7 +102,14 @@ $activeuser = $_SESSION['id'];
                 <h4 class="livesearch__title livesearch__title--document"><?php echo $row["document__name"]; ?></h4>              
             </div>
 
-            <p class="livesearch__type">document issue de : <?php echo $documentbinderData["binder__name"]; ?>/<?php echo $documentlayerData["layer__name"]; ?><?php if($row['document__haschapter'] == 1){echo '/' . $documentchapterData["chapter__name"];} ?></p>          
+            <p class="livesearch__type">           
+                <?php
+                    if ($row['document__haschapter'] = 0) {
+                        echo "Document";
+                    } else {
+                        echo "Page";
+                    }
+                ?> issue de : <?php echo $documentbinderData["binder__name"]; ?>/<?php echo $documentlayerData["layer__name"]; ?><?php if($row['document__haschapter'] == 1){echo '/' . $documentchapterData["chapter__name"];} ?></p>          
         </a>
 
         <?php }
