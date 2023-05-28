@@ -4,7 +4,7 @@
         if (empty($_POST['bindername'])) {
             $errorbinder = true;
         } else {
-           $bindername = $_POST['bindername'];
+           $bindername = htmlspecialchars($_POST['bindername']);
            $binderdescription = $_POST['binderdescription'];
            $binderowner = $_SESSION['id'];
            $bindercreation = date('Y-m-d H:i:s');
@@ -33,6 +33,23 @@
         $stmt->execute();
     }
 
+    if (isset($_POST['binderchange'])) {
+        $binderId = $_POST['binderidtoupdate'];; // The ID of the chapter you want to update
+        
+        // Prepare the update query
+        $stmt = $db->prepare("UPDATE chelv__binders SET binder__name = :name WHERE binder__id = :id");
+        
+        // Set the new values for the chapter from the $_POST array
+        $name = $_POST['bindername'];
+        
+        // Bind the parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':id', $binderId);
+        
+        // Execute the query
+        $stmt->execute();    
+    }
+
     //del avce méthode get
     if (isset($_POST['del_binder'])) {
         $id = $_POST['idtodelete'];
@@ -55,10 +72,6 @@
 
         foreach ($stmt as $row) {
             $noteDocId = $row['document__id'];
-            // Delete corresponding entries from chelv__notes
-            $delNotes = $db->prepare("DELETE FROM chelv__notes WHERE note__document=:noteDocId");
-            $delNotes->bindParam(':noteDocId', $noteDocId);
-            $delNotes->execute();
 
             // Delete corresponding entries from chelv__links
             $delLinks = $db->prepare("DELETE FROM chelv__links WHERE link__document=:noteDocId");

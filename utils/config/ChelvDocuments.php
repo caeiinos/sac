@@ -4,10 +4,10 @@
         if (empty($_POST['documentname'])) {
             $errordoc = true;
         } else {
-            $documentname = $_POST['documentname'];
+            $documentname =  htmlspecialchars($_POST['documentname']);
             $documentcolor = $_POST['documentcolor'];
             $documentshape = $_POST['documentshape'];
-            $documentversion = $_POST['documentversion'];
+            $documentversion =  htmlspecialchars($_POST['documentversion']);
             $documentbinder = $_POST['documentbinder'];
             $documentlayer = $_POST['documentlayer'];
             $documenthaschapter = $_POST['documenthaschapter'];
@@ -32,6 +32,39 @@
             $stmt->execute(); 
         }
     }
+
+    if (isset($_POST['updatenote'])) {
+        $documentcontent = $_POST['doccontentonupdate'];
+        $documentid = $_POST['docidtoupdate'];
+    
+        $stmt = $db->prepare("UPDATE chelv__documents SET document__content = :documentcontent WHERE document__id = :documentid");
+        $stmt->bindParam(':documentcontent', $documentcontent);
+        $stmt->bindParam(':documentid', $documentid);
+    
+        $stmt->execute();
+    }
+
+    if (isset($_POST['changedocument'])) {
+        $documentId = $_POST['docidtoupdate'];; // The ID of the chapter you want to update
+        
+        // Prepare the update query
+        $stmt = $db->prepare("UPDATE chelv__documents SET document__name = :name, document__color = :color, document__shape = :shape WHERE document__id = :id");
+        
+        // Set the new values for the chapter from the $_POST array
+        $name =  htmlspecialchars($_POST['documentname']);
+        $color = $_POST['documentcolor'];
+        $shape = $_POST['documentshape'];
+        
+        // Bind the parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':color', $color);
+        $stmt->bindParam(':shape', $shape);
+        $stmt->bindParam(':id', $documentId);
+        
+        // Execute the query
+        $stmt->execute();  
+    }
+
 
     //del avce méthode get
     if (isset($_POST['del_doc'])) {
@@ -61,10 +94,6 @@
 
         foreach ($seldoc as $row) {
             $noteDocId = $row['document__id'];
-            // Delete corresponding entries from chelv__notes
-            $delNotes = $db->prepare("DELETE FROM chelv__notes WHERE note__document=:noteDocId");
-            $delNotes->bindParam(':noteDocId', $noteDocId);
-            $delNotes->execute();
 
             // Delete corresponding entries from chelv__links
             $delLinks = $db->prepare("DELETE FROM chelv__links WHERE link__document=:noteDocId");
