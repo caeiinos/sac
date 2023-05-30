@@ -741,6 +741,9 @@ h6 {
 .tease__link--binder a {
   color: #313131;
 }
+.tease__link--binder p {
+  font-size: 16px;
+}
 
 .tease__del--binder {
   position: absolute;
@@ -774,7 +777,6 @@ h6 {
 }
 .tease__type--binder {
   display: block;
-  margin-bottom: -4px;
 }
 
 .tease__title--binder {
@@ -786,6 +788,7 @@ h6 {
   white-space: normal;
   line-height: 1;
   text-overflow: ellipsis;
+  margin-bottom: 8px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
