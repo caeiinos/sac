@@ -1216,6 +1216,7 @@ h6 {
 .explorer__list .explorer__projet {
   max-width: 100%;
   overflow: auto;
+  max-height: calc(100vh - 80px - 40px - 54px - 56px - 6px);
 }
 .explorer__list h4 {
   overflow: hidden;
@@ -1550,6 +1551,7 @@ h6 {
   color: var(--white);
   background-color: var(--contrast);
   border-radius: 10px;
+  border: 4px solid var(--black);
   transition: all 0.2s;
   padding: 6px 12px;
   filter: drop-shadow(4px 4px 0px #313131);
@@ -1775,6 +1777,11 @@ h6 {
 }
 .note__content a:hover {
   color: var(--contrast--hover);
+}
+
+.ql-snow * {
+  background-color: transparent !important;
+  color: var(--black) !important;
 }
 
 body {

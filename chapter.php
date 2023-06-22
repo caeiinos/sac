@@ -39,7 +39,7 @@
 
 ?>
 
-<body class="page page--chapitre"  data-theme="<?php echo $ChapterActiveData['chapter__color'] ?>">
+<body class="page page--chapitre <?php echo $ChapterActiveData['chapter__shape'] ?>"  data-theme="<?php echo $ChapterActiveData['chapter__color'] ?>">
 
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>
