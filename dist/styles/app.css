@@ -511,26 +511,35 @@ h6 {
 [data-theme=blue] {
   --contrast: #024187;
   --contrast--hover: #002f65;
+  --grey--back: #DADAE1;
 }
 
 [data-theme=green] {
   --contrast: #013C14;
   --contrast--hover: #001f0a;
+  --grey--back: #DAE1DA;
 }
 
 [data-theme=red] {
   --contrast: #820000;
   --contrast--hover: #530000;
+  --grey--back: #E1DADA;
 }
 
 [data-theme=orange] {
   --contrast: #6E2402;
   --contrast--hover: #421500;
+  --grey--back: #e1ddda;
 }
 
 [data-theme=yellow] {
   --contrast: #503917;
   --contrast--hover: #3a2910;
+  --grey--back: #e1e1da;
+}
+
+[data-theme=purple] {
+  --grey--back: #e1dae1;
 }
 
 .header {
@@ -635,7 +644,7 @@ h6 {
   position: absolute;
   padding: 0 32px;
   background: var(--grey--back);
-  width: calc(100% - 70px - 52px - 125px - 90px - 32px - 64px);
+  width: calc(100vw - 70px - 52px - 125px - 90px - 32px - 64px);
   z-index: 9;
   border: 4px solid;
   border-radius: 0 0 10px 10px;
@@ -732,6 +741,9 @@ h6 {
 .tease__link--binder a {
   color: #313131;
 }
+.tease__link--binder p {
+  font-size: 16px;
+}
 
 .tease__del--binder {
   position: absolute;
@@ -765,7 +777,6 @@ h6 {
 }
 .tease__type--binder {
   display: block;
-  margin-bottom: -4px;
 }
 
 .tease__title--binder {
@@ -777,6 +788,7 @@ h6 {
   white-space: normal;
   line-height: 1;
   text-overflow: ellipsis;
+  margin-bottom: 8px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;
 }
@@ -1204,6 +1216,7 @@ h6 {
 .explorer__list .explorer__projet {
   max-width: 100%;
   overflow: auto;
+  max-height: calc(100vh - 80px - 40px - 54px - 56px - 6px);
 }
 .explorer__list h4 {
   overflow: hidden;
@@ -1538,6 +1551,7 @@ h6 {
   color: var(--white);
   background-color: var(--contrast);
   border-radius: 10px;
+  border: 4px solid var(--black);
   transition: all 0.2s;
   padding: 6px 12px;
   filter: drop-shadow(4px 4px 0px #313131);
@@ -1598,7 +1612,7 @@ h6 {
 .version__list--active {
   display: initial;
   position: absolute;
-  left: 0%;
+  left: 43%;
   top: 120%;
   filter: drop-shadow(4px 4px 0px #313131);
   background: var(--grey--back);
@@ -1763,6 +1777,11 @@ h6 {
 }
 .note__content a:hover {
   color: var(--contrast--hover);
+}
+
+.ql-snow * {
+  background-color: transparent !important;
+  color: var(--black) !important;
 }
 
 body {

@@ -5,7 +5,7 @@
         </h2>
     </section>
 
-    <form class="form__add form explorer__form" method="POST">
+    <form class="form__add explorer__form" method="POST">
         <?php if (isset($errorbinder)) { ?>
             <p class="form__invalid">Veuillez remplir ce champ</p>
         <?php } ?>

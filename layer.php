@@ -44,7 +44,7 @@
 
 ?>
 
-<body class="page page--layer"  data-theme="<?php echo $LayerActiveData['layer__color'] ?>">
+<body class="page page--layer <?php echo $LayerActiveData['layer__shape'] ?>"  data-theme="<?php echo $LayerActiveData['layer__color'] ?>">
 
     <!-- navbar -->
     <?php include 'components/nav/nav.php'; ?>

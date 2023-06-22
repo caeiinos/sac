@@ -5,7 +5,11 @@
         <?php echo $IndexBinderRow['binder__name']; ?>
     </h4>
     <p>
-        dernière ouverture : <?php echo $IndexBinderRow['binder__opened']; ?> 
+        dernière ouverture : 
+        <?php 
+            $formattedTimestamp = date('d-m-Y H:i', strtotime($IndexBinderRow['binder__opened']));
+            echo $formattedTimestamp; 
+        ?> 
     </p>
 
     </a>
